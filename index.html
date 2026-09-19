@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>医学术语背单词 · 肝病门诊高频词</title>
+<meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1420" media="(prefers-color-scheme: dark)">
+<meta name="format-detection" content="telephone=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="app-build" content="v30">
+<script>
+/* 如果浏览器或 CDN 缓存了旧版页面，自动刷新取最新版（同一次会话最多自动刷新一次，避免循环） */
+(function () {
+  try {
+    if (sessionStorage.getItem('mv.healed')) return;
+    var mine = (document.querySelector('meta[name="app-build"]') || {}).content;
+    if (!mine) return;
+    fetch('app.js?t=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) { return r.text(); })
+      .then(function (t) {
+        var m = t.match(/const BUILD = '([^']+)'/);
+        if (m && m[1] !== mine) {
+          sessionStorage.setItem('mv.healed', '1');
+          location.replace(location.pathname + '?u=' + Date.now());
+        }
+      })
+      .catch(function () {});
+  } catch (e) { /* 忽略 */ }
+})();
+</script>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<link rel="manifest" href="manifest.json?v=21">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="背单词">
+<link rel="stylesheet" href="styles.css?v=14">
+</head>
+<body>
+
+<!-- ============ 图标（统一线性风格） ============ -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-logo" viewBox="0 0 24 24"><path d="M4 8.5A2.5 2.5 0 0 1 6.5 6h11A2.5 2.5 0 0 1 20 8.5v9A2.5 2.5 0 0 1 17.5 20h-11A2.5 2.5 0 0 1 4 17.5z"/><path d="M12 9.2v7.6M8.2 13h7.6"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11.4 12 4.6l8 6.8"/><path d="M6.6 10.6V19a1 1 0 0 0 1 1h8.8a1 1 0 0 0 1-1v-8.4"/></symbol>
+  <symbol id="i-study" viewBox="0 0 24 24"><path d="M12 4.2 3.6 8.1 12 12l8.4-3.9z"/><path d="M4.4 12.4 12 15.9l7.6-3.5"/><path d="M4.4 16.2 12 19.7l7.6-3.5"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M7 4.6h10a1 1 0 0 1 1 1v13.6l-6-3.4-6 3.4V5.6a1 1 0 0 1 1-1z"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M8.5 7h11M8.5 12h11M8.5 17h11"/><path d="M4.6 7h.01M4.6 12h.01M4.6 17h.01"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3.5 20V6.5M10 20V10.5M16.5 20v-6.5M23 20v-11"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.3A8.2 8.2 0 0 1 9.7 4 8.3 8.3 0 1 0 20 14.3z"/></symbol>
+  <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4.5 9.6h3L11.8 6v12l-4.3-3.6h-3z"/><path d="M15 9.6a3.6 3.6 0 0 1 0 4.8M17.6 7a7 7 0 0 1 0 10"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 4.5l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.6-4.8 2.6.9-5.4L4.2 10.2l5.4-.8z"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M14.5 6.5 9 12l5.5 5.5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="5.8"/><path d="M15.2 15.2 20 20"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M6 7h12"/><path d="M9.5 7V5.5h5V7"/><path d="M8 7l.7 11h6.6L16 7"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13.5 3 5.8 13.4h5.1L10.5 21l7.7-10.4h-5.1z"/></symbol>
+</svg>
+
+<div class="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo"><svg class="ic"><use href="#i-logo"/></svg></span>
+      <div>
+        <h1>医学术语背单词</h1>
+        <p class="sub">意大利肝病门诊真实对话 · 按频率排序</p>
+      </div>
+    </div>
+    <button id="themeBtn" class="icon-btn" title="切换深浅色" aria-label="切换深浅色">
+      <svg class="ic ic-sun"><use href="#i-sun"/></svg>
+      <svg class="ic ic-moon"><use href="#i-moon"/></svg>
+    </button>
+  </header>
+
+  <div class="rail">
+    <nav class="tabs" id="tabs">
+      <button class="tab active" data-view="home"><svg class="ic"><use href="#i-home"/></svg><span>今日</span></button>
+      <button class="tab" data-view="study"><svg class="ic"><use href="#i-study"/></svg><span>学习</span></button>
+      <button class="tab" data-view="wordbook"><svg class="ic"><use href="#i-book"/></svg><span>生词本</span><span class="pill" id="bookPill">0</span></button>
+      <button class="tab" data-view="all"><svg class="ic"><use href="#i-list"/></svg><span>单词表</span></button>
+      <button class="tab" data-view="stats"><svg class="ic"><use href="#i-chart"/></svg><span>统计</span></button>
+    </nav>
+    <button class="btn primary rail-go" id="railGo"><svg class="ic"><use href="#i-bolt"/></svg><span>继续学习</span></button>
+  </div>
+
+  <main>
+
+    <!-- ============ 今日 ============ -->
+    <section class="view active" id="view-home">
+      <div class="hero">
+        <div class="hero-head">
+          <span class="hero-label">今日待复习</span>
+          <span class="hero-tag" id="homeTip"></span>
+        </div>
+        <div class="hero-num"><span id="homeDue">0</span><small>个</small></div>
+        <div class="progress hero-progress"><div class="bar" id="homeBar"></div></div>
+        <div class="hero-actions">
+          <button class="btn primary big" id="btnStartReview">开始复习</button>
+          <button class="btn big" id="btnStartLearn">学习新词</button>
+        </div>
+        <p class="muted small hero-line" id="todayLine"></p>
+      </div>
+
+      <div class="tiles">
+        <div class="stat-card">
+          <svg class="ic"><use href="#i-book"/></svg>
+          <span class="stat-num" id="homeBook">0</span>
+          <span class="stat-label">生词本</span>
+        </div>
+        <div class="stat-card">
+          <svg class="ic"><use href="#i-study"/></svg>
+          <span class="stat-num" id="homeLearned">0</span>
+          <span class="stat-label">已学 / 总数</span>
+        </div>
+        <div class="stat-card">
+          <svg class="ic"><use href="#i-chart"/></svg>
+          <span class="stat-num" id="homeStreak">0</span>
+          <span class="stat-label">连续打卡（天）</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 学习 / 复习 ============ -->
+    <section class="view" id="view-study">
+      <div class="study-top">
+        <div class="progress"><div class="bar" id="studyBar"></div></div>
+        <span class="muted small" id="studyCounter"></span>
+      </div>
+
+      <div class="study-card" id="studyCard">
+        <div class="card-meta">
+          <button class="mini" id="btnPrev" title="回到上一个"><svg class="ic"><use href="#i-back"/></svg>上一个</button>
+          <span class="grow"></span>
+          <span class="rank" id="cardRank"></span>
+          <span class="mode-tag" id="cardMode"></span>
+          <button class="mini danger" id="btnDel" title="从这个词库里删除"><svg class="ic"><use href="#i-trash"/></svg></button>
+          <button class="mini fav" id="btnFav" title="收藏这个词"><svg class="ic"><use href="#i-star"/></svg><span>收藏</span></button>
+        </div>
+        <div class="card-body">
+          <div class="word-en" id="cardEn">—</div>
+          <button class="ipa-btn" id="cardIpa" title="点击朗读">/—/</button>
+          <p class="card-ex" id="cardEx"></p>
+          <div class="answer hidden" id="cardAnswer">
+            <div class="answer-zh" id="cardZh"></div>
+            <div class="answer-full muted small" id="cardFull"></div>
+          </div>
+        </div>
+        <button class="speak-fab" id="btnSpeak" title="朗读这个词" aria-label="朗读"><svg class="ic"><use href="#i-sound"/></svg></button>
+      </div>
+
+      <div class="btn-row study-actions" id="studyActions">
+        <button class="btn ghost" id="btnReveal">显示答案</button>
+        <button class="btn danger" id="btnUnknown">不认识</button>
+        <button class="btn success" id="btnKnown">认识</button>
+      </div>
+
+      <div class="panel empty hidden" id="studyEmpty">
+        <h2 id="emptyTitle">暂时没有内容</h2>
+        <p class="muted" id="emptyText"></p>
+        <div class="btn-row center">
+          <button class="btn primary" id="btnEmptyAction">返回今日</button>
+          <button class="btn" id="btnPrev2">回到上一张</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 生词本 ============ -->
+    <section class="view" id="view-wordbook">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>我的生词本</h2>
+          <span class="muted small" id="bookSummary"></span>
+        </div>
+        <div class="toolbar">
+          <label class="search-wrap">
+            <svg class="ic"><use href="#i-search"/></svg>
+            <input id="bookSearch" class="search" type="search" placeholder="搜索英文 / 中文 / 音标…">
+          </label>
+          <div class="filters" id="bookFilters">
+            <button class="chip active" data-f="due">待复习</button>
+            <button class="chip" data-f="all">全部</button>
+            <button class="chip" data-f="mastered">已掌握</button>
+            <button class="chip" data-f="fav">收藏</button>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn primary" id="btnExtraReview">立即复习全部生词（不等时间）</button>
+        </div>
+        <div class="list" id="bookList"></div>
+      </div>
+    </section>
+
+    <!-- ============ 单词表 ============ -->
+    <section class="view" id="view-all">
+      <div class="panel">
+        <div class="panel-head"><h2>单词表</h2><span class="muted small">455 条</span></div>
+        <div class="toolbar">
+          <label class="search-wrap">
+            <svg class="ic"><use href="#i-search"/></svg>
+            <input id="searchInput" class="search" type="search" placeholder="搜索英文 / 中文 / 音标…">
+          </label>
+          <div class="filters" id="allFilters">
+            <button class="chip active" data-f="all">全部</button>
+            <button class="chip" data-f="new">未学</button>
+            <button class="chip" data-f="known">已认识</button>
+            <button class="chip" data-f="book">生词本</button>
+            <button class="chip" data-f="mastered">已掌握</button>
+          </div>
+        </div>
+        <div class="list" id="allList"></div>
+      </div>
+    </section>
+
+    <!-- ============ 统计 / 设置 ============ -->
+    <section class="view" id="view-stats">
+      <div class="panel">
+        <div class="panel-head"><h2>学习数据</h2></div>
+        <div class="cards small-cards">
+          <div class="stat-card"><span class="stat-num" id="stLearned">0</span><span class="stat-label">已学词数</span></div>
+          <div class="stat-card"><span class="stat-num" id="stKnown">0</span><span class="stat-label">一次就认识</span></div>
+          <div class="stat-card"><span class="stat-num" id="stBook">0</span><span class="stat-label">生词总数</span></div>
+          <div class="stat-card"><span class="stat-num" id="stMastered">0</span><span class="stat-label">已掌握</span></div>
+          <div class="stat-card"><span class="stat-num" id="stToday">0</span><span class="stat-label">今日复习次数</span></div>
+          <div class="stat-card"><span class="stat-num" id="stRate">0%</span><span class="stat-label">复习正确率</span></div>
+        </div>
+        <div class="chart-wrap"><h3>近 7 天复习量</h3><div class="chart" id="chart7"></div></div>
+        <div class="chart-wrap"><h3>生词阶段分布</h3><div class="chart" id="chartStage"></div></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>设置</h2></div>
+        <div class="group">
+          <h3>学习偏好</h3>
+          <label class="field">
+            <span>判定后节奏</span>
+            <select id="reviewMode">
+              <option value="auto">显示答案 1.5 秒后下一张</option>
+              <option value="instant">立刻下一张</option>
+              <option value="manual">手动点「下一个」</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>每轮学习数量</span>
+            <select id="sessionSize">
+              <option value="9999">不限</option>
+              <option value="10">10 个</option>
+              <option value="20">20 个</option>
+              <option value="30">30 个</option>
+              <option value="50">50 个</option>
+            </select>
+          </label>
+          <label class="field check">
+            <span>自动朗读（英式男声）</span>
+            <input type="checkbox" id="autoSpeak">
+          </label>
+        </div>
+
+        <div class="group">
+          <h3>进度备份</h3>
+          <div class="btn-row">
+            <button class="btn" id="btnExport">导出为文件</button>
+            <button class="btn" id="btnImport">从文件导入</button>
+            <button class="btn" id="btnWechat">从微信导入</button>
+          </div>
+          <div id="wechatWrap" class="hidden">
+            <ol class="steps">
+              <li><b>打开微信</b>，进入那个聊天（自己给自己发的也行）
+                <button class="mini" id="btnOpenWeChat">打开微信</button>
+              </li>
+              <li>点开那个 <b>medvocab-backup…json</b> 文件 → 右上角「…」→ <b>用其他应用打开 / 保存到手机</b>（iPhone 选「存储到"文件"」）</li>
+              <li>回到本页面，点下面按钮，在系统文件列表里选刚才那个文件
+                <button class="btn" id="btnPickFile">选择文件并导入</button>
+              </li>
+            </ol>
+            <p class="muted small" id="wechatInfo"></p>
+            <details class="details">
+              <summary>粘贴文本导入</summary>
+              <textarea id="pasteBox" class="search" rows="4" placeholder="长按这里粘贴微信里复制的文本…"></textarea>
+              <div class="btn-row">
+                <button class="btn" id="btnDoImport">确认导入</button>
+                <span class="muted small" id="pasteInfo"></span>
+              </div>
+            </details>
+          </div>
+          <input type="file" id="fileInput" class="hidden" accept=".json,.txt,application/json,text/plain">
+        </div>
+
+        <div class="group danger-zone">
+          <h3>维护</h3>
+          <div class="btn-row">
+            <button class="btn" id="btnCheckUpdate">检查更新</button>
+            <span class="muted small" id="updateInfo"></span>
+          </div>
+          <div class="btn-row">
+            <button class="btn" id="btnRestore">恢复已删除的词</button>
+            <button class="btn danger" id="btnReset">清空全部进度</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot muted small">
+    <span id="buildInfo" class="muted small"></span>
+  </footer>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="app.js?v=26"></script>
+</body>
+</html>
