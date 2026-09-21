@@ -767,7 +767,7 @@ html[data-theme="dark"] .toast { background: #2b3550; }
     <!-- ============ 单词表 ============ -->
     <section class="view" id="view-all">
       <div class="panel">
-        <div class="panel-head"><h2>单词表</h2><span class="muted small">455 条</span></div>
+        <div class="panel-head"><h2>单词表</h2><span class="muted small" id="allCount">476 条</span></div>
         <div class="toolbar">
           <label class="search-wrap">
             <svg class="ic"><use href="#i-search"/></svg>
@@ -884,9 +884,3818 @@ html[data-theme="dark"] .toast { background: #2b3550; }
 <div class="toast" id="toast"></div>
 
 <script>
-const OFFLINE_TERMS = [{"id":1,"rank":1,"en":"drug","zh":"药物","ipa":"/drʌɡ/","ex":"The doctor changed the drug after two weeks."},{"id":2,"rank":2,"en":"therapy","zh":"治疗","ipa":"/ˈθerəpi/","ex":"She started the therapy in October."},{"id":3,"rank":3,"en":"diet","zh":"饮食（膳食）","ipa":"/ˈdaɪət/","ex":"A healthy diet is part of the treatment."},{"id":4,"rank":4,"en":"diabetes mellitus","zh":"糖尿病","ipa":"/ˌdaɪəˈbiːtiːz ˈmelɪtəs/","ex":"He has had diabetes mellitus for ten years."},{"id":5,"rank":5,"en":"fats","zh":"脂肪（脂类）","ipa":"/fæts/","ex":"The patient eats too many saturated fats."},{"id":6,"rank":6,"en":"muscle","zh":"肌肉","ipa":"/ˈmʌsl/","ex":"Walking helps you keep your muscle."},{"id":7,"rank":7,"en":"obesity","zh":"肥胖症","ipa":"/əʊˈbiːsəti/","ex":"Obesity is a risk factor for diabetes."},{"id":8,"rank":8,"en":"proteins","zh":"蛋白质","ipa":"/ˈprəʊtiːnz/","ex":"The diet should include enough proteins."},{"id":9,"rank":9,"en":"gene","zh":"基因","ipa":"/dʒiːn/","ex":"This gene controls how the body uses fat."},{"id":10,"rank":10,"en":"statin","zh":"他汀类药物","ipa":"/ˈstætɪn/","ex":"The doctor prescribed a statin for high cholesterol."},{"id":11,"rank":11,"en":"blood","zh":"血液","ipa":"/blʌd/","ex":"They took a blood sample this morning."},{"id":12,"rank":12,"en":"cholesterol","zh":"胆固醇","ipa":"/kəˈlestərɒl/","ex":"Her cholesterol is still too high."},{"id":13,"rank":13,"en":"neck","zh":"颈部","ipa":"/nek/","ex":"The pain started in his neck."},{"id":14,"rank":14,"en":"physical activity","zh":"身体活动","ipa":"/ˈfɪzɪkl ækˈtɪvəti/","ex":"Physical activity lowers blood sugar."},{"id":15,"rank":15,"en":"calcium","zh":"钙","ipa":"/ˈkælsiəm/","ex":"She takes calcium and vitamin D every day."},{"id":16,"rank":16,"en":"fatigue","zh":"乏力","ipa":"/fəˈtiːɡ/","ex":"He complains of fatigue in the afternoon."},{"id":17,"rank":17,"en":"insulin","zh":"胰岛素","ipa":"/ˈɪnsjʊlɪn/","ex":"Insulin moves sugar into the cells."},{"id":18,"rank":18,"en":"stomach","zh":"胃","ipa":"/ˈstʌmək/","ex":"His stomach hurts after meals."},{"id":19,"rank":19,"en":"side effects","zh":"不良反应（副作用）","ipa":"/ˈsaɪd ɪˌfekts/","ex":"The drug has few side effects."},{"id":20,"rank":20,"en":"weight loss","zh":"体重下降","ipa":"/ˈweɪt lɒs/","ex":"Weight loss improved her blood pressure."},{"id":21,"rank":21,"en":"cancer","zh":"癌","ipa":"/ˈkænsə/","ex":"The tests showed no sign of cancer."},{"id":22,"rank":22,"en":"fat mass","zh":"脂肪量（体脂）","ipa":"/fæt mæs/","ex":"We measured his fat mass today."},{"id":23,"rank":23,"en":"hunger","zh":"饥饿感","ipa":"/ˈhʌŋɡə/","ex":"The injections reduce hunger."},{"id":24,"rank":24,"en":"nausea","zh":"恶心","ipa":"/ˈnɔːziə/","ex":"She had nausea after the first dose."},{"id":25,"rank":25,"en":"nutrition","zh":"营养","ipa":"/njʊˈtrɪʃn/","ex":"Good nutrition helps the liver recover."},{"id":26,"rank":26,"en":"blood test","zh":"血液检查","ipa":"/blʌd test/","ex":"The blood test was normal."},{"id":27,"rank":27,"en":"diet / eating habits","zh":"饮食","ipa":"/ˈdaɪət/","ex":"I asked her about her diet / eating habits."},{"id":28,"rank":28,"en":"abdomen","zh":"腹部","ipa":"/ˈæbdəmən/","ex":"The abdomen was soft on palpation."},{"id":29,"rank":29,"en":"carbohydrates","zh":"碳水化合物","ipa":"/ˌkɑːbəʊˈhaɪdreɪts/","ex":"He eats fewer carbohydrates at dinner."},{"id":30,"rank":30,"en":"lean body mass","zh":"去脂体重（瘦体重）","ipa":"/liːn ˈbɒdi mæs/","ex":"Exercise protects lean body mass."},{"id":31,"rank":31,"en":"liver","zh":"肝脏","ipa":"/ˈlɪvə/","ex":"The liver is normal on ultrasound."},{"id":32,"rank":32,"en":"pain","zh":"疼痛","ipa":"/peɪn/","ex":"The pain is worse in the morning."},{"id":33,"rank":33,"en":"pancreas","zh":"胰腺","ipa":"/ˈpæŋkriəs/","ex":"The pancreas produces digestive enzymes."},{"id":34,"rank":34,"en":"vitamin D","zh":"维生素D","ipa":"/ˈvɪtəmɪn ˈdiː/","ex":"Her vitamin D level is low."},{"id":35,"rank":35,"en":"blood glucose","zh":"血糖","ipa":"/blʌd ˈɡluːkəʊs/","ex":"We check blood glucose twice a day."},{"id":36,"rank":36,"en":"cardiologist","zh":"心脏科医生","ipa":"/ˌkɑːdiˈɒlədʒɪst/","ex":"The cardiologist will see her next week."},{"id":37,"rank":37,"en":"constipation","zh":"便秘","ipa":"/ˌkɒnstɪˈpeɪʃn/","ex":"He has constipation from the new drug."},{"id":38,"rank":38,"en":"alcohol","zh":"酒精","ipa":"/ˈælkəhɒl/","ex":"She stopped drinking alcohol two years ago."},{"id":39,"rank":39,"en":"hepatitis","zh":"肝炎","ipa":"/ˌhepəˈtaɪtɪs/","ex":"The hepatitis is now under control."},{"id":40,"rank":40,"en":"hepatitis C","zh":"丙型肝炎","ipa":"/ˌhepəˈtaɪtɪs ˈsiː/","ex":"Hepatitis C can now be cured."},{"id":41,"rank":41,"en":"intestine","zh":"肠道","ipa":"/ɪnˈtestɪn/","ex":"The intestine absorbs nutrients from food."},{"id":42,"rank":42,"en":"knee","zh":"膝关节","ipa":"/niː/","ex":"Her knee hurts when she climbs stairs."},{"id":43,"rank":43,"en":"leg","zh":"腿","ipa":"/leɡ/","ex":"He felt a cramp in his leg."},{"id":44,"rank":44,"en":"stress","zh":"应激（压力）","ipa":"/stres/","ex":"Stress increases blood pressure."},{"id":45,"rank":45,"en":"tumor","zh":"肿瘤","ipa":"/ˈtjuːmə/","ex":"The tumor was benign."},{"id":46,"rank":46,"en":"allergy","zh":"过敏","ipa":"/ˈælədʒi/","ex":"She has an allergy to penicillin."},{"id":47,"rank":47,"en":"arterial hypertension","zh":"高血压","ipa":"/ɑːˈtɪəriəl ˌhaɪpəˈtenʃn/","ex":"Arterial hypertension is common in older patients."},{"id":48,"rank":48,"en":"cured meats","zh":"腌肉（肉制品）","ipa":"/kjʊəd miːts/","ex":"He should eat fewer cured meats."},{"id":49,"rank":49,"en":"loose stools","zh":"稀便（腹泻）","ipa":"/luːs stuːlz/","ex":"He had loose stools for three days."},{"id":50,"rank":50,"en":"thyroid gland","zh":"甲状腺","ipa":"/ˈθaɪrɔɪd ɡlænd/","ex":"The thyroid gland is slightly enlarged."},{"id":51,"rank":51,"en":"carotid arteries","zh":"颈动脉","ipa":"/kəˈrɒtɪd ˈɑːtəriz/","ex":"The carotid arteries are normal on Doppler."},{"id":52,"rank":52,"en":"dosage","zh":"剂量","ipa":"/ˈdəʊsɪdʒ/","ex":"The dosage was reduced to half."},{"id":53,"rank":53,"en":"pancreatitis","zh":"胰腺炎","ipa":"/ˌpæŋkriəˈtaɪtɪs/","ex":"Pancreatitis can follow gallstones."},{"id":54,"rank":54,"en":"risk factor","zh":"危险因素","ipa":"/ˈrɪsk ˈfæktə/","ex":"Smoking is a major risk factor."},{"id":55,"rank":55,"en":"hypertension","zh":"高血压","ipa":"/ˌhaɪpəˈtenʃn/","ex":"His hypertension is well controlled."},{"id":56,"rank":56,"en":"lipoprotein(a)","zh":"脂蛋白(a)","ipa":"/ˌlɪpəʊˈprəʊtiːn eɪ/","ex":"Lipoprotein(a) is high in this family."},{"id":57,"rank":57,"en":"overweight","zh":"超重","ipa":"/ˌəʊvəˈweɪt/","ex":"She is slightly overweight."},{"id":58,"rank":58,"en":"supplement","zh":"营养补充剂","ipa":"/ˈsʌplɪmənt/","ex":"He takes an iron supplement."},{"id":59,"rank":59,"en":"abdominal ultrasound","zh":"腹部超声","ipa":"/æbˈdɒmɪnl ˈʌltrəsaʊnd/","ex":"The abdominal ultrasound showed a fatty liver."},{"id":60,"rank":60,"en":"administration","zh":"给药","ipa":"/ədˌmɪnɪˈstreɪʃn/","ex":"The administration of the drug is under the skin."},{"id":61,"rank":61,"en":"appetite","zh":"食欲","ipa":"/ˈæpɪtaɪt/","ex":"Her appetite has improved."},{"id":62,"rank":62,"en":"gastroesophageal reflux","zh":"胃食管反流","ipa":"/ˌɡæstrəʊɪˌsɒfəˈdʒiːəl ˈriːflʌks/","ex":"Gastroesophageal reflux causes heartburn at night."},{"id":63,"rank":63,"en":"heart","zh":"心脏","ipa":"/hɑːt/","ex":"The heart rhythm is regular."},{"id":64,"rank":64,"en":"hypercholesterolemia","zh":"高胆固醇血症","ipa":"/ˌhaɪpəkəˌlestərɒˈliːmiə/","ex":"Hypercholesterolemia runs in her family."},{"id":65,"rank":65,"en":"nutritionist","zh":"营养师","ipa":"/njʊˈtrɪʃənɪst/","ex":"The nutritionist gave her a meal plan."},{"id":66,"rank":66,"en":"satiety","zh":"饱腹感","ipa":"/səˈtaɪəti/","ex":"Protein gives a longer feeling of satiety."},{"id":67,"rank":67,"en":"acidosis","zh":"酸中毒","ipa":"/ˌæsɪˈdəʊsɪs/","ex":"Acidosis can occur in severe diabetes."},{"id":68,"rank":68,"en":"cardiovascular risk","zh":"心血管风险","ipa":"/ˌkɑːdiəʊˈvæskjələ rɪsk/","ex":"We calculated his cardiovascular risk."},{"id":69,"rank":69,"en":"fall","zh":"跌倒","ipa":"/fɔːl/","ex":"She had a fall at home last week."},{"id":70,"rank":70,"en":"fatty liver","zh":"脂肪肝","ipa":"/ˌfæti ˈlɪvə/","ex":"The scan confirmed a fatty liver."},{"id":71,"rank":71,"en":"LDL cholesterol","zh":"低密度脂蛋白胆固醇","ipa":"/ˌel diː el kəˈlestərɒl/","ex":"We aim at a low LDL cholesterol."},{"id":72,"rank":72,"en":"metabolism","zh":"代谢","ipa":"/məˈtæbəlɪzəm/","ex":"Exercise speeds up the metabolism."},{"id":73,"rank":73,"en":"thrombus","zh":"血栓","ipa":"/ˈθrɒmbəs/","ex":"The scan showed a thrombus in the leg vein."},{"id":74,"rank":74,"en":"surgeon","zh":"外科医生","ipa":"/ˈsɜːdʒən/","ex":"The surgeon will remove the gallstones."},{"id":75,"rank":75,"en":"transient elastography (FibroScan)","zh":"肝脏瞬时弹性成像","ipa":"/ˈtrænziənt ˌeləˈstɒɡrəfi/","ex":"Transient elastography (FibroScan) measures liver stiffness."},{"id":76,"rank":76,"en":"type 1 diabetes mellitus","zh":"1型糖尿病","ipa":"/taɪp wʌn ˌdaɪəˈbiːtiːz ˈmelɪtəs/","ex":"He was diagnosed with type 1 diabetes mellitus at ten."},{"id":77,"rank":77,"en":"type 2 diabetes mellitus","zh":"2型糖尿病","ipa":"/taɪp tuː ˌdaɪəˈbiːtiːz ˈmelɪtəs/","ex":"Type 2 diabetes mellitus is linked to body weight."},{"id":78,"rank":78,"en":"complication","zh":"并发症","ipa":"/ˌkɒmplɪˈkeɪʃn/","ex":"Kidney damage is a complication of diabetes."},{"id":79,"rank":79,"en":"diabetologist","zh":"糖尿病专科医生","ipa":"/ˌdaɪəbiˈtɒlədʒɪst/","ex":"The diabetologist adjusted her insulin."},{"id":80,"rank":80,"en":"erythrocyte sedimentation rate (ESR)","zh":"红细胞沉降率","ipa":"/ɪˈrɪθrəsaɪt ˌsedɪmenˈteɪʃn reɪt/","ex":"The erythrocyte sedimentation rate (ESR) was mildly raised."},{"id":81,"rank":81,"en":"follow-up visit","zh":"复查随访","ipa":"/ˈfɒləʊ ʌp ˈvɪzɪt/","ex":"She has a follow-up visit in three months."},{"id":82,"rank":82,"en":"gastritis","zh":"胃炎","ipa":"/ɡæˈstraɪtɪs/","ex":"The gastroscopy showed mild gastritis."},{"id":83,"rank":83,"en":"microalbuminuria","zh":"微量白蛋白尿","ipa":"/ˌmaɪkrəʊælˌbjuːmɪˈnjʊəriə/","ex":"Microalbuminuria is an early sign of kidney damage."},{"id":84,"rank":84,"en":"retina","zh":"视网膜","ipa":"/ˈretɪnə/","ex":"Diabetes can damage the retina."},{"id":85,"rank":85,"en":"stroke","zh":"脑卒中","ipa":"/strəʊk/","ex":"He had a stroke two years ago."},{"id":86,"rank":86,"en":"tirzepatide (Mounjaro)","zh":"替尔泊肽（Mounjaro）","ipa":"/ˌtɜːˈzepətaɪd/","ex":"Tirzepatide (Mounjaro) helps with weight loss."},{"id":87,"rank":87,"en":"adipose tissue","zh":"脂肪组织","ipa":"/ˈædɪpəʊs ˈtɪʃuː/","ex":"Adipose tissue stores energy."},{"id":88,"rank":88,"en":"arteries","zh":"动脉","ipa":"/ˈɑːtəriz/","ex":"The arteries are clean on ultrasound."},{"id":89,"rank":89,"en":"back","zh":"背部","ipa":"/bæk/","ex":"The pain in his back is better."},{"id":90,"rank":90,"en":"body weight","zh":"体重","ipa":"/ˈbɒdi weɪt/","ex":"She lost five kilos of body weight."},{"id":91,"rank":91,"en":"class I obesity","zh":"一级肥胖","ipa":"/klɑːs wʌn əʊˈbiːsəti/","ex":"His BMI shows class I obesity."},{"id":92,"rank":92,"en":"diarrhea","zh":"腹泻","ipa":"/ˌdaɪəˈrɪə/","ex":"The diarrhea stopped after two days."},{"id":93,"rank":93,"en":"fracture","zh":"骨折","ipa":"/ˈfræktʃə/","ex":"The X-ray showed no fracture."},{"id":94,"rank":94,"en":"hepatic steatosis","zh":"肝脂肪变性","ipa":"/hɪˈpætɪk ˌstiəˈtəʊsɪs/","ex":"Hepatic steatosis is common in overweight patients."},{"id":95,"rank":95,"en":"hypothyroidism","zh":"甲状腺功能减退","ipa":"/ˌhaɪpəʊˈθaɪrɔɪdɪzəm/","ex":"Hypothyroidism makes her feel tired."},{"id":96,"rank":96,"en":"insulin resistance","zh":"胰岛素抵抗","ipa":"/ˈɪnsjʊlɪn rɪˈzɪstəns/","ex":"Insulin resistance raises blood sugar."},{"id":97,"rank":97,"en":"lifestyle","zh":"生活方式","ipa":"/ˈlaɪfstaɪl/","ex":"A healthy lifestyle protects the liver."},{"id":98,"rank":98,"en":"meniscus","zh":"半月板","ipa":"/məˈnɪskəs/","ex":"He tore his meniscus playing football."},{"id":99,"rank":99,"en":"muscle mass","zh":"肌肉量","ipa":"/ˈmʌsl mæs/","ex":"She wants to keep her muscle mass."},{"id":100,"rank":100,"en":"muscle strengthening","zh":"肌肉强化训练","ipa":"/ˈmʌsl ˈstreŋθənɪŋ/","ex":"Muscle strengthening protects the knees."},{"id":101,"rank":101,"en":"oral contraceptive pill","zh":"口服避孕药","ipa":"/ˈɔːrəl ˌkɒntrəˈseptɪv pɪl/","ex":"She stopped the oral contraceptive pill last year."},{"id":102,"rank":102,"en":"protein intake","zh":"蛋白质摄入量","ipa":"/ˈprəʊtiːn ˈɪnteɪk/","ex":"His protein intake is too low."},{"id":103,"rank":103,"en":"screening","zh":"筛查","ipa":"/ˈskriːnɪŋ/","ex":"Screening for hepatitis C is recommended."},{"id":104,"rank":104,"en":"sedentary lifestyle","zh":"久坐生活方式","ipa":"/ˈsedntri ˈlaɪfstaɪl/","ex":"A sedentary lifestyle increases the risk."},{"id":105,"rank":105,"en":"semaglutide (Wegovy)","zh":"司美格鲁肽（Wegovy）","ipa":"/ˌseməˈɡluːtaɪd/","ex":"Semaglutide (Wegovy) is given once a week."},{"id":106,"rank":106,"en":"anxiety","zh":"焦虑","ipa":"/æŋˈzaɪəti/","ex":"She has anxiety before the tests."},{"id":107,"rank":107,"en":"balanced diet","zh":"均衡饮食","ipa":"/ˈbælənst ˈdaɪət/","ex":"He follows a balanced diet."},{"id":108,"rank":108,"en":"body composition","zh":"身体成分","ipa":"/ˈbɒdi ˌkɒmpəˈzɪʃn/","ex":"We measured her body composition."},{"id":109,"rank":109,"en":"breast","zh":"乳腺","ipa":"/brest/","ex":"She found a lump in her breast."},{"id":110,"rank":110,"en":"fasting","zh":"空腹","ipa":"/ˈfɑːstɪŋ/","ex":"The blood sample was taken after fasting."},{"id":111,"rank":111,"en":"glucagon-like peptide-1 (GLP-1)","zh":"胰高血糖素样肽-1","ipa":"/ˈɡluːkəɡɒn laɪk ˈpeptaɪd wʌn/","ex":"Glucagon-like peptide-1 (GLP-1) slows gastric emptying."},{"id":112,"rank":112,"en":"inflammation","zh":"炎症","ipa":"/ˌɪnfləˈmeɪʃn/","ex":"The inflammation is getting better."},{"id":113,"rank":113,"en":"nerve","zh":"神经","ipa":"/nɜːv/","ex":"Diabetes can damage the nerve in the feet."},{"id":114,"rank":114,"en":"ophthalmologist","zh":"眼科医生","ipa":"/ˌɒfθælˈmɒlədʒɪst/","ex":"The ophthalmologist checked her retina."},{"id":115,"rank":115,"en":"snacks","zh":"加餐（间食）","ipa":"/snæks/","ex":"He eats too many snacks in the evening."},{"id":116,"rank":116,"en":"sugars","zh":"糖类","ipa":"/ˈʃʊɡəz/","ex":"She avoids simple sugars."},{"id":117,"rank":117,"en":"surgery","zh":"外科手术","ipa":"/ˈsɜːdʒəri/","ex":"He needs surgery for the hernia."},{"id":118,"rank":118,"en":"thigh","zh":"大腿","ipa":"/θaɪ/","ex":"The injection goes into the thigh."},{"id":119,"rank":119,"en":"tongue","zh":"舌","ipa":"/tʌŋ/","ex":"His tongue was dry on examination."},{"id":120,"rank":120,"en":"waist circumference","zh":"腰围","ipa":"/ˈweɪst səˈkʌmfərəns/","ex":"Her waist circumference is 98 centimetres."},{"id":121,"rank":121,"en":"abdominal fat","zh":"腹部脂肪","ipa":"/æbˈdɒmɪnl fæt/","ex":"Abdominal fat is linked to heart risk."},{"id":122,"rank":122,"en":"acute cholecystitis","zh":"急性胆囊炎","ipa":"/əˈkjuːt ˌkəʊlɪsɪˈstaɪtɪs/","ex":"Acute cholecystitis caused severe pain."},{"id":123,"rank":123,"en":"anesthesia","zh":"麻醉","ipa":"/ˌænəsˈθiːziə/","ex":"The operation was done under general anesthesia."},{"id":124,"rank":124,"en":"benign prostatic hyperplasia","zh":"良性前列腺增生","ipa":"/bɪˈnaɪn prɒˈstætɪk ˌhaɪpəˈpleɪziə/","ex":"Benign prostatic hyperplasia makes him urinate at night."},{"id":125,"rank":125,"en":"cardiovascular event","zh":"心血管事件","ipa":"/ˌkɑːdiəʊˈvæskjələ ɪˈvent/","ex":"He never had a cardiovascular event."},{"id":126,"rank":126,"en":"chronic kidney damage","zh":"慢性肾损害","ipa":"/ˈkrɒnɪk ˈkɪdni ˈdæmɪdʒ/","ex":"Chronic kidney damage develops slowly."},{"id":127,"rank":127,"en":"clinical guidelines","zh":"临床指南","ipa":"/ˈklɪnɪkl ˈɡaɪdlaɪnz/","ex":"The treatment follows the clinical guidelines."},{"id":128,"rank":128,"en":"colon","zh":"结肠","ipa":"/ˈkəʊlən/","ex":"The colon was normal at colonoscopy."},{"id":129,"rank":129,"en":"contraindication","zh":"禁忌证","ipa":"/ˌkɒntrəˌɪndɪˈkeɪʃn/","ex":"Pregnancy is a contraindication for this drug."},{"id":130,"rank":130,"en":"creatinine","zh":"肌酐","ipa":"/kriˈætəniːn/","ex":"His creatinine is normal."},{"id":131,"rank":131,"en":"electrocardiogram (ECG)","zh":"心电图","ipa":"/ɪˌlektrəʊˈkɑːdiəɡræm/","ex":"The electrocardiogram (ECG) showed a normal rhythm."},{"id":132,"rank":132,"en":"electromyography","zh":"肌电图","ipa":"/ɪˌlektrəʊmaɪˈɒɡrəfi/","ex":"Electromyography showed damage to the nerve."},{"id":133,"rank":133,"en":"esophagitis","zh":"食管炎","ipa":"/ɪˌsɒfəˈdʒaɪtɪs/","ex":"Esophagitis causes burning behind the breastbone."},{"id":134,"rank":134,"en":"esophagus","zh":"食管","ipa":"/ɪˈsɒfəɡəs/","ex":"The esophagus was normal on endoscopy."},{"id":135,"rank":135,"en":"excess body weight","zh":"体重超标","ipa":"/ɪkˈses ˈbɒdi weɪt/","ex":"Losing excess body weight helps the joints."},{"id":136,"rank":136,"en":"femur","zh":"股骨","ipa":"/ˈfiːmə/","ex":"The fracture was in the femur."},{"id":137,"rank":137,"en":"folic acid","zh":"叶酸","ipa":"/ˈfəʊlɪk ˈæsɪd/","ex":"She takes folic acid before pregnancy."},{"id":138,"rank":138,"en":"fundus examination","zh":"眼底检查","ipa":"/ˈfʌndəs ɪɡˌzæmɪˈneɪʃn/","ex":"The fundus examination was normal."},{"id":139,"rank":139,"en":"gallbladder","zh":"胆囊","ipa":"/ˈɡɔːlblædə/","ex":"The gallbladder was removed last year."},{"id":140,"rank":140,"en":"gastric emptying","zh":"胃排空","ipa":"/ˈɡæstrɪk ˈemptiɪŋ/","ex":"Diabetes slows gastric emptying."},{"id":141,"rank":141,"en":"gastroscopy","zh":"胃镜检查","ipa":"/ɡæˈstrɒskəpi/","ex":"The gastroscopy was normal."},{"id":142,"rank":142,"en":"general practitioner","zh":"全科医生（家庭医生）","ipa":"/ˈdʒenrəl prækˈtɪʃənə/","ex":"Her general practitioner sent her here."},{"id":143,"rank":143,"en":"glomerulus","zh":"肾小球","ipa":"/ɡləˈmerjələs/","ex":"The glomerulus filters the blood."},{"id":144,"rank":144,"en":"glycemic peak","zh":"血糖峰值","ipa":"/ɡlaɪˈsiːmɪk piːk/","ex":"Walking after meals lowers the glycemic peak."},{"id":145,"rank":145,"en":"hip prosthesis","zh":"髋关节假体","ipa":"/hɪp prɒsˈθiːsɪs/","ex":"She had a hip prosthesis two years ago."},{"id":146,"rank":146,"en":"hormones","zh":"激素","ipa":"/ˈhɔːməʊnz/","ex":"Thyroid hormones control metabolism."},{"id":147,"rank":147,"en":"ideal body weight","zh":"理想体重","ipa":"/aɪˈdɪəl ˈbɒdi weɪt/","ex":"We calculated his ideal body weight."},{"id":148,"rank":148,"en":"iron","zh":"铁","ipa":"/ˈaɪən/","ex":"His iron is low, so he feels tired."},{"id":149,"rank":149,"en":"lipids","zh":"脂质（血脂）","ipa":"/ˈlɪpɪdz/","ex":"The lipids are checked every six months."},{"id":150,"rank":150,"en":"medical history","zh":"既往病史","ipa":"/ˈmedɪkl ˈhɪstəri/","ex":"His medical history includes hypertension."},{"id":151,"rank":151,"en":"menopause","zh":"绝经","ipa":"/ˈmenəpɔːz/","ex":"She is in menopause."},{"id":152,"rank":152,"en":"metabolic memory","zh":"代谢记忆","ipa":"/ˌmetəˈbɒlɪk ˈmeməri/","ex":"Metabolic memory explains early damage."},{"id":153,"rank":153,"en":"muscle cramp","zh":"肌肉痉挛","ipa":"/ˈmʌsl kræmp/","ex":"He had a muscle cramp during the night."},{"id":154,"rank":154,"en":"organ damage","zh":"靶器官损害","ipa":"/ˈɔːɡən ˈdæmɪdʒ/","ex":"High blood pressure can cause organ damage."},{"id":155,"rank":155,"en":"osteoarthritis","zh":"骨关节炎","ipa":"/ˌɒstiəʊɑːˈθraɪtɪs/","ex":"Osteoarthritis affects the knees."},{"id":156,"rank":156,"en":"prostate","zh":"前列腺","ipa":"/ˈprɒsteɪt/","ex":"His prostate is slightly enlarged."},{"id":157,"rank":157,"en":"protein supplementation","zh":"蛋白质补充","ipa":"/ˈprəʊtiːn ˌsʌplɪmenˈteɪʃn/","ex":"Protein supplementation helps older patients."},{"id":158,"rank":158,"en":"psyllium fiber (Psyllogel)","zh":"车前子纤维制剂","ipa":"/ˈsɪliəm ˈfaɪbə/","ex":"Psyllium fiber (Psyllogel) softens the stool."},{"id":159,"rank":159,"en":"rapid-acting insulin","zh":"速效胰岛素","ipa":"/ˈræpɪd ˈæktɪŋ ˈɪnsjʊlɪn/","ex":"He injects rapid-acting insulin before meals."},{"id":160,"rank":160,"en":"skin","zh":"皮肤","ipa":"/skɪn/","ex":"Her skin is dry and pale."},{"id":161,"rank":161,"en":"throat","zh":"咽喉","ipa":"/θrəʊt/","ex":"She has a sore throat."},{"id":162,"rank":162,"en":"triglycerides","zh":"甘油三酯","ipa":"/traɪˈɡlɪsəraɪdz/","ex":"His triglycerides are high."},{"id":163,"rank":163,"en":"uric acid","zh":"尿酸","ipa":"/ˈjʊərɪk ˈæsɪd/","ex":"His uric acid is above normal."},{"id":164,"rank":164,"en":"abdominal pain","zh":"腹痛","ipa":"/æbˈdɒmɪnl peɪn/","ex":"The abdominal pain comes after meals."},{"id":165,"rank":165,"en":"addiction","zh":"成瘾","ipa":"/əˈdɪkʃn/","ex":"He has an addiction to sweets."},{"id":166,"rank":166,"en":"angiotensin receptor blocker (ARB)","zh":"沙坦类降压药（ARB）","ipa":"/ˌændʒiəʊˈtensɪn rɪˈseptə ˈblɒkə/","ex":"An angiotensin receptor blocker (ARB) protects the kidney."},{"id":167,"rank":167,"en":"antibiotic","zh":"抗生素","ipa":"/ˌæntibaɪˈɒtɪk/","ex":"The antibiotic was given for one week."},{"id":168,"rank":168,"en":"antihistamine","zh":"抗组胺药","ipa":"/ˌæntiˈhɪstəmiːn/","ex":"She took an antihistamine for the rash."},{"id":169,"rank":169,"en":"atherosclerosis","zh":"动脉粥样硬化","ipa":"/ˌæθərəʊskləˈrəʊsɪs/","ex":"Atherosclerosis narrows the arteries."},{"id":170,"rank":170,"en":"balanced meal","zh":"均衡膳食","ipa":"/ˈbælənst miːl/","ex":"He eats a balanced meal at lunch."},{"id":171,"rank":171,"en":"basal metabolic rate","zh":"基础代谢率","ipa":"/ˈbeɪsl ˌmetəˈbɒlɪk reɪt/","ex":"The basal metabolic rate falls with age."},{"id":172,"rank":172,"en":"benign tumor","zh":"良性肿瘤","ipa":"/bɪˈnaɪn ˈtjuːmə/","ex":"The benign tumor does not need surgery."},{"id":173,"rank":173,"en":"biomarker","zh":"生物标志物","ipa":"/ˈbaɪəʊmɑːkə/","ex":"HbA1c is a useful biomarker."},{"id":174,"rank":174,"en":"bone","zh":"骨","ipa":"/bəʊn/","ex":"Her bone density is low."},{"id":175,"rank":175,"en":"cardiological examination","zh":"心脏科检查","ipa":"/ˌkɑːdiəˈlɒdʒɪkl ɪɡˌzæmɪˈneɪʃn/","ex":"The cardiological examination was normal."},{"id":176,"rank":176,"en":"class II obesity","zh":"二级肥胖","ipa":"/klɑːs tuː əʊˈbiːsəti/","ex":"Class II obesity needs medical treatment."},{"id":177,"rank":177,"en":"class III obesity","zh":"三级肥胖","ipa":"/klɑːs θriː əʊˈbiːsəti/","ex":"Class III obesity is also called severe obesity."},{"id":178,"rank":178,"en":"clinical trials","zh":"临床试验","ipa":"/ˈklɪnɪkl ˈtraɪəlz/","ex":"New drugs are tested in clinical trials."},{"id":179,"rank":179,"en":"COVID-19","zh":"新型冠状病毒感染","ipa":"/ˈkəʊvɪd naɪnˈtiːn/","ex":"He had COVID-19 last winter."},{"id":180,"rank":180,"en":"dietitian","zh":"营养师","ipa":"/ˌdaɪəˈtɪʃn/","ex":"The dietitian reviewed her meals."},{"id":181,"rank":181,"en":"edema","zh":"水肿","ipa":"/ɪˈdiːmə/","ex":"She has edema in both legs."},{"id":182,"rank":182,"en":"endocrinologist","zh":"内分泌科医生","ipa":"/ˌendəkrɪˈnɒlədʒɪst/","ex":"The endocrinologist follows her thyroid."},{"id":183,"rank":183,"en":"enzymes","zh":"酶","ipa":"/ˈenzaɪmz/","ex":"Liver enzymes are slightly high."},{"id":184,"rank":184,"en":"external fixator","zh":"外固定支架","ipa":"/ɪkˈstɜːnl fɪkˈseɪtə/","ex":"The external fixator was removed after six weeks."},{"id":185,"rank":185,"en":"family history","zh":"家族史","ipa":"/ˈfæməli ˈhɪstəri/","ex":"There is a family history of diabetes."},{"id":186,"rank":186,"en":"gallstones","zh":"胆囊结石","ipa":"/ˈɡɔːlstəʊnz/","ex":"Gallstones were found on ultrasound."},{"id":187,"rank":187,"en":"ginger","zh":"生姜","ipa":"/ˈdʒɪndʒə/","ex":"She drinks ginger tea for nausea."},{"id":188,"rank":188,"en":"GLP-1 receptor agonist","zh":"GLP-1受体激动剂","ipa":"/ˌdʒiː el piː wʌn rɪˈseptə ˈæɡənɪst/","ex":"A GLP-1 receptor agonist helps control appetite."},{"id":189,"rank":189,"en":"hydration","zh":"水合状态（补水）","ipa":"/haɪˈdreɪʃn/","ex":"Good hydration prevents constipation."},{"id":190,"rank":190,"en":"hyperglycemia","zh":"高血糖","ipa":"/ˌhaɪpəɡlaɪˈsiːmiə/","ex":"Hyperglycemia can cause thirst."},{"id":191,"rank":191,"en":"hypovitaminosis","zh":"维生素缺乏","ipa":"/ˌhaɪpəʊˌvɪtəmɪˈnəʊsɪs/","ex":"Hypovitaminosis D is common in winter."},{"id":192,"rank":192,"en":"ketogenic diet","zh":"生酮饮食","ipa":"/ˌkiːtəˈdʒenɪk ˈdaɪət/","ex":"A ketogenic diet is not for everyone."},{"id":193,"rank":193,"en":"ketone bodies","zh":"酮体","ipa":"/ˈkiːtəʊn ˈbɒdiz/","ex":"Ketone bodies appear when fat is burned."},{"id":194,"rank":194,"en":"ketosis","zh":"酮症","ipa":"/kiːˈtəʊsɪs/","ex":"Ketosis starts after two days of fasting."},{"id":195,"rank":195,"en":"levothyroxine (Eutirox)","zh":"左甲状腺素（优甲乐）","ipa":"/ˌliːvəʊθaɪˈrɒksiːn/","ex":"She takes levothyroxine (Eutirox) every morning."},{"id":196,"rank":196,"en":"liver fibrosis","zh":"肝纤维化","ipa":"/ˈlɪvə faɪˈbrəʊsɪs/","ex":"Liver fibrosis can improve at an early stage."},{"id":197,"rank":197,"en":"meal plan","zh":"膳食方案","ipa":"/miːl plæn/","ex":"The meal plan includes five small meals."},{"id":198,"rank":198,"en":"metformin","zh":"二甲双胍","ipa":"/metˈfɔːmɪn/","ex":"Metformin is the first drug for type 2 diabetes."},{"id":199,"rank":199,"en":"oxygen saturation","zh":"血氧饱和度","ipa":"/ˈɒksɪdʒən ˌsætʃəˈreɪʃn/","ex":"His oxygen saturation was 97 per cent."},{"id":200,"rank":200,"en":"pancreatic tumor","zh":"胰腺肿瘤","ipa":"/ˌpæŋkriˈætɪk ˈtjuːmə/","ex":"The pancreatic tumor was found on CT."},{"id":201,"rank":201,"en":"physiotherapy","zh":"物理治疗（康复治疗）","ipa":"/ˌfɪziəʊˈθerəpi/","ex":"Physiotherapy improved his back pain."},{"id":202,"rank":202,"en":"potassium","zh":"钾","ipa":"/pəˈtæsiəm/","ex":"His potassium is low after the diuretic."},{"id":203,"rank":203,"en":"pruritus","zh":"瘙痒","ipa":"/pruˈraɪtəs/","ex":"Pruritus is common in liver disease."},{"id":204,"rank":204,"en":"ramipril","zh":"雷米普利","ipa":"/ˈræmɪprɪl/","ex":"Ramipril controls his blood pressure."},{"id":205,"rank":205,"en":"retinal hemorrhage","zh":"视网膜出血","ipa":"/ˈretɪnl ˈhemərɪdʒ/","ex":"Retinal hemorrhage was seen in the left eye."},{"id":206,"rank":206,"en":"sarcopenia","zh":"肌少症","ipa":"/ˌsɑːkəʊˈpiːniə/","ex":"Sarcopenia is common in elderly patients."},{"id":207,"rank":207,"en":"shoulders","zh":"肩部","ipa":"/ˈʃəʊldəz/","ex":"She feels pain in both shoulders."},{"id":208,"rank":208,"en":"snoring","zh":"打鼾","ipa":"/ˈsnɔːrɪŋ/","ex":"His snoring disturbs his sleep."},{"id":209,"rank":209,"en":"squat","zh":"深蹲","ipa":"/skwɒt/","ex":"He can do ten squats without pain."},{"id":210,"rank":210,"en":"stool","zh":"粪便","ipa":"/stuːl/","ex":"The stool was normal in colour."},{"id":211,"rank":211,"en":"therapeutic plan","zh":"治疗方案","ipa":"/ˌθerəˈpjuːtɪk plæn/","ex":"The therapeutic plan was explained to her."},{"id":212,"rank":212,"en":"thyroid-stimulating hormone (TSH)","zh":"促甲状腺激素","ipa":"/ˈθaɪrɔɪd ˈstɪmjuleɪtɪŋ ˈhɔːməʊn/","ex":"The thyroid-stimulating hormone (TSH) is normal."},{"id":213,"rank":213,"en":"topical therapy","zh":"局部外用治疗","ipa":"/ˈtɒpɪkl ˈθerəpi/","ex":"Topical therapy was prescribed for the rash."},{"id":214,"rank":214,"en":"total cholesterol","zh":"总胆固醇","ipa":"/ˈtəʊtl kəˈlestərɒl/","ex":"His total cholesterol is 240."},{"id":215,"rank":215,"en":"trauma","zh":"外伤","ipa":"/ˈtrɔːmə/","ex":"The knee pain started after a trauma."},{"id":216,"rank":216,"en":"urologist","zh":"泌尿科医生","ipa":"/jʊəˈrɒlədʒɪst/","ex":"The urologist will check his prostate."},{"id":217,"rank":217,"en":"vascular surgeon","zh":"血管外科医生","ipa":"/ˈvæskjələ ˈsɜːdʒən/","ex":"The vascular surgeon examined his legs."},{"id":218,"rank":218,"en":"waist-to-height ratio","zh":"腰高比","ipa":"/weɪst tuː haɪt ˈreɪʃiəʊ/","ex":"His waist-to-height ratio is too high."},{"id":219,"rank":219,"en":"weight gain","zh":"体重增加","ipa":"/ˈweɪt ɡeɪn/","ex":"She reports a weight gain of three kilos."},{"id":220,"rank":220,"en":"adenoid","zh":"腺样体","ipa":"/ˈædɪnɔɪd/","ex":"The adenoids were enlarged on the scan."},{"id":221,"rank":221,"en":"adhesions","zh":"粘连","ipa":"/ədˈhiːʒnz/","ex":"Adhesions were found during surgery."},{"id":222,"rank":222,"en":"albumin-to-creatinine ratio","zh":"尿白蛋白/肌酐比值","ipa":"/ælˈbjuːmɪn tuː kriˈætəniːn ˈreɪʃiəʊ/","ex":"The albumin-to-creatinine ratio was slightly high."},{"id":223,"rank":223,"en":"allergist","zh":"过敏科医生","ipa":"/ˈælədʒɪst/","ex":"The allergist tested her for a pollen allergy."},{"id":224,"rank":224,"en":"allopurinol","zh":"别嘌醇","ipa":"/ˌæləʊˈpjʊərɪnɒl/","ex":"Allopurinol lowers uric acid."},{"id":225,"rank":225,"en":"amiloride/hydrochlorothiazide (Moduretic)","zh":"阿米洛利/氢氯噻嗪","ipa":"/əˈmɪləraɪd/;/ˌhaɪdrəʊˌklɔːrəʊˈθaɪəzaɪd/","ex":"Amiloride/hydrochlorothiazide (Moduretic) was added for blood pressure."},{"id":226,"rank":226,"en":"amoxicillin","zh":"阿莫西林","ipa":"/əˌmɒksɪˈsɪlɪn/","ex":"Amoxicillin was given for the infection."},{"id":227,"rank":227,"en":"ankle","zh":"踝关节","ipa":"/ˈæŋkl/","ex":"Her ankle is swollen."},{"id":228,"rank":228,"en":"antacid (aluminium/magnesium hydroxide)","zh":"铝镁抗酸剂","ipa":"/æntˈæsɪd/","ex":"An antacid (aluminium/magnesium hydroxide) helps the burning."},{"id":229,"rank":229,"en":"antibodies","zh":"抗体","ipa":"/ˈæntibɒdiz/","ex":"The antibodies for thyroid disease were positive."},{"id":230,"rank":230,"en":"atorvastatin","zh":"阿托伐他汀","ipa":"/əˌtɔːvəˈstætɪn/","ex":"Atorvastatin lowered his LDL cholesterol."},{"id":231,"rank":231,"en":"atrial fibrillation","zh":"心房颤动","ipa":"/ˈeɪtriəl ˌfɪbrɪˈleɪʃn/","ex":"Atrial fibrillation needs blood thinners."},{"id":232,"rank":232,"en":"autoimmune thyroiditis","zh":"自身免疫性甲状腺炎","ipa":"/ˌɔːtəʊɪˈmjuːn ˌθaɪrɔɪˈdaɪtɪs/","ex":"Autoimmune thyroiditis causes hypothyroidism."},{"id":233,"rank":233,"en":"bile","zh":"胆汁","ipa":"/baɪl/","ex":"Bile helps digest fats."},{"id":234,"rank":234,"en":"blood flow","zh":"血流","ipa":"/blʌd fləʊ/","ex":"The blood flow in his legs is reduced."},{"id":235,"rank":235,"en":"blood pressure control","zh":"血压控制","ipa":"/blʌd ˈpreʃə kənˈtrəʊl/","ex":"Blood pressure control protects the kidneys."},{"id":236,"rank":236,"en":"brace (orthosis)","zh":"支具（矫形器）","ipa":"/breɪs/","ex":"He wears a brace (orthosis) for his knee."},{"id":237,"rank":237,"en":"brain","zh":"脑","ipa":"/breɪn/","ex":"The brain scan was normal."},{"id":238,"rank":238,"en":"brain tumor","zh":"脑肿瘤","ipa":"/breɪn ˈtjuːmə/","ex":"The brain tumor was removed last year."},{"id":239,"rank":239,"en":"breast cancer","zh":"乳腺癌","ipa":"/brest ˈkænsə/","ex":"Her mother had breast cancer."},{"id":240,"rank":240,"en":"breathlessness (dyspnea)","zh":"气促（呼吸困难）","ipa":"/ˈbreθləsnəs/","ex":"He reports breathlessness (dyspnea) on effort."},{"id":241,"rank":241,"en":"bruise","zh":"瘀斑","ipa":"/bruːz/","ex":"She has a bruise on her arm."},{"id":242,"rank":242,"en":"calf","zh":"小腿肚","ipa":"/kɑːf/","ex":"He felt a pain in his left calf."},{"id":243,"rank":243,"en":"caloric deficit","zh":"热量缺口","ipa":"/kəˈlɒrɪk ˈdefɪsɪt/","ex":"A caloric deficit leads to weight loss."},{"id":244,"rank":244,"en":"central nervous system","zh":"中枢神经系统","ipa":"/ˈsentrəl ˈnɜːvəs ˈsɪstəm/","ex":"The drug acts on the central nervous system."},{"id":245,"rank":245,"en":"chest","zh":"胸部","ipa":"/tʃest/","ex":"He felt pressure in his chest."},{"id":246,"rank":246,"en":"chia seeds","zh":"奇亚籽","ipa":"/ˈtʃiːə siːdz/","ex":"He adds chia seeds to his yoghurt."},{"id":247,"rank":247,"en":"cholecystectomy","zh":"胆囊切除术","ipa":"/ˌkəʊlɪsɪˈstektəmi/","ex":"A cholecystectomy was performed in 2023."},{"id":248,"rank":248,"en":"chronic disease","zh":"慢性疾病","ipa":"/ˈkrɒnɪk dɪˈziːz/","ex":"Diabetes is a chronic disease."},{"id":249,"rank":249,"en":"complete blood count","zh":"血常规","ipa":"/kəmˈpliːt blʌd kaʊnt/","ex":"The complete blood count was normal."},{"id":250,"rank":250,"en":"connective tissue disease","zh":"结缔组织病","ipa":"/kəˈnektɪv ˈtɪʃuː dɪˈziːz/","ex":"Connective tissue disease can affect the joints."},{"id":251,"rank":251,"en":"coronary arteries","zh":"冠状动脉","ipa":"/ˈkɒrənri ˈɑːtəriz/","ex":"The coronary arteries are normal on CT."},{"id":252,"rank":252,"en":"corticosteroid","zh":"糖皮质激素","ipa":"/ˌkɔːtɪkəʊˈstɪərɔɪd/","ex":"He took a corticosteroid for the flare."},{"id":253,"rank":253,"en":"cotton-wool spot","zh":"棉絮斑","ipa":"/ˈkɒtn wʊl spɒt/","ex":"A cotton-wool spot was seen in the eye."},{"id":254,"rank":254,"en":"coxarthrosis","zh":"髋关节骨关节炎","ipa":"/ˌkɒksɑːˈθrəʊsɪs/","ex":"Coxarthrosis limits her walking."},{"id":255,"rank":255,"en":"cross-reactive allergy","zh":"交叉过敏","ipa":"/ˌkrɒsriˈæktɪv ˈælədʒi/","ex":"A cross-reactive allergy appeared after the fruit."},{"id":256,"rank":256,"en":"cystatin C","zh":"胱抑素C","ipa":"/ˈsɪstətɪn ˈsiː/","ex":"Cystatin C is a marker of kidney function."},{"id":257,"rank":257,"en":"dairy products","zh":"乳制品","ipa":"/ˈdeəri ˈprɒdʌkts/","ex":"He reduced dairy products for the bloating."},{"id":258,"rank":258,"en":"dermatologist","zh":"皮肤科医生","ipa":"/ˌdɜːməˈtɒlədʒɪst/","ex":"The dermatologist saw her psoriasis."},{"id":259,"rank":259,"en":"dietary fiber","zh":"膳食纤维","ipa":"/ˈdaɪətəri ˈfaɪbə/","ex":"Dietary fiber helps constipation."},{"id":260,"rank":260,"en":"digestion","zh":"消化","ipa":"/daɪˈdʒestʃən/","ex":"Digestion is slower after the operation."},{"id":261,"rank":261,"en":"dosage regimen","zh":"用法用量","ipa":"/ˈdəʊsɪdʒ ˈredʒɪmən/","ex":"The dosage regimen is written on the box."},{"id":262,"rank":262,"en":"dydrogesterone (Duphaston)","zh":"地屈孕酮（达芙通）","ipa":"/ˌdaɪdrəʊˈdʒestərəʊn/","ex":"Dydrogesterone (Duphaston) was prescribed for her cycle."},{"id":263,"rank":263,"en":"dynamometer","zh":"握力计","ipa":"/ˌdaɪnəˈmɒmɪtə/","ex":"The dynamometer measured her grip strength."},{"id":264,"rank":264,"en":"dysentery","zh":"痢疾","ipa":"/ˈdɪsəntri/","ex":"Dysentery causes fever and bloody stools."},{"id":265,"rank":265,"en":"dyslipidemia","zh":"血脂异常","ipa":"/ˌdɪslɪpɪˈdiːmiə/","ex":"Dyslipidemia is common in obesity."},{"id":266,"rank":266,"en":"early satiety","zh":"早饱感","ipa":"/ˈɜːli səˈtaɪəti/","ex":"Early satiety is typical of gastroparesis."},{"id":267,"rank":267,"en":"echocardiography","zh":"超声心动图","ipa":"/ˌekəʊkɑːdiˈɒɡrəfi/","ex":"Echocardiography showed a normal heart."},{"id":268,"rank":268,"en":"energy expenditure","zh":"能量消耗","ipa":"/ˈenədʒi ɪkˈspendɪtʃə/","ex":"Exercise increases energy expenditure."},{"id":269,"rank":269,"en":"exercise intolerance","zh":"运动不耐受","ipa":"/ˈeksəsaɪz ɪnˈtɒlərəns/","ex":"She reports exercise intolerance."},{"id":270,"rank":270,"en":"exercise stress test","zh":"运动负荷试验","ipa":"/ˈeksəsaɪz stres test/","ex":"The exercise stress test was negative."},{"id":271,"rank":271,"en":"ezetimibe","zh":"依折麦布","ipa":"/eˈzetɪmɪb/","ex":"Ezetimibe was added to the statin."},{"id":272,"rank":272,"en":"fasting plasma glucose","zh":"空腹血糖","ipa":"/ˈfɑːstɪŋ ˈplæzmə ˈɡluːkəʊs/","ex":"His fasting plasma glucose is 126."},{"id":273,"rank":273,"en":"finger prick","zh":"指尖采血","ipa":"/ˈfɪŋɡə prɪk/","ex":"He checks his sugar with a finger prick."},{"id":274,"rank":274,"en":"folate","zh":"叶酸（盐）","ipa":"/ˈfəʊleɪt/","ex":"Folate is low in his blood test."},{"id":275,"rank":275,"en":"free thyroxine (FT4)","zh":"游离甲状腺素","ipa":"/friː θaɪˈrɒksiːn/","ex":"The free thyroxine (FT4) is in the normal range."},{"id":276,"rank":276,"en":"gamma-glutamyl transferase (GGT)","zh":"γ-谷氨酰转移酶","ipa":"/ˈɡæmə ˌɡluːtəmɪl ˈtrænsfəreɪz/","ex":"The gamma-glutamyl transferase (GGT) is high with alcohol."},{"id":277,"rank":277,"en":"gastroenteritis","zh":"胃肠炎","ipa":"/ˌɡæstrəʊentəˈraɪtɪs/","ex":"Gastroenteritis caused vomiting for one day."},{"id":278,"rank":278,"en":"gastrointestinal stromal tumor (GIST)","zh":"胃肠道间质瘤","ipa":"/ˌɡæstrəʊɪnˈtestɪnl ˈstrəʊml ˈtjuːmə/","ex":"A gastrointestinal stromal tumor (GIST) was found in the stomach."},{"id":279,"rank":279,"en":"gastroparesis","zh":"胃轻瘫","ipa":"/ˌɡæstrəʊpəˈriːsɪs/","ex":"Gastroparesis causes early fullness."},{"id":280,"rank":280,"en":"genetic screening","zh":"基因筛查","ipa":"/dʒəˈnetɪk ˈskriːnɪŋ/","ex":"Genetic screening was offered to the family."},{"id":281,"rank":281,"en":"gestational diabetes","zh":"妊娠期糖尿病","ipa":"/dʒeˈsteɪʃənl ˌdaɪəˈbiːtiːz/","ex":"She had gestational diabetes in her last pregnancy."},{"id":282,"rank":282,"en":"glomerular filtration rate (eGFR)","zh":"肾小球滤过率","ipa":"/ɡləˈmerjələ fɪlˈtreɪʃn reɪt/","ex":"The glomerular filtration rate (eGFR) is 72."},{"id":283,"rank":283,"en":"glucose","zh":"葡萄糖","ipa":"/ˈɡluːkəʊs/","ex":"The glucose level is checked before breakfast."},{"id":284,"rank":284,"en":"glucose-dependent insulinotropic polypeptide (GIP)","zh":"葡萄糖依赖性促胰岛素多肽","ipa":"/ˈɡluːkəʊs dɪˈpendənt ˌɪnsjʊlɪnəʊˈtrɒpɪk ˌpɒliˈpeptaɪd/","ex":"Glucose-dependent insulinotropic polypeptide (GIP) works with GLP-1."},{"id":285,"rank":285,"en":"hand grip strength","zh":"握力","ipa":"/ˈhænd ɡrɪp streŋθ/","ex":"Hand grip strength was reduced."},{"id":286,"rank":286,"en":"HDL cholesterol","zh":"高密度脂蛋白胆固醇","ipa":"/ˌeɪtʃ diː el kəˈlestərɒl/","ex":"His HDL cholesterol is quite good."},{"id":287,"rank":287,"en":"hematologist","zh":"血液科医生","ipa":"/ˌhiːməˈtɒlədʒɪst/","ex":"The hematologist reviewed her blood count."},{"id":288,"rank":288,"en":"hemoglobin","zh":"血红蛋白","ipa":"/ˌhiːməˈɡləʊbɪn/","ex":"Her hemoglobin is 11."},{"id":289,"rank":289,"en":"hemorrhoids","zh":"痔","ipa":"/ˈhemərɔɪdz/","ex":"Hemorrhoids cause bleeding after stool."},{"id":290,"rank":290,"en":"heterozygosity","zh":"杂合性","ipa":"/ˌhetərəʊzaɪˈɡɒsəti/","ex":"Heterozygosity for MTHFR is common."},{"id":291,"rank":291,"en":"hiatal hernia","zh":"食管裂孔疝","ipa":"/haɪˈeɪtl ˈhɜːniə/","ex":"A hiatal hernia was seen on endoscopy."},{"id":292,"rank":292,"en":"histamine","zh":"组胺","ipa":"/ˈhɪstəmiːn/","ex":"Histamine causes itching and redness."},{"id":293,"rank":293,"en":"hypoglycemia","zh":"低血糖","ipa":"/ˌhaɪpəʊɡlaɪˈsiːmiə/","ex":"Hypoglycemia can happen at night."},{"id":294,"rank":294,"en":"incretin","zh":"肠促胰素","ipa":"/ɪnˈkriːtɪn/","ex":"Incretin hormones are used in new diabetes drugs."},{"id":295,"rank":295,"en":"inflammatory state","zh":"炎症状态","ipa":"/ɪnˈflæmətri steɪt/","ex":"A chronic inflammatory state damages the liver."},{"id":296,"rank":296,"en":"injury","zh":"外伤（损伤）","ipa":"/ˈɪndʒəri/","ex":"He had a knee injury last year."},{"id":297,"rank":297,"en":"insulin aspart","zh":"门冬胰岛素","ipa":"/ˈɪnsjʊlɪn ˈæspɑːt/","ex":"She uses insulin aspart at meals."},{"id":298,"rank":298,"en":"insulin requirement","zh":"胰岛素需求量","ipa":"/ˈɪnsjʊlɪn rɪˈkwaɪəmənt/","ex":"His insulin requirement increased this month."},{"id":299,"rank":299,"en":"intestinal motility","zh":"肠道动力","ipa":"/ɪnˈtestɪnl məʊˈtɪləti/","ex":"The drug slows intestinal motility."},{"id":300,"rank":300,"en":"joint","zh":"关节","ipa":"/dʒɔɪnt/","ex":"The joint is swollen and warm."},{"id":301,"rank":301,"en":"joint pain (arthralgia)","zh":"关节痛","ipa":"/dʒɔɪnt peɪn;/ɑːˈθrældʒə/","ex":"She reports joint pain (arthralgia) in the hands."},{"id":302,"rank":302,"en":"levothyroxine","zh":"左甲状腺素","ipa":"/ˌliːvəʊθaɪˈrɒksiːn/","ex":"Levothyroxine is taken on an empty stomach."},{"id":303,"rank":303,"en":"lipase","zh":"脂肪酶","ipa":"/ˈlaɪpeɪs/","ex":"The lipase was high during the pancreatitis."},{"id":304,"rank":304,"en":"liver cancer","zh":"肝癌","ipa":"/ˈlɪvə ˈkænsə/","ex":"Liver cancer is monitored with ultrasound."},{"id":305,"rank":305,"en":"liver cirrhosis","zh":"肝硬化","ipa":"/ˈlɪvə sɪˈrəʊsɪs/","ex":"Liver cirrhosis was diagnosed three years ago."},{"id":306,"rank":306,"en":"liver damage","zh":"肝损害","ipa":"/ˈlɪvə ˈdæmɪdʒ/","ex":"Alcohol causes liver damage."},{"id":307,"rank":307,"en":"liver metastasis","zh":"肝转移","ipa":"/ˈlɪvə məˈtæstəsɪs/","ex":"The scan showed a liver metastasis."},{"id":308,"rank":308,"en":"low-calorie diet","zh":"低热量饮食","ipa":"/ˌləʊ ˈkæləri ˈdaɪət/","ex":"A low-calorie diet was started in March."},{"id":309,"rank":309,"en":"macrogol (Movicol)","zh":"聚乙二醇散剂","ipa":"/ˈmækrəɡɒl/","ex":"Macrogol (Movicol) is taken once a day."},{"id":310,"rank":310,"en":"maintenance therapy","zh":"维持治疗","ipa":"/ˈmeɪntənəns ˈθerəpi/","ex":"Maintenance therapy continues for one year."},{"id":311,"rank":311,"en":"malleolus","zh":"踝","ipa":"/məˈliːələs/","ex":"She fractured the malleolus."},{"id":312,"rank":312,"en":"menarche","zh":"月经初潮","ipa":"/meˈnɑːkiː/","ex":"Her menarche was at the age of twelve."},{"id":313,"rank":313,"en":"metabolic risk","zh":"代谢风险","ipa":"/ˌmetəˈbɒlɪk rɪsk/","ex":"Metabolic risk increases with age."},{"id":314,"rank":314,"en":"metastasis","zh":"转移","ipa":"/məˈtæstəsɪs/","ex":"No metastasis was found on the scan."},{"id":315,"rank":315,"en":"migraine","zh":"偏头痛","ipa":"/ˈmiːɡreɪn/","ex":"Her migraine starts with visual changes."},{"id":316,"rank":316,"en":"MTHFR gene","zh":"MTHFR基因","ipa":"/ˌem tiː eɪtʃ ef ɑː dʒiːn/","ex":"The MTHFR gene was tested."},{"id":317,"rank":317,"en":"multivitamin","zh":"复合维生素","ipa":"/ˌmʌltiˈvɪtəmɪn/","ex":"He takes a multivitamin in the morning."},{"id":318,"rank":318,"en":"neoplasm","zh":"肿瘤（新生物）","ipa":"/ˈniːəʊplæzəm/","ex":"The neoplasm was benign."},{"id":319,"rank":319,"en":"neurologist","zh":"神经科医生","ipa":"/njʊəˈrɒlədʒɪst/","ex":"The neurologist examined her reflexes."},{"id":320,"rank":320,"en":"normal weight","zh":"正常体重","ipa":"/ˈnɔːml weɪt/","ex":"She is of normal weight."},{"id":321,"rank":321,"en":"nurse","zh":"护士","ipa":"/nɜːs/","ex":"The nurse measured his blood pressure."},{"id":322,"rank":322,"en":"omega-3 fatty acids","zh":"ω-3脂肪酸","ipa":"/əʊˈmeɡə θriː ˈfæti ˈæsɪdz/","ex":"Omega-3 fatty acids can lower triglycerides."},{"id":323,"rank":323,"en":"optical coherence tomography (OCT)","zh":"光学相干断层扫描","ipa":"/ˈɒptɪkl kəʊˈhɪərəns təˈmɒɡrəfi/","ex":"Optical coherence tomography (OCT) showed a normal macula."},{"id":324,"rank":324,"en":"oral glucose tolerance test","zh":"糖耐量试验","ipa":"/ˈɔːrəl ˈɡluːkəʊs ˈtɒlərəns test/","ex":"The oral glucose tolerance test was abnormal."},{"id":325,"rank":325,"en":"orthopedist","zh":"骨科医生","ipa":"/ˌɔːθəˈpiːdɪst/","ex":"The orthopedist examined her knee."},{"id":326,"rank":326,"en":"osteopenia","zh":"骨量减少","ipa":"/ˌɒstiəʊˈpiːniə/","ex":"Osteopenia was found on the bone scan."},{"id":327,"rank":327,"en":"osteoporosis","zh":"骨质疏松症","ipa":"/ˌɒstiəʊpəˈrəʊsɪs/","ex":"Osteoporosis increases the risk of fracture."},{"id":328,"rank":328,"en":"pancreatic insufficiency","zh":"胰腺功能不全","ipa":"/ˌpæŋkriˈætɪk ˌɪnsəˈfɪʃnsi/","ex":"Pancreatic insufficiency causes fatty stools."},{"id":329,"rank":329,"en":"pancreaticobiliary carcinoma","zh":"胰胆管癌","ipa":"/ˌpæŋkriˌætɪkəʊˈbɪliəri ˌkɑːsɪˈnəʊmə/","ex":"Pancreaticobiliary carcinoma was suspected on CT."},{"id":330,"rank":330,"en":"peristalsis","zh":"蠕动","ipa":"/ˌperɪˈstɔːlsɪs/","ex":"Peristalsis moves food through the gut."},{"id":331,"rank":331,"en":"phase angle","zh":"相位角","ipa":"/ˈfeɪz ˈæŋɡl/","ex":"The phase angle was low on bioimpedance."},{"id":332,"rank":332,"en":"platelets","zh":"血小板","ipa":"/ˈpleɪtləts/","ex":"His platelets are slightly low."},{"id":333,"rank":333,"en":"pneumological evaluation","zh":"呼吸科检查","ipa":"/ˌnjuːməˈlɒdʒɪkl ɪˌvæljuˈeɪʃn/","ex":"A pneumological evaluation was requested."},{"id":334,"rank":334,"en":"pneumonia","zh":"肺炎","ipa":"/njuːˈməʊniə/","ex":"He had pneumonia last winter."},{"id":335,"rank":335,"en":"polycystic ovary","zh":"多囊卵巢","ipa":"/ˌpɒliˈsɪstɪk ˈəʊvəri/","ex":"Polycystic ovary is linked to insulin resistance."},{"id":336,"rank":336,"en":"polysomnography","zh":"多导睡眠图监测","ipa":"/ˌpɒlisɒmˈnɒɡrəfi/","ex":"Polysomnography confirmed sleep apnea."},{"id":337,"rank":337,"en":"postprandial","zh":"餐后","ipa":"/ˌpəʊstˈprændiəl/","ex":"The postprandial glucose is too high."},{"id":338,"rank":338,"en":"progestin","zh":"孕激素","ipa":"/prəʊˈdʒestɪn/","ex":"A progestin was added to her therapy."},{"id":339,"rank":339,"en":"prostate-specific antigen (PSA)","zh":"前列腺特异性抗原","ipa":"/ˈprɒsteɪt spəˈsɪfɪk ˈæntɪdʒən/","ex":"The prostate-specific antigen (PSA) is normal."},{"id":340,"rank":340,"en":"protein powder","zh":"蛋白粉","ipa":"/ˈprəʊtiːn ˈpaʊdə/","ex":"He adds protein powder to the milk."},{"id":341,"rank":341,"en":"psoriasis","zh":"银屑病","ipa":"/səˈraɪəsɪs/","ex":"Her psoriasis is better in summer."},{"id":342,"rank":342,"en":"receptor","zh":"受体","ipa":"/rɪˈseptə/","ex":"The drug blocks the receptor in the brain."},{"id":343,"rank":343,"en":"red yeast rice lipid-lowering nutraceutical","zh":"红曲类降脂制剂","ipa":"/red jiːst raɪs/","ex":"A red yeast rice lipid-lowering nutraceutical was suggested."},{"id":344,"rank":344,"en":"reflex","zh":"反射","ipa":"/ˈriːfleks/","ex":"The reflexes were normal."},{"id":345,"rank":345,"en":"respiratory function test","zh":"肺功能检查","ipa":"/rəˈspɪrətri ˈfʌŋkʃn test/","ex":"The respiratory function test was normal."},{"id":346,"rank":346,"en":"rosuvastatin","zh":"瑞舒伐他汀","ipa":"/rəʊˈsuːvəstætɪn/","ex":"Rosuvastatin replaced atorvastatin."},{"id":347,"rank":347,"en":"scalp","zh":"头皮","ipa":"/skælp/","ex":"The rash is on his scalp."},{"id":348,"rank":348,"en":"scintigraphy","zh":"核素显像（闪烁扫描）","ipa":"/sɪnˈtɪɡrəfi/","ex":"Scintigraphy showed normal thyroid uptake."},{"id":349,"rank":349,"en":"sinus rhythm","zh":"窦性心律","ipa":"/ˈsaɪnəs ˈrɪðəm/","ex":"The ECG showed a sinus rhythm."},{"id":350,"rank":350,"en":"sleep apnea","zh":"睡眠呼吸暂停","ipa":"/ˈsliːp ˈæpniə/","ex":"Sleep apnea worsens blood pressure."},{"id":351,"rank":351,"en":"smoking","zh":"吸烟","ipa":"/ˈsməʊkɪŋ/","ex":"Smoking must be stopped."},{"id":352,"rank":352,"en":"sodium","zh":"钠","ipa":"/ˈsəʊdiəm/","ex":"He should reduce sodium in his diet."},{"id":353,"rank":353,"en":"solitary kidney","zh":"单侧肾（孤立肾）","ipa":"/ˈsɒlɪtəri ˈkɪdni/","ex":"He has a solitary kidney since childhood."},{"id":354,"rank":354,"en":"specialist consultation","zh":"专科门诊","ipa":"/ˈspeʃəlɪst ˌkɒnslˈteɪʃn/","ex":"A specialist consultation was booked."},{"id":355,"rank":355,"en":"sports medical examination","zh":"运动医学体检","ipa":"/spɔːts ˈmedɪkl ɪɡˌzæmɪˈneɪʃn/","ex":"The sports medical examination was normal."},{"id":356,"rank":356,"en":"sprain","zh":"扭伤","ipa":"/spreɪn/","ex":"The ankle sprain healed in ten days."},{"id":357,"rank":357,"en":"sternum","zh":"胸骨","ipa":"/ˈstɜːnəm/","ex":"The pain is behind the sternum."},{"id":358,"rank":358,"en":"super-obesity","zh":"极重度肥胖","ipa":"/ˌsuːpər əʊˈbiːsəti/","ex":"Super-obesity requires specialised care."},{"id":359,"rank":359,"en":"talus","zh":"距骨","ipa":"/ˈteɪləs/","ex":"The fracture involved the talus."},{"id":360,"rank":360,"en":"target weight","zh":"目标体重","ipa":"/ˈtɑːɡɪt weɪt/","ex":"Her target weight is 70 kilos."},{"id":361,"rank":361,"en":"tenderness","zh":"压痛","ipa":"/ˈtendənəs/","ex":"Tenderness was found in the right abdomen."},{"id":362,"rank":362,"en":"thromboembolism","zh":"血栓栓塞","ipa":"/ˌθrɒmbəʊˈembəlɪzəm/","ex":"Thromboembolism is a risk after surgery."},{"id":363,"rank":363,"en":"thrombotic risk","zh":"血栓风险","ipa":"/θrɒmˈbɒtɪk rɪsk/","ex":"His thrombotic risk is high."},{"id":364,"rank":364,"en":"thyroid nodule","zh":"甲状腺结节","ipa":"/ˈθaɪrɔɪd ˈnɒdjuːl/","ex":"The thyroid nodule was benign at cytology."},{"id":365,"rank":365,"en":"tirzepatide","zh":"替尔泊肽","ipa":"/tɜːˈzepətaɪd/","ex":"Tirzepatide is given by weekly injection."},{"id":366,"rank":366,"en":"tolerability","zh":"耐受性","ipa":"/ˌtɒlərəˈbɪləti/","ex":"The tolerability of the drug was good."},{"id":367,"rank":367,"en":"urinary analgesic/anti-inflammatory preparation","zh":"尿路镇痛抗炎制剂","ipa":"/ˈjʊərɪnəri ˌænəlˈdʒiːzɪk/","ex":"A urinary analgesic/anti-inflammatory preparation relieved the burning."},{"id":368,"rank":368,"en":"vegetarian diet","zh":"素食饮食","ipa":"/ˌvedʒəˈteəriən ˈdaɪət/","ex":"A vegetarian diet can be well balanced."},{"id":369,"rank":369,"en":"visceral fat","zh":"内脏脂肪","ipa":"/ˈvɪsərəl fæt/","ex":"Visceral fat is measured on the scan."},{"id":370,"rank":370,"en":"vitamin B12","zh":"维生素B12","ipa":"/ˈvɪtəmɪn ˌbiː twelv/","ex":"Her vitamin B12 is low."},{"id":371,"rank":371,"en":"warfarin (Coumadin)","zh":"华法林（可迈丁）","ipa":"/ˈwɔːfərɪn/","ex":"Warfarin (Coumadin) is checked with the INR."},{"id":372,"rank":372,"en":"weight training","zh":"力量训练","ipa":"/ˈweɪt ˈtreɪnɪŋ/","ex":"Weight training builds muscle."},{"id":373,"rank":373,"en":"24-hour urine collection","zh":"24小时尿液采集","ipa":"/ˌtwenti fɔː ˈaʊə ˈjʊərɪn kəˈlekʃn/","ex":"A 24-hour urine collection was requested."},{"id":374,"rank":374,"en":"abdominal adiposity","zh":"腹部脂肪堆积","ipa":"/æbˈdɒmɪnl ˌædɪˈpɒsəti/","ex":"Abdominal adiposity increases the risk."},{"id":375,"rank":375,"en":"abdominal aortic aneurysm","zh":"腹主动脉瘤","ipa":"/æbˈdɒmɪnl eɪˈɔːtɪk ˈænjərɪzəm/","ex":"The scan excluded an abdominal aortic aneurysm."},{"id":376,"rank":376,"en":"abdominal bloating","zh":"腹胀","ipa":"/æbˈdɒmɪnl ˈbləʊtɪŋ/","ex":"She complains of abdominal bloating."},{"id":377,"rank":377,"en":"acetylsalicylic acid (aspirin)","zh":"乙酰水杨酸（阿司匹林）","ipa":"/əˌsiːtɪlsælɪˈsɪlɪk ˈæsɪd/","ex":"Acetylsalicylic acid (aspirin) was started at 100 mg."},{"id":378,"rank":378,"en":"allergy test","zh":"过敏原检测","ipa":"/ˈælədʒi test/","ex":"The allergy test was positive for dust."},{"id":379,"rank":379,"en":"ambulatory blood pressure monitoring","zh":"动态血压监测","ipa":"/ˈæmbjələtəri blʌd ˈpreʃə ˈmɒnɪtərɪŋ/","ex":"Ambulatory blood pressure monitoring showed normal values."},{"id":380,"rank":380,"en":"antihypertensive","zh":"降压药","ipa":"/ˌæntihaɪpəˈtensɪv/","ex":"He takes one antihypertensive in the morning."},{"id":381,"rank":381,"en":"antiplatelet agent","zh":"抗血小板药","ipa":"/ˌæntiˈpleɪtlət ˈeɪdʒənt/","ex":"An antiplatelet agent was added after the stroke."},{"id":382,"rank":382,"en":"atherosclerotic plaque","zh":"动脉粥样硬化斑块","ipa":"/ˌæθərəʊskləˈrɒtɪk plɑːk/","ex":"An atherosclerotic plaque was seen in the carotid."},{"id":383,"rank":383,"en":"biliary colic","zh":"胆绞痛","ipa":"/ˈbɪliəri ˈkɒlɪk/","ex":"Biliary colic started after a fatty meal."},{"id":384,"rank":384,"en":"biliary stasis","zh":"胆汁淤积","ipa":"/ˈbɪliəri ˈsteɪsɪs/","ex":"Biliary stasis can follow the operation."},{"id":385,"rank":385,"en":"bloating (meteorism)","zh":"腹胀","ipa":"/ˈbləʊtɪŋ/","ex":"Bloating (meteorism) improved with the diet."},{"id":386,"rank":386,"en":"blood pressure","zh":"血压","ipa":"/blʌd ˈpreʃə/","ex":"Her blood pressure is 130 over 80."},{"id":387,"rank":387,"en":"blood vessels","zh":"血管","ipa":"/blʌd ˈveslz/","ex":"The blood vessels are damaged by diabetes."},{"id":388,"rank":388,"en":"burning micturition","zh":"排尿灼痛","ipa":"/ˈbɜːnɪŋ ˌmɪktjʊəˈrɪʃn/","ex":"He reports burning micturition."},{"id":389,"rank":389,"en":"carotid Doppler ultrasound","zh":"颈动脉多普勒超声","ipa":"/kəˈrɒtɪd ˈdɒplə ˈʌltrəsaʊnd/","ex":"The carotid Doppler ultrasound was normal."},{"id":390,"rank":390,"en":"chest pain","zh":"胸痛","ipa":"/tʃest peɪn/","ex":"He came to the clinic with chest pain."},{"id":391,"rank":391,"en":"chronic kidney disease","zh":"慢性肾脏病","ipa":"/ˈkrɒnɪk ˈkɪdni dɪˈziːz/","ex":"Chronic kidney disease is at stage three."},{"id":392,"rank":392,"en":"coenzyme Q10","zh":"辅酶Q10","ipa":"/ˌkəʊˈenzaɪm ˌkjuː ten/","ex":"Coenzyme Q10 was suggested with the statin."},{"id":393,"rank":393,"en":"combination therapy","zh":"联合治疗","ipa":"/ˌkɒmbɪˈneɪʃn ˈθerəpi/","ex":"Combination therapy works better here."},{"id":394,"rank":394,"en":"compression stocking","zh":"弹力袜","ipa":"/kəmˈpreʃn ˈstɒkɪŋ/","ex":"She wears a compression stocking on the left leg."},{"id":395,"rank":395,"en":"cranial CT","zh":"头颅CT","ipa":"/ˈkreɪniəl ˌsiː tiː/","ex":"The cranial CT was normal."},{"id":396,"rank":396,"en":"deep vein thrombosis","zh":"深静脉血栓形成","ipa":"/diːp veɪn θrɒmˈbəʊsɪs/","ex":"A deep vein thrombosis was found in the calf."},{"id":397,"rank":397,"en":"diaphragm","zh":"膈肌","ipa":"/ˈdaɪəfræm/","ex":"The diaphragm moves with breathing."},{"id":398,"rank":398,"en":"disc herniation","zh":"椎间盘突出","ipa":"/ˈdɪsk ˌhɜːniˈeɪʃn/","ex":"The MRI showed a disc herniation."},{"id":399,"rank":399,"en":"eating disorder","zh":"进食障碍","ipa":"/ˈiːtɪŋ dɪsˈɔːdə/","ex":"An eating disorder must be excluded."},{"id":400,"rank":400,"en":"food intolerance","zh":"食物不耐受","ipa":"/fuːd ɪnˈtɒlərəns/","ex":"She has a food intolerance to lactose."},{"id":401,"rank":401,"en":"free triiodothyronine (FT3)","zh":"游离三碘甲状腺原氨酸","ipa":"/friː ˌtraɪaɪədəʊˈθaɪrəniːn/","ex":"The free triiodothyronine (FT3) is normal."},{"id":402,"rank":402,"en":"gastric acidity / heartburn","zh":"胃酸（反酸烧心）","ipa":"/ˈɡæstrɪk əˈsɪdəti/;/ˈhɑːtbɜːn/","ex":"Gastric acidity / heartburn is worse at night."},{"id":403,"rank":403,"en":"genetic mutation","zh":"基因突变","ipa":"/dʒəˈnetɪk mjuːˈteɪʃn/","ex":"A genetic mutation was found in the MTHFR gene."},{"id":404,"rank":404,"en":"glomerular hyperfiltration","zh":"肾小球高滤过","ipa":"/ɡləˈmerjələ ˌhaɪpəfɪlˈtreɪʃn/","ex":"Glomerular hyperfiltration appears in early diabetes."},{"id":405,"rank":405,"en":"glycated hemoglobin (HbA1c)","zh":"糖化血红蛋白","ipa":"/ɡlaɪˈkeɪtɪd ˌhiːməˈɡləʊbɪn/","ex":"The glycated hemoglobin (HbA1c) is 7.2 per cent."},{"id":406,"rank":406,"en":"half-life","zh":"半衰期","ipa":"/ˈhɑːf laɪf/","ex":"The half-life of the drug is about ten hours."},{"id":407,"rank":407,"en":"Helicobacter pylori","zh":"幽门螺杆菌","ipa":"/ˌhelɪkəʊˈbæktə paɪˈlɔːraɪ/","ex":"Helicobacter pylori was treated with antibiotics."},{"id":408,"rank":408,"en":"heparin","zh":"肝素","ipa":"/ˈhepərɪn/","ex":"Heparin was given during the hospital stay."},{"id":409,"rank":409,"en":"homocysteine","zh":"同型半胱氨酸","ipa":"/ˌhəʊməʊˈsɪstiːn/","ex":"His homocysteine is high."},{"id":410,"rank":410,"en":"immobilization","zh":"制动（活动受限）","ipa":"/ɪˌməʊbɪlaɪˈzeɪʃn/","ex":"Immobilization of the ankle lasted three weeks."},{"id":411,"rank":411,"en":"intermittent fasting","zh":"间歇性禁食","ipa":"/ˌɪntəˈmɪtənt ˈfɑːstɪŋ/","ex":"Intermittent fasting helped her weight."},{"id":412,"rank":412,"en":"intramedullary nail","zh":"髓内钉","ipa":"/ˌɪntrəməˈdʌləri neɪl/","ex":"An intramedullary nail was used for the femur."},{"id":413,"rank":413,"en":"irritable bowel syndrome","zh":"肠易激综合征","ipa":"/ˈɪrɪtəbl ˈbaʊəl ˈsɪndrəʊm/","ex":"Irritable bowel syndrome causes cramps and bloating."},{"id":414,"rank":414,"en":"liver function","zh":"肝功能","ipa":"/ˈlɪvə ˈfʌŋkʃn/","ex":"The liver function is normal."},{"id":415,"rank":415,"en":"lower limb arteries","zh":"下肢动脉","ipa":"/ˈləʊə lɪm ˈɑːtəriz/","ex":"The lower limb arteries are calcified."},{"id":416,"rank":416,"en":"lumbar region","zh":"腰部","ipa":"/ˈlʌmbə ˈriːdʒən/","ex":"She has pain in the lumbar region."},{"id":417,"rank":417,"en":"malleolar fracture","zh":"踝部骨折","ipa":"/məˈliːələ ˈfræktʃə/","ex":"The malleolar fracture was treated with a cast."},{"id":418,"rank":418,"en":"meal replacements","zh":"代餐","ipa":"/miːl rɪˈpleɪsmənts/","ex":"Meal replacements are used for two meals."},{"id":419,"rank":419,"en":"Mediterranean diet","zh":"地中海饮食","ipa":"/ˌmedɪtəˈreɪniən ˈdaɪət/","ex":"The Mediterranean diet is rich in olive oil."},{"id":420,"rank":420,"en":"medullary thyroid carcinoma","zh":"甲状腺髓样癌","ipa":"/ˈmedələri ˈθaɪrɔɪd ˌkɑːsɪˈnəʊmə/","ex":"Medullary thyroid carcinoma is rare."},{"id":421,"rank":421,"en":"menstrual cycle","zh":"月经周期","ipa":"/ˈmenstruəl ˈsaɪkl/","ex":"Her menstrual cycle is regular."},{"id":422,"rank":422,"en":"muscle pain (myalgia)","zh":"肌肉疼痛","ipa":"/ˈmʌsl peɪn;/maɪˈældʒə/","ex":"He reports muscle pain (myalgia) after the statin."},{"id":423,"rank":423,"en":"myocardial infarction","zh":"心肌梗死","ipa":"/ˌmaɪəʊˈkɑːdiəl ɪnˈfɑːkʃn/","ex":"He had a myocardial infarction in 2022."},{"id":424,"rank":424,"en":"nephroprotective","zh":"肾脏保护作用","ipa":"/ˌnefrəʊprəˈtektɪv/","ex":"The drug is nephroprotective."},{"id":425,"rank":425,"en":"nitrofurantoin","zh":"呋喃妥因","ipa":"/ˌnaɪtrəʊfjʊəˈræntəʊɪn/","ex":"Nitrofurantoin was given for the urinary infection."},{"id":426,"rank":426,"en":"oral anticoagulant therapy","zh":"口服抗凝治疗","ipa":"/ˈɔːrəl ˌæntikəʊˈæɡjələnt ˈθerəpi/","ex":"Oral anticoagulant therapy was started."},{"id":427,"rank":427,"en":"organ failure","zh":"器官功能失代偿","ipa":"/ˈɔːɡən ˈfeɪljə/","ex":"Organ failure can follow a severe infection."},{"id":428,"rank":428,"en":"orthostatic hypotension","zh":"体位性低血压","ipa":"/ˌɔːθəʊˈstætɪk ˌhaɪpəʊˈtenʃn/","ex":"Orthostatic hypotension causes dizziness."},{"id":429,"rank":429,"en":"pancreatic enzymes","zh":"胰酶","ipa":"/ˌpæŋkriˈætɪk ˈenzaɪmz/","ex":"Pancreatic enzymes are taken with meals."},{"id":430,"rank":430,"en":"pantoprazole","zh":"泮托拉唑","ipa":"/pænˈtɒprəzəʊl/","ex":"Pantoprazole was prescribed for the reflux."},{"id":431,"rank":431,"en":"papillary thyroid carcinoma","zh":"甲状腺乳头状癌","ipa":"/pəˈpɪləri ˈθaɪrɔɪd ˌkɑːsɪˈnəʊmə/","ex":"Papillary thyroid carcinoma has a good prognosis."},{"id":432,"rank":432,"en":"postmenopause","zh":"绝经后期","ipa":"/ˌpəʊstˈmenəpɔːz/","ex":"After postmenopause the risk of osteoporosis rises."},{"id":433,"rank":433,"en":"postprandial hyperglycemia","zh":"餐后高血糖","ipa":"/ˌpəʊstˈprændiəl ˌhaɪpəɡlaɪˈsiːmiə/","ex":"Postprandial hyperglycemia needs a diet check."},{"id":434,"rank":434,"en":"probiotics","zh":"益生菌制剂","ipa":"/ˌprəʊbaɪˈɒtɪks/","ex":"Probiotics helped the bloating."},{"id":435,"rank":435,"en":"proton pump inhibitor","zh":"质子泵抑制剂","ipa":"/ˈprəʊtɒn pʌmp ɪnˈhɪbɪtə/","ex":"A proton pump inhibitor was started."},{"id":436,"rank":436,"en":"psoriatic plaques","zh":"银屑病斑块","ipa":"/ˌsɒriˈætɪk plɑːks/","ex":"The psoriatic plaques are on the elbows."},{"id":437,"rank":437,"en":"renal function","zh":"肾功能","ipa":"/ˈriːnl ˈfʌŋkʃn/","ex":"Her renal function is stable."},{"id":438,"rank":438,"en":"retinal ischemia","zh":"视网膜缺血","ipa":"/ˈretɪnl ɪˈskiːmiə/","ex":"Retinal ischemia was seen in the left eye."},{"id":439,"rank":439,"en":"sit-to-stand test","zh":"起立-坐下试验","ipa":"/sɪt tuː stænd test/","ex":"The sit-to-stand test took twelve seconds."},{"id":440,"rank":440,"en":"skin rash","zh":"皮疹","ipa":"/ˈskɪn ræʃ/","ex":"The skin rash appeared after the antibiotic."},{"id":441,"rank":441,"en":"supra-aortic trunks","zh":"主动脉弓上分支血管（颈部血管）","ipa":"/ˌsuːprə eɪˈɔːtɪk trʌŋks/","ex":"The supra-aortic trunks were normal on Doppler."},{"id":442,"rank":442,"en":"surgical mesh","zh":"外科补片","ipa":"/ˈsɜːdʒɪkl meʃ/","ex":"A surgical mesh was used for the hernia."},{"id":443,"rank":443,"en":"transient amaurosis","zh":"一过性黑矇","ipa":"/ˈtrænziənt ˌæmɔːˈrəʊsɪs/","ex":"Transient amaurosis lasted a few minutes."},{"id":444,"rank":444,"en":"transvaginal ultrasound","zh":"经阴道超声","ipa":"/ˌtrænzˈvædʒɪnl ˈʌltrəsaʊnd/","ex":"The transvaginal ultrasound was normal."},{"id":445,"rank":445,"en":"treatment discontinuation","zh":"停药","ipa":"/ˈtriːtmənt ˌdɪskənˌtɪnjuˈeɪʃn/","ex":"Treatment discontinuation caused a relapse."},{"id":446,"rank":446,"en":"Trendelenburg position","zh":"头低脚高位","ipa":"/ˈtrendələnbɜːɡ pəˈzɪʃn/","ex":"The Trendelenburg position was used during surgery."},{"id":447,"rank":447,"en":"urinalysis","zh":"尿液检查","ipa":"/ˌjʊərɪˈnæləsɪs/","ex":"The urinalysis showed no infection."},{"id":448,"rank":448,"en":"ursodeoxycholic acid","zh":"熊去氧胆酸","ipa":"/ˌɜːsəʊdiːɒksɪˈkəʊlɪk ˈæsɪd/","ex":"Ursodeoxycholic acid was added for the liver."},{"id":449,"rank":449,"en":"urticaria","zh":"荨麻疹","ipa":"/ˌɜːtɪˈkeəriə/","ex":"Urticaria appeared after the contrast."},{"id":450,"rank":450,"en":"venous stasis","zh":"静脉淤滞","ipa":"/ˈviːnəs ˈsteɪsɪs/","ex":"Venous stasis causes leg swelling."},{"id":451,"rank":451,"en":"ventricular function","zh":"心室功能","ipa":"/venˈtrɪkjələ ˈfʌŋkʃn/","ex":"The ventricular function is preserved."},{"id":452,"rank":452,"en":"waist-to-hip ratio","zh":"腰臀比","ipa":"/weɪst tuː hɪp ˈreɪʃiəʊ/","ex":"Her waist-to-hip ratio is high."},{"id":453,"rank":453,"en":"weight regain","zh":"体重回升（反弹）","ipa":"/weɪt rɪˈɡeɪn/","ex":"Weight regain often follows a strict diet."},{"id":454,"rank":454,"en":"white blood cells","zh":"白细胞","ipa":"/waɪt blʌd selz/","ex":"His white blood cells are normal."},{"id":455,"rank":455,"en":"wound healing","zh":"瘢痕愈合","ipa":"/ˈwuːnd ˈhiːlɪŋ/","ex":"Wound healing was slower than expected."}];
+const OFFLINE_TERMS = [
+ {
+  "id": 1,
+  "rank": 1,
+  "en": "drug",
+  "zh": "药物",
+  "ipa": "/drʌɡ/",
+  "ex": "The doctor changed the drug after two weeks."
+ },
+ {
+  "id": 2,
+  "rank": 2,
+  "en": "therapy",
+  "zh": "治疗",
+  "ipa": "/ˈθerəpi/",
+  "ex": "She started the therapy in October."
+ },
+ {
+  "id": 3,
+  "rank": 3,
+  "en": "diet",
+  "zh": "饮食（膳食）",
+  "ipa": "/ˈdaɪət/",
+  "ex": "A healthy diet is part of the treatment."
+ },
+ {
+  "id": 4,
+  "rank": 4,
+  "en": "diabetes mellitus",
+  "zh": "糖尿病",
+  "ipa": "/ˌdaɪəˈbiːtiːz ˈmelɪtəs/",
+  "ex": "He has had diabetes mellitus for ten years."
+ },
+ {
+  "id": 5,
+  "rank": 5,
+  "en": "fats",
+  "zh": "脂肪（脂类）",
+  "ipa": "/fæts/",
+  "ex": "The patient eats too many saturated fats."
+ },
+ {
+  "id": 6,
+  "rank": 6,
+  "en": "muscle",
+  "zh": "肌肉",
+  "ipa": "/ˈmʌsl/",
+  "ex": "Walking helps you keep your muscle."
+ },
+ {
+  "id": 7,
+  "rank": 7,
+  "en": "obesity",
+  "zh": "肥胖症",
+  "ipa": "/əʊˈbiːsəti/",
+  "ex": "Obesity is a risk factor for diabetes."
+ },
+ {
+  "id": 8,
+  "rank": 8,
+  "en": "proteins",
+  "zh": "蛋白质",
+  "ipa": "/ˈprəʊtiːnz/",
+  "ex": "The diet should include enough proteins."
+ },
+ {
+  "id": 9,
+  "rank": 9,
+  "en": "gene",
+  "zh": "基因",
+  "ipa": "/dʒiːn/",
+  "ex": "This gene controls how the body uses fat."
+ },
+ {
+  "id": 10,
+  "rank": 10,
+  "en": "statin",
+  "zh": "他汀类药物",
+  "ipa": "/ˈstætɪn/",
+  "ex": "The doctor prescribed a statin for high cholesterol."
+ },
+ {
+  "id": 11,
+  "rank": 11,
+  "en": "blood",
+  "zh": "血液",
+  "ipa": "/blʌd/",
+  "ex": "They took a blood sample this morning."
+ },
+ {
+  "id": 12,
+  "rank": 12,
+  "en": "cholesterol",
+  "zh": "胆固醇",
+  "ipa": "/kəˈlestərɒl/",
+  "ex": "Her cholesterol is still too high."
+ },
+ {
+  "id": 13,
+  "rank": 13,
+  "en": "neck",
+  "zh": "颈部",
+  "ipa": "/nek/",
+  "ex": "The pain started in his neck."
+ },
+ {
+  "id": 14,
+  "rank": 14,
+  "en": "physical activity",
+  "zh": "身体活动",
+  "ipa": "/ˈfɪzɪkl ækˈtɪvəti/",
+  "ex": "Physical activity lowers blood sugar."
+ },
+ {
+  "id": 15,
+  "rank": 15,
+  "en": "calcium",
+  "zh": "钙",
+  "ipa": "/ˈkælsiəm/",
+  "ex": "She takes calcium and vitamin D every day."
+ },
+ {
+  "id": 16,
+  "rank": 16,
+  "en": "fatigue",
+  "zh": "乏力",
+  "ipa": "/fəˈtiːɡ/",
+  "ex": "He complains of fatigue in the afternoon."
+ },
+ {
+  "id": 17,
+  "rank": 17,
+  "en": "insulin",
+  "zh": "胰岛素",
+  "ipa": "/ˈɪnsjʊlɪn/",
+  "ex": "Insulin moves sugar into the cells."
+ },
+ {
+  "id": 18,
+  "rank": 18,
+  "en": "stomach",
+  "zh": "胃",
+  "ipa": "/ˈstʌmək/",
+  "ex": "His stomach hurts after meals."
+ },
+ {
+  "id": 19,
+  "rank": 19,
+  "en": "side effects",
+  "zh": "不良反应（副作用）",
+  "ipa": "/ˈsaɪd ɪˌfekts/",
+  "ex": "The drug has few side effects."
+ },
+ {
+  "id": 20,
+  "rank": 20,
+  "en": "weight loss",
+  "zh": "体重下降",
+  "ipa": "/ˈweɪt lɒs/",
+  "ex": "Weight loss improved her blood pressure."
+ },
+ {
+  "id": 21,
+  "rank": 21,
+  "en": "cancer",
+  "zh": "癌",
+  "ipa": "/ˈkænsə/",
+  "ex": "The tests showed no sign of cancer."
+ },
+ {
+  "id": 22,
+  "rank": 22,
+  "en": "fat mass",
+  "zh": "脂肪量（体脂）",
+  "ipa": "/fæt mæs/",
+  "ex": "We measured his fat mass today."
+ },
+ {
+  "id": 23,
+  "rank": 23,
+  "en": "hunger",
+  "zh": "饥饿感",
+  "ipa": "/ˈhʌŋɡə/",
+  "ex": "The injections reduce hunger."
+ },
+ {
+  "id": 24,
+  "rank": 24,
+  "en": "nausea",
+  "zh": "恶心",
+  "ipa": "/ˈnɔːziə/",
+  "ex": "She had nausea after the first dose."
+ },
+ {
+  "id": 25,
+  "rank": 25,
+  "en": "nutrition",
+  "zh": "营养",
+  "ipa": "/njʊˈtrɪʃn/",
+  "ex": "Good nutrition helps the liver recover."
+ },
+ {
+  "id": 26,
+  "rank": 26,
+  "en": "blood test",
+  "zh": "血液检查",
+  "ipa": "/blʌd test/",
+  "ex": "The blood test was normal."
+ },
+ {
+  "id": 27,
+  "rank": 27,
+  "en": "diet / eating habits",
+  "zh": "饮食",
+  "ipa": "/ˈdaɪət/",
+  "ex": "I asked her about her diet / eating habits."
+ },
+ {
+  "id": 28,
+  "rank": 28,
+  "en": "abdomen",
+  "zh": "腹部",
+  "ipa": "/ˈæbdəmən/",
+  "ex": "The abdomen was soft on palpation."
+ },
+ {
+  "id": 29,
+  "rank": 29,
+  "en": "carbohydrates",
+  "zh": "碳水化合物",
+  "ipa": "/ˌkɑːbəʊˈhaɪdreɪts/",
+  "ex": "He eats fewer carbohydrates at dinner."
+ },
+ {
+  "id": 30,
+  "rank": 30,
+  "en": "lean body mass",
+  "zh": "去脂体重（瘦体重）",
+  "ipa": "/liːn ˈbɒdi mæs/",
+  "ex": "Exercise protects lean body mass."
+ },
+ {
+  "id": 31,
+  "rank": 31,
+  "en": "liver",
+  "zh": "肝脏",
+  "ipa": "/ˈlɪvə/",
+  "ex": "The liver is normal on ultrasound."
+ },
+ {
+  "id": 32,
+  "rank": 32,
+  "en": "pain",
+  "zh": "疼痛",
+  "ipa": "/peɪn/",
+  "ex": "The pain is worse in the morning."
+ },
+ {
+  "id": 33,
+  "rank": 33,
+  "en": "pancreas",
+  "zh": "胰腺",
+  "ipa": "/ˈpæŋkriəs/",
+  "ex": "The pancreas produces digestive enzymes."
+ },
+ {
+  "id": 34,
+  "rank": 34,
+  "en": "vitamin D",
+  "zh": "维生素D",
+  "ipa": "/ˈvɪtəmɪn ˈdiː/",
+  "ex": "Her vitamin D level is low."
+ },
+ {
+  "id": 35,
+  "rank": 35,
+  "en": "blood glucose",
+  "zh": "血糖",
+  "ipa": "/blʌd ˈɡluːkəʊs/",
+  "ex": "We check blood glucose twice a day."
+ },
+ {
+  "id": 36,
+  "rank": 36,
+  "en": "cardiologist",
+  "zh": "心脏科医生",
+  "ipa": "/ˌkɑːdiˈɒlədʒɪst/",
+  "ex": "The cardiologist will see her next week."
+ },
+ {
+  "id": 37,
+  "rank": 37,
+  "en": "constipation",
+  "zh": "便秘",
+  "ipa": "/ˌkɒnstɪˈpeɪʃn/",
+  "ex": "He has constipation from the new drug."
+ },
+ {
+  "id": 38,
+  "rank": 38,
+  "en": "alcohol",
+  "zh": "酒精",
+  "ipa": "/ˈælkəhɒl/",
+  "ex": "She stopped drinking alcohol two years ago."
+ },
+ {
+  "id": 39,
+  "rank": 39,
+  "en": "hepatitis",
+  "zh": "肝炎",
+  "ipa": "/ˌhepəˈtaɪtɪs/",
+  "ex": "The hepatitis is now under control."
+ },
+ {
+  "id": 40,
+  "rank": 40,
+  "en": "hepatitis C",
+  "zh": "丙型肝炎",
+  "ipa": "/ˌhepəˈtaɪtɪs ˈsiː/",
+  "ex": "Hepatitis C can now be cured."
+ },
+ {
+  "id": 41,
+  "rank": 41,
+  "en": "intestine",
+  "zh": "肠道",
+  "ipa": "/ɪnˈtestɪn/",
+  "ex": "The intestine absorbs nutrients from food."
+ },
+ {
+  "id": 42,
+  "rank": 42,
+  "en": "knee",
+  "zh": "膝关节",
+  "ipa": "/niː/",
+  "ex": "Her knee hurts when she climbs stairs."
+ },
+ {
+  "id": 43,
+  "rank": 43,
+  "en": "leg",
+  "zh": "腿",
+  "ipa": "/leɡ/",
+  "ex": "He felt a cramp in his leg."
+ },
+ {
+  "id": 44,
+  "rank": 44,
+  "en": "stress",
+  "zh": "应激（压力）",
+  "ipa": "/stres/",
+  "ex": "Stress increases blood pressure."
+ },
+ {
+  "id": 45,
+  "rank": 45,
+  "en": "tumor",
+  "zh": "肿瘤",
+  "ipa": "/ˈtjuːmə/",
+  "ex": "The tumor was benign."
+ },
+ {
+  "id": 46,
+  "rank": 46,
+  "en": "allergy",
+  "zh": "过敏",
+  "ipa": "/ˈælədʒi/",
+  "ex": "She has an allergy to penicillin."
+ },
+ {
+  "id": 47,
+  "rank": 47,
+  "en": "arterial hypertension",
+  "zh": "高血压",
+  "ipa": "/ɑːˈtɪəriəl ˌhaɪpəˈtenʃn/",
+  "ex": "Arterial hypertension is common in older patients."
+ },
+ {
+  "id": 48,
+  "rank": 48,
+  "en": "cured meats",
+  "zh": "腌肉（肉制品）",
+  "ipa": "/kjʊəd miːts/",
+  "ex": "He should eat fewer cured meats."
+ },
+ {
+  "id": 49,
+  "rank": 49,
+  "en": "loose stools",
+  "zh": "稀便（腹泻）",
+  "ipa": "/luːs stuːlz/",
+  "ex": "He had loose stools for three days."
+ },
+ {
+  "id": 50,
+  "rank": 50,
+  "en": "thyroid gland",
+  "zh": "甲状腺",
+  "ipa": "/ˈθaɪrɔɪd ɡlænd/",
+  "ex": "The thyroid gland is slightly enlarged."
+ },
+ {
+  "id": 51,
+  "rank": 51,
+  "en": "carotid arteries",
+  "zh": "颈动脉",
+  "ipa": "/kəˈrɒtɪd ˈɑːtəriz/",
+  "ex": "The carotid arteries are normal on Doppler."
+ },
+ {
+  "id": 52,
+  "rank": 52,
+  "en": "dosage",
+  "zh": "剂量",
+  "ipa": "/ˈdəʊsɪdʒ/",
+  "ex": "The dosage was reduced to half."
+ },
+ {
+  "id": 53,
+  "rank": 53,
+  "en": "pancreatitis",
+  "zh": "胰腺炎",
+  "ipa": "/ˌpæŋkriəˈtaɪtɪs/",
+  "ex": "Pancreatitis can follow gallstones."
+ },
+ {
+  "id": 54,
+  "rank": 54,
+  "en": "risk factor",
+  "zh": "危险因素",
+  "ipa": "/ˈrɪsk ˈfæktə/",
+  "ex": "Smoking is a major risk factor."
+ },
+ {
+  "id": 55,
+  "rank": 55,
+  "en": "hypertension",
+  "zh": "高血压",
+  "ipa": "/ˌhaɪpəˈtenʃn/",
+  "ex": "His hypertension is well controlled."
+ },
+ {
+  "id": 56,
+  "rank": 56,
+  "en": "lipoprotein(a)",
+  "zh": "脂蛋白(a)",
+  "ipa": "/ˌlɪpəʊˈprəʊtiːn eɪ/",
+  "ex": "Lipoprotein(a) is high in this family."
+ },
+ {
+  "id": 57,
+  "rank": 57,
+  "en": "overweight",
+  "zh": "超重",
+  "ipa": "/ˌəʊvəˈweɪt/",
+  "ex": "She is slightly overweight."
+ },
+ {
+  "id": 58,
+  "rank": 58,
+  "en": "supplement",
+  "zh": "营养补充剂",
+  "ipa": "/ˈsʌplɪmənt/",
+  "ex": "He takes an iron supplement."
+ },
+ {
+  "id": 59,
+  "rank": 59,
+  "en": "abdominal ultrasound",
+  "zh": "腹部超声",
+  "ipa": "/æbˈdɒmɪnl ˈʌltrəsaʊnd/",
+  "ex": "The abdominal ultrasound showed a fatty liver."
+ },
+ {
+  "id": 60,
+  "rank": 60,
+  "en": "administration",
+  "zh": "给药",
+  "ipa": "/ədˌmɪnɪˈstreɪʃn/",
+  "ex": "The administration of the drug is under the skin."
+ },
+ {
+  "id": 61,
+  "rank": 61,
+  "en": "appetite",
+  "zh": "食欲",
+  "ipa": "/ˈæpɪtaɪt/",
+  "ex": "Her appetite has improved."
+ },
+ {
+  "id": 62,
+  "rank": 62,
+  "en": "gastroesophageal reflux",
+  "zh": "胃食管反流",
+  "ipa": "/ˌɡæstrəʊɪˌsɒfəˈdʒiːəl ˈriːflʌks/",
+  "ex": "Gastroesophageal reflux causes heartburn at night."
+ },
+ {
+  "id": 63,
+  "rank": 63,
+  "en": "heart",
+  "zh": "心脏",
+  "ipa": "/hɑːt/",
+  "ex": "The heart rhythm is regular."
+ },
+ {
+  "id": 64,
+  "rank": 64,
+  "en": "hypercholesterolemia",
+  "zh": "高胆固醇血症",
+  "ipa": "/ˌhaɪpəkəˌlestərɒˈliːmiə/",
+  "ex": "Hypercholesterolemia runs in her family."
+ },
+ {
+  "id": 65,
+  "rank": 65,
+  "en": "nutritionist",
+  "zh": "营养师",
+  "ipa": "/njʊˈtrɪʃənɪst/",
+  "ex": "The nutritionist gave her a meal plan."
+ },
+ {
+  "id": 66,
+  "rank": 66,
+  "en": "satiety",
+  "zh": "饱腹感",
+  "ipa": "/səˈtaɪəti/",
+  "ex": "Protein gives a longer feeling of satiety."
+ },
+ {
+  "id": 67,
+  "rank": 67,
+  "en": "acidosis",
+  "zh": "酸中毒",
+  "ipa": "/ˌæsɪˈdəʊsɪs/",
+  "ex": "Acidosis can occur in severe diabetes."
+ },
+ {
+  "id": 68,
+  "rank": 68,
+  "en": "cardiovascular risk",
+  "zh": "心血管风险",
+  "ipa": "/ˌkɑːdiəʊˈvæskjələ rɪsk/",
+  "ex": "We calculated his cardiovascular risk."
+ },
+ {
+  "id": 69,
+  "rank": 69,
+  "en": "fall",
+  "zh": "跌倒",
+  "ipa": "/fɔːl/",
+  "ex": "She had a fall at home last week."
+ },
+ {
+  "id": 70,
+  "rank": 70,
+  "en": "fatty liver",
+  "zh": "脂肪肝",
+  "ipa": "/ˌfæti ˈlɪvə/",
+  "ex": "The scan confirmed a fatty liver."
+ },
+ {
+  "id": 71,
+  "rank": 71,
+  "en": "LDL cholesterol",
+  "zh": "低密度脂蛋白胆固醇",
+  "ipa": "/ˌel diː el kəˈlestərɒl/",
+  "ex": "We aim at a low LDL cholesterol."
+ },
+ {
+  "id": 72,
+  "rank": 72,
+  "en": "metabolism",
+  "zh": "代谢",
+  "ipa": "/məˈtæbəlɪzəm/",
+  "ex": "Exercise speeds up the metabolism."
+ },
+ {
+  "id": 73,
+  "rank": 73,
+  "en": "thrombus",
+  "zh": "血栓",
+  "ipa": "/ˈθrɒmbəs/",
+  "ex": "The scan showed a thrombus in the leg vein."
+ },
+ {
+  "id": 74,
+  "rank": 74,
+  "en": "surgeon",
+  "zh": "外科医生",
+  "ipa": "/ˈsɜːdʒən/",
+  "ex": "The surgeon will remove the gallstones."
+ },
+ {
+  "id": 75,
+  "rank": 75,
+  "en": "transient elastography (FibroScan)",
+  "zh": "肝脏瞬时弹性成像",
+  "ipa": "/ˈtrænziənt ˌeləˈstɒɡrəfi/",
+  "ex": "Transient elastography (FibroScan) measures liver stiffness."
+ },
+ {
+  "id": 76,
+  "rank": 76,
+  "en": "type 1 diabetes mellitus",
+  "zh": "1型糖尿病",
+  "ipa": "/taɪp wʌn ˌdaɪəˈbiːtiːz ˈmelɪtəs/",
+  "ex": "He was diagnosed with type 1 diabetes mellitus at ten."
+ },
+ {
+  "id": 77,
+  "rank": 77,
+  "en": "type 2 diabetes mellitus",
+  "zh": "2型糖尿病",
+  "ipa": "/taɪp tuː ˌdaɪəˈbiːtiːz ˈmelɪtəs/",
+  "ex": "Type 2 diabetes mellitus is linked to body weight."
+ },
+ {
+  "id": 78,
+  "rank": 78,
+  "en": "complication",
+  "zh": "并发症",
+  "ipa": "/ˌkɒmplɪˈkeɪʃn/",
+  "ex": "Kidney damage is a complication of diabetes."
+ },
+ {
+  "id": 79,
+  "rank": 79,
+  "en": "diabetologist",
+  "zh": "糖尿病专科医生",
+  "ipa": "/ˌdaɪəbiˈtɒlədʒɪst/",
+  "ex": "The diabetologist adjusted her insulin."
+ },
+ {
+  "id": 80,
+  "rank": 80,
+  "en": "erythrocyte sedimentation rate (ESR)",
+  "zh": "红细胞沉降率",
+  "ipa": "/ɪˈrɪθrəsaɪt ˌsedɪmenˈteɪʃn reɪt/",
+  "ex": "The erythrocyte sedimentation rate (ESR) was mildly raised."
+ },
+ {
+  "id": 81,
+  "rank": 81,
+  "en": "follow-up visit",
+  "zh": "复查随访",
+  "ipa": "/ˈfɒləʊ ʌp ˈvɪzɪt/",
+  "ex": "She has a follow-up visit in three months."
+ },
+ {
+  "id": 82,
+  "rank": 82,
+  "en": "gastritis",
+  "zh": "胃炎",
+  "ipa": "/ɡæˈstraɪtɪs/",
+  "ex": "The gastroscopy showed mild gastritis."
+ },
+ {
+  "id": 83,
+  "rank": 83,
+  "en": "microalbuminuria",
+  "zh": "微量白蛋白尿",
+  "ipa": "/ˌmaɪkrəʊælˌbjuːmɪˈnjʊəriə/",
+  "ex": "Microalbuminuria is an early sign of kidney damage."
+ },
+ {
+  "id": 84,
+  "rank": 84,
+  "en": "retina",
+  "zh": "视网膜",
+  "ipa": "/ˈretɪnə/",
+  "ex": "Diabetes can damage the retina."
+ },
+ {
+  "id": 85,
+  "rank": 85,
+  "en": "stroke",
+  "zh": "脑卒中",
+  "ipa": "/strəʊk/",
+  "ex": "He had a stroke two years ago."
+ },
+ {
+  "id": 86,
+  "rank": 86,
+  "en": "tirzepatide (Mounjaro)",
+  "zh": "替尔泊肽（Mounjaro）",
+  "ipa": "/ˌtɜːˈzepətaɪd/",
+  "ex": "Tirzepatide (Mounjaro) helps with weight loss."
+ },
+ {
+  "id": 87,
+  "rank": 87,
+  "en": "adipose tissue",
+  "zh": "脂肪组织",
+  "ipa": "/ˈædɪpəʊs ˈtɪʃuː/",
+  "ex": "Adipose tissue stores energy."
+ },
+ {
+  "id": 88,
+  "rank": 88,
+  "en": "arteries",
+  "zh": "动脉",
+  "ipa": "/ˈɑːtəriz/",
+  "ex": "The arteries are clean on ultrasound."
+ },
+ {
+  "id": 89,
+  "rank": 89,
+  "en": "back",
+  "zh": "背部",
+  "ipa": "/bæk/",
+  "ex": "The pain in his back is better."
+ },
+ {
+  "id": 90,
+  "rank": 90,
+  "en": "body weight",
+  "zh": "体重",
+  "ipa": "/ˈbɒdi weɪt/",
+  "ex": "She lost five kilos of body weight."
+ },
+ {
+  "id": 91,
+  "rank": 91,
+  "en": "class I obesity",
+  "zh": "一级肥胖",
+  "ipa": "/klɑːs wʌn əʊˈbiːsəti/",
+  "ex": "His BMI shows class I obesity."
+ },
+ {
+  "id": 92,
+  "rank": 92,
+  "en": "diarrhea",
+  "zh": "腹泻",
+  "ipa": "/ˌdaɪəˈrɪə/",
+  "ex": "The diarrhea stopped after two days."
+ },
+ {
+  "id": 93,
+  "rank": 93,
+  "en": "fracture",
+  "zh": "骨折",
+  "ipa": "/ˈfræktʃə/",
+  "ex": "The X-ray showed no fracture."
+ },
+ {
+  "id": 94,
+  "rank": 94,
+  "en": "hepatic steatosis",
+  "zh": "肝脂肪变性",
+  "ipa": "/hɪˈpætɪk ˌstiəˈtəʊsɪs/",
+  "ex": "Hepatic steatosis is common in overweight patients."
+ },
+ {
+  "id": 95,
+  "rank": 95,
+  "en": "hypothyroidism",
+  "zh": "甲状腺功能减退",
+  "ipa": "/ˌhaɪpəʊˈθaɪrɔɪdɪzəm/",
+  "ex": "Hypothyroidism makes her feel tired."
+ },
+ {
+  "id": 96,
+  "rank": 96,
+  "en": "insulin resistance",
+  "zh": "胰岛素抵抗",
+  "ipa": "/ˈɪnsjʊlɪn rɪˈzɪstəns/",
+  "ex": "Insulin resistance raises blood sugar."
+ },
+ {
+  "id": 97,
+  "rank": 97,
+  "en": "lifestyle",
+  "zh": "生活方式",
+  "ipa": "/ˈlaɪfstaɪl/",
+  "ex": "A healthy lifestyle protects the liver."
+ },
+ {
+  "id": 98,
+  "rank": 98,
+  "en": "meniscus",
+  "zh": "半月板",
+  "ipa": "/məˈnɪskəs/",
+  "ex": "He tore his meniscus playing football."
+ },
+ {
+  "id": 99,
+  "rank": 99,
+  "en": "muscle mass",
+  "zh": "肌肉量",
+  "ipa": "/ˈmʌsl mæs/",
+  "ex": "She wants to keep her muscle mass."
+ },
+ {
+  "id": 100,
+  "rank": 100,
+  "en": "muscle strengthening",
+  "zh": "肌肉强化训练",
+  "ipa": "/ˈmʌsl ˈstreŋθənɪŋ/",
+  "ex": "Muscle strengthening protects the knees."
+ },
+ {
+  "id": 101,
+  "rank": 101,
+  "en": "oral contraceptive pill",
+  "zh": "口服避孕药",
+  "ipa": "/ˈɔːrəl ˌkɒntrəˈseptɪv pɪl/",
+  "ex": "She stopped the oral contraceptive pill last year."
+ },
+ {
+  "id": 102,
+  "rank": 102,
+  "en": "protein intake",
+  "zh": "蛋白质摄入量",
+  "ipa": "/ˈprəʊtiːn ˈɪnteɪk/",
+  "ex": "His protein intake is too low."
+ },
+ {
+  "id": 103,
+  "rank": 103,
+  "en": "screening",
+  "zh": "筛查",
+  "ipa": "/ˈskriːnɪŋ/",
+  "ex": "Screening for hepatitis C is recommended."
+ },
+ {
+  "id": 104,
+  "rank": 104,
+  "en": "sedentary lifestyle",
+  "zh": "久坐生活方式",
+  "ipa": "/ˈsedntri ˈlaɪfstaɪl/",
+  "ex": "A sedentary lifestyle increases the risk."
+ },
+ {
+  "id": 105,
+  "rank": 105,
+  "en": "semaglutide (Wegovy)",
+  "zh": "司美格鲁肽（Wegovy）",
+  "ipa": "/ˌseməˈɡluːtaɪd/",
+  "ex": "Semaglutide (Wegovy) is given once a week."
+ },
+ {
+  "id": 106,
+  "rank": 106,
+  "en": "anxiety",
+  "zh": "焦虑",
+  "ipa": "/æŋˈzaɪəti/",
+  "ex": "She has anxiety before the tests."
+ },
+ {
+  "id": 107,
+  "rank": 107,
+  "en": "balanced diet",
+  "zh": "均衡饮食",
+  "ipa": "/ˈbælənst ˈdaɪət/",
+  "ex": "He follows a balanced diet."
+ },
+ {
+  "id": 108,
+  "rank": 108,
+  "en": "body composition",
+  "zh": "身体成分",
+  "ipa": "/ˈbɒdi ˌkɒmpəˈzɪʃn/",
+  "ex": "We measured her body composition."
+ },
+ {
+  "id": 109,
+  "rank": 109,
+  "en": "breast",
+  "zh": "乳腺",
+  "ipa": "/brest/",
+  "ex": "She found a lump in her breast."
+ },
+ {
+  "id": 110,
+  "rank": 110,
+  "en": "fasting",
+  "zh": "空腹",
+  "ipa": "/ˈfɑːstɪŋ/",
+  "ex": "The blood sample was taken after fasting."
+ },
+ {
+  "id": 111,
+  "rank": 111,
+  "en": "glucagon-like peptide-1 (GLP-1)",
+  "zh": "胰高血糖素样肽-1",
+  "ipa": "/ˈɡluːkəɡɒn laɪk ˈpeptaɪd wʌn/",
+  "ex": "Glucagon-like peptide-1 (GLP-1) slows gastric emptying."
+ },
+ {
+  "id": 112,
+  "rank": 112,
+  "en": "inflammation",
+  "zh": "炎症",
+  "ipa": "/ˌɪnfləˈmeɪʃn/",
+  "ex": "The inflammation is getting better."
+ },
+ {
+  "id": 113,
+  "rank": 113,
+  "en": "nerve",
+  "zh": "神经",
+  "ipa": "/nɜːv/",
+  "ex": "Diabetes can damage the nerve in the feet."
+ },
+ {
+  "id": 114,
+  "rank": 114,
+  "en": "ophthalmologist",
+  "zh": "眼科医生",
+  "ipa": "/ˌɒfθælˈmɒlədʒɪst/",
+  "ex": "The ophthalmologist checked her retina."
+ },
+ {
+  "id": 115,
+  "rank": 115,
+  "en": "snacks",
+  "zh": "加餐（间食）",
+  "ipa": "/snæks/",
+  "ex": "He eats too many snacks in the evening."
+ },
+ {
+  "id": 116,
+  "rank": 116,
+  "en": "sugars",
+  "zh": "糖类",
+  "ipa": "/ˈʃʊɡəz/",
+  "ex": "She avoids simple sugars."
+ },
+ {
+  "id": 117,
+  "rank": 117,
+  "en": "surgery",
+  "zh": "外科手术",
+  "ipa": "/ˈsɜːdʒəri/",
+  "ex": "He needs surgery for the hernia."
+ },
+ {
+  "id": 118,
+  "rank": 118,
+  "en": "thigh",
+  "zh": "大腿",
+  "ipa": "/θaɪ/",
+  "ex": "The injection goes into the thigh."
+ },
+ {
+  "id": 119,
+  "rank": 119,
+  "en": "tongue",
+  "zh": "舌",
+  "ipa": "/tʌŋ/",
+  "ex": "His tongue was dry on examination."
+ },
+ {
+  "id": 120,
+  "rank": 120,
+  "en": "waist circumference",
+  "zh": "腰围",
+  "ipa": "/ˈweɪst səˈkʌmfərəns/",
+  "ex": "Her waist circumference is 98 centimetres."
+ },
+ {
+  "id": 121,
+  "rank": 121,
+  "en": "abdominal fat",
+  "zh": "腹部脂肪",
+  "ipa": "/æbˈdɒmɪnl fæt/",
+  "ex": "Abdominal fat is linked to heart risk."
+ },
+ {
+  "id": 122,
+  "rank": 122,
+  "en": "acute cholecystitis",
+  "zh": "急性胆囊炎",
+  "ipa": "/əˈkjuːt ˌkəʊlɪsɪˈstaɪtɪs/",
+  "ex": "Acute cholecystitis caused severe pain."
+ },
+ {
+  "id": 123,
+  "rank": 123,
+  "en": "anesthesia",
+  "zh": "麻醉",
+  "ipa": "/ˌænəsˈθiːziə/",
+  "ex": "The operation was done under general anesthesia."
+ },
+ {
+  "id": 124,
+  "rank": 124,
+  "en": "benign prostatic hyperplasia",
+  "zh": "良性前列腺增生",
+  "ipa": "/bɪˈnaɪn prɒˈstætɪk ˌhaɪpəˈpleɪziə/",
+  "ex": "Benign prostatic hyperplasia makes him urinate at night."
+ },
+ {
+  "id": 125,
+  "rank": 125,
+  "en": "cardiovascular event",
+  "zh": "心血管事件",
+  "ipa": "/ˌkɑːdiəʊˈvæskjələ ɪˈvent/",
+  "ex": "He never had a cardiovascular event."
+ },
+ {
+  "id": 126,
+  "rank": 126,
+  "en": "chronic kidney damage",
+  "zh": "慢性肾损害",
+  "ipa": "/ˈkrɒnɪk ˈkɪdni ˈdæmɪdʒ/",
+  "ex": "Chronic kidney damage develops slowly."
+ },
+ {
+  "id": 127,
+  "rank": 127,
+  "en": "clinical guidelines",
+  "zh": "临床指南",
+  "ipa": "/ˈklɪnɪkl ˈɡaɪdlaɪnz/",
+  "ex": "The treatment follows the clinical guidelines."
+ },
+ {
+  "id": 128,
+  "rank": 128,
+  "en": "colon",
+  "zh": "结肠",
+  "ipa": "/ˈkəʊlən/",
+  "ex": "The colon was normal at colonoscopy."
+ },
+ {
+  "id": 129,
+  "rank": 129,
+  "en": "contraindication",
+  "zh": "禁忌证",
+  "ipa": "/ˌkɒntrəˌɪndɪˈkeɪʃn/",
+  "ex": "Pregnancy is a contraindication for this drug."
+ },
+ {
+  "id": 130,
+  "rank": 130,
+  "en": "creatinine",
+  "zh": "肌酐",
+  "ipa": "/kriˈætəniːn/",
+  "ex": "His creatinine is normal."
+ },
+ {
+  "id": 131,
+  "rank": 131,
+  "en": "electrocardiogram (ECG)",
+  "zh": "心电图",
+  "ipa": "/ɪˌlektrəʊˈkɑːdiəɡræm/",
+  "ex": "The electrocardiogram (ECG) showed a normal rhythm."
+ },
+ {
+  "id": 132,
+  "rank": 132,
+  "en": "electromyography",
+  "zh": "肌电图",
+  "ipa": "/ɪˌlektrəʊmaɪˈɒɡrəfi/",
+  "ex": "Electromyography showed damage to the nerve."
+ },
+ {
+  "id": 133,
+  "rank": 133,
+  "en": "esophagitis",
+  "zh": "食管炎",
+  "ipa": "/ɪˌsɒfəˈdʒaɪtɪs/",
+  "ex": "Esophagitis causes burning behind the breastbone."
+ },
+ {
+  "id": 134,
+  "rank": 134,
+  "en": "esophagus",
+  "zh": "食管",
+  "ipa": "/ɪˈsɒfəɡəs/",
+  "ex": "The esophagus was normal on endoscopy."
+ },
+ {
+  "id": 135,
+  "rank": 135,
+  "en": "excess body weight",
+  "zh": "体重超标",
+  "ipa": "/ɪkˈses ˈbɒdi weɪt/",
+  "ex": "Losing excess body weight helps the joints."
+ },
+ {
+  "id": 136,
+  "rank": 136,
+  "en": "femur",
+  "zh": "股骨",
+  "ipa": "/ˈfiːmə/",
+  "ex": "The fracture was in the femur."
+ },
+ {
+  "id": 137,
+  "rank": 137,
+  "en": "folic acid",
+  "zh": "叶酸",
+  "ipa": "/ˈfəʊlɪk ˈæsɪd/",
+  "ex": "She takes folic acid before pregnancy."
+ },
+ {
+  "id": 138,
+  "rank": 138,
+  "en": "fundus examination",
+  "zh": "眼底检查",
+  "ipa": "/ˈfʌndəs ɪɡˌzæmɪˈneɪʃn/",
+  "ex": "The fundus examination was normal."
+ },
+ {
+  "id": 139,
+  "rank": 139,
+  "en": "gallbladder",
+  "zh": "胆囊",
+  "ipa": "/ˈɡɔːlblædə/",
+  "ex": "The gallbladder was removed last year."
+ },
+ {
+  "id": 140,
+  "rank": 140,
+  "en": "gastric emptying",
+  "zh": "胃排空",
+  "ipa": "/ˈɡæstrɪk ˈemptiɪŋ/",
+  "ex": "Diabetes slows gastric emptying."
+ },
+ {
+  "id": 141,
+  "rank": 141,
+  "en": "gastroscopy",
+  "zh": "胃镜检查",
+  "ipa": "/ɡæˈstrɒskəpi/",
+  "ex": "The gastroscopy was normal."
+ },
+ {
+  "id": 142,
+  "rank": 142,
+  "en": "general practitioner",
+  "zh": "全科医生（家庭医生）",
+  "ipa": "/ˈdʒenrəl prækˈtɪʃənə/",
+  "ex": "Her general practitioner sent her here."
+ },
+ {
+  "id": 143,
+  "rank": 143,
+  "en": "glomerulus",
+  "zh": "肾小球",
+  "ipa": "/ɡləˈmerjələs/",
+  "ex": "The glomerulus filters the blood."
+ },
+ {
+  "id": 144,
+  "rank": 144,
+  "en": "glycemic peak",
+  "zh": "血糖峰值",
+  "ipa": "/ɡlaɪˈsiːmɪk piːk/",
+  "ex": "Walking after meals lowers the glycemic peak."
+ },
+ {
+  "id": 145,
+  "rank": 145,
+  "en": "hip prosthesis",
+  "zh": "髋关节假体",
+  "ipa": "/hɪp prɒsˈθiːsɪs/",
+  "ex": "She had a hip prosthesis two years ago."
+ },
+ {
+  "id": 146,
+  "rank": 146,
+  "en": "hormones",
+  "zh": "激素",
+  "ipa": "/ˈhɔːməʊnz/",
+  "ex": "Thyroid hormones control metabolism."
+ },
+ {
+  "id": 147,
+  "rank": 147,
+  "en": "ideal body weight",
+  "zh": "理想体重",
+  "ipa": "/aɪˈdɪəl ˈbɒdi weɪt/",
+  "ex": "We calculated his ideal body weight."
+ },
+ {
+  "id": 148,
+  "rank": 148,
+  "en": "iron",
+  "zh": "铁",
+  "ipa": "/ˈaɪən/",
+  "ex": "His iron is low, so he feels tired."
+ },
+ {
+  "id": 149,
+  "rank": 149,
+  "en": "lipids",
+  "zh": "脂质（血脂）",
+  "ipa": "/ˈlɪpɪdz/",
+  "ex": "The lipids are checked every six months."
+ },
+ {
+  "id": 150,
+  "rank": 150,
+  "en": "medical history",
+  "zh": "既往病史",
+  "ipa": "/ˈmedɪkl ˈhɪstəri/",
+  "ex": "His medical history includes hypertension."
+ },
+ {
+  "id": 151,
+  "rank": 151,
+  "en": "menopause",
+  "zh": "绝经",
+  "ipa": "/ˈmenəpɔːz/",
+  "ex": "She is in menopause."
+ },
+ {
+  "id": 152,
+  "rank": 152,
+  "en": "metabolic memory",
+  "zh": "代谢记忆",
+  "ipa": "/ˌmetəˈbɒlɪk ˈmeməri/",
+  "ex": "Metabolic memory explains early damage."
+ },
+ {
+  "id": 153,
+  "rank": 153,
+  "en": "muscle cramp",
+  "zh": "肌肉痉挛",
+  "ipa": "/ˈmʌsl kræmp/",
+  "ex": "He had a muscle cramp during the night."
+ },
+ {
+  "id": 154,
+  "rank": 154,
+  "en": "organ damage",
+  "zh": "靶器官损害",
+  "ipa": "/ˈɔːɡən ˈdæmɪdʒ/",
+  "ex": "High blood pressure can cause organ damage."
+ },
+ {
+  "id": 155,
+  "rank": 155,
+  "en": "osteoarthritis",
+  "zh": "骨关节炎",
+  "ipa": "/ˌɒstiəʊɑːˈθraɪtɪs/",
+  "ex": "Osteoarthritis affects the knees."
+ },
+ {
+  "id": 156,
+  "rank": 156,
+  "en": "prostate",
+  "zh": "前列腺",
+  "ipa": "/ˈprɒsteɪt/",
+  "ex": "His prostate is slightly enlarged."
+ },
+ {
+  "id": 157,
+  "rank": 157,
+  "en": "protein supplementation",
+  "zh": "蛋白质补充",
+  "ipa": "/ˈprəʊtiːn ˌsʌplɪmenˈteɪʃn/",
+  "ex": "Protein supplementation helps older patients."
+ },
+ {
+  "id": 158,
+  "rank": 158,
+  "en": "psyllium fiber (Psyllogel)",
+  "zh": "车前子纤维制剂",
+  "ipa": "/ˈsɪliəm ˈfaɪbə/",
+  "ex": "Psyllium fiber (Psyllogel) softens the stool."
+ },
+ {
+  "id": 159,
+  "rank": 159,
+  "en": "rapid-acting insulin",
+  "zh": "速效胰岛素",
+  "ipa": "/ˈræpɪd ˈæktɪŋ ˈɪnsjʊlɪn/",
+  "ex": "He injects rapid-acting insulin before meals."
+ },
+ {
+  "id": 160,
+  "rank": 160,
+  "en": "skin",
+  "zh": "皮肤",
+  "ipa": "/skɪn/",
+  "ex": "Her skin is dry and pale."
+ },
+ {
+  "id": 161,
+  "rank": 161,
+  "en": "throat",
+  "zh": "咽喉",
+  "ipa": "/θrəʊt/",
+  "ex": "She has a sore throat."
+ },
+ {
+  "id": 162,
+  "rank": 162,
+  "en": "triglycerides",
+  "zh": "甘油三酯",
+  "ipa": "/traɪˈɡlɪsəraɪdz/",
+  "ex": "His triglycerides are high."
+ },
+ {
+  "id": 163,
+  "rank": 163,
+  "en": "uric acid",
+  "zh": "尿酸",
+  "ipa": "/ˈjʊərɪk ˈæsɪd/",
+  "ex": "His uric acid is above normal."
+ },
+ {
+  "id": 164,
+  "rank": 164,
+  "en": "abdominal pain",
+  "zh": "腹痛",
+  "ipa": "/æbˈdɒmɪnl peɪn/",
+  "ex": "The abdominal pain comes after meals."
+ },
+ {
+  "id": 165,
+  "rank": 165,
+  "en": "addiction",
+  "zh": "成瘾",
+  "ipa": "/əˈdɪkʃn/",
+  "ex": "He has an addiction to sweets."
+ },
+ {
+  "id": 166,
+  "rank": 166,
+  "en": "angiotensin receptor blocker (ARB)",
+  "zh": "沙坦类降压药（ARB）",
+  "ipa": "/ˌændʒiəʊˈtensɪn rɪˈseptə ˈblɒkə/",
+  "ex": "An angiotensin receptor blocker (ARB) protects the kidney."
+ },
+ {
+  "id": 167,
+  "rank": 167,
+  "en": "antibiotic",
+  "zh": "抗生素",
+  "ipa": "/ˌæntibaɪˈɒtɪk/",
+  "ex": "The antibiotic was given for one week."
+ },
+ {
+  "id": 168,
+  "rank": 168,
+  "en": "antihistamine",
+  "zh": "抗组胺药",
+  "ipa": "/ˌæntiˈhɪstəmiːn/",
+  "ex": "She took an antihistamine for the rash."
+ },
+ {
+  "id": 169,
+  "rank": 169,
+  "en": "atherosclerosis",
+  "zh": "动脉粥样硬化",
+  "ipa": "/ˌæθərəʊskləˈrəʊsɪs/",
+  "ex": "Atherosclerosis narrows the arteries."
+ },
+ {
+  "id": 170,
+  "rank": 170,
+  "en": "balanced meal",
+  "zh": "均衡膳食",
+  "ipa": "/ˈbælənst miːl/",
+  "ex": "He eats a balanced meal at lunch."
+ },
+ {
+  "id": 171,
+  "rank": 171,
+  "en": "basal metabolic rate",
+  "zh": "基础代谢率",
+  "ipa": "/ˈbeɪsl ˌmetəˈbɒlɪk reɪt/",
+  "ex": "The basal metabolic rate falls with age."
+ },
+ {
+  "id": 172,
+  "rank": 172,
+  "en": "benign tumor",
+  "zh": "良性肿瘤",
+  "ipa": "/bɪˈnaɪn ˈtjuːmə/",
+  "ex": "The benign tumor does not need surgery."
+ },
+ {
+  "id": 173,
+  "rank": 173,
+  "en": "biomarker",
+  "zh": "生物标志物",
+  "ipa": "/ˈbaɪəʊmɑːkə/",
+  "ex": "HbA1c is a useful biomarker."
+ },
+ {
+  "id": 174,
+  "rank": 174,
+  "en": "bone",
+  "zh": "骨",
+  "ipa": "/bəʊn/",
+  "ex": "Her bone density is low."
+ },
+ {
+  "id": 175,
+  "rank": 175,
+  "en": "cardiological examination",
+  "zh": "心脏科检查",
+  "ipa": "/ˌkɑːdiəˈlɒdʒɪkl ɪɡˌzæmɪˈneɪʃn/",
+  "ex": "The cardiological examination was normal."
+ },
+ {
+  "id": 176,
+  "rank": 176,
+  "en": "class II obesity",
+  "zh": "二级肥胖",
+  "ipa": "/klɑːs tuː əʊˈbiːsəti/",
+  "ex": "Class II obesity needs medical treatment."
+ },
+ {
+  "id": 177,
+  "rank": 177,
+  "en": "class III obesity",
+  "zh": "三级肥胖",
+  "ipa": "/klɑːs θriː əʊˈbiːsəti/",
+  "ex": "Class III obesity is also called severe obesity."
+ },
+ {
+  "id": 178,
+  "rank": 178,
+  "en": "clinical trials",
+  "zh": "临床试验",
+  "ipa": "/ˈklɪnɪkl ˈtraɪəlz/",
+  "ex": "New drugs are tested in clinical trials."
+ },
+ {
+  "id": 179,
+  "rank": 179,
+  "en": "COVID-19",
+  "zh": "新型冠状病毒感染",
+  "ipa": "/ˈkəʊvɪd naɪnˈtiːn/",
+  "ex": "He had COVID-19 last winter."
+ },
+ {
+  "id": 180,
+  "rank": 180,
+  "en": "dietitian",
+  "zh": "营养师",
+  "ipa": "/ˌdaɪəˈtɪʃn/",
+  "ex": "The dietitian reviewed her meals."
+ },
+ {
+  "id": 181,
+  "rank": 181,
+  "en": "edema",
+  "zh": "水肿",
+  "ipa": "/ɪˈdiːmə/",
+  "ex": "She has edema in both legs."
+ },
+ {
+  "id": 182,
+  "rank": 182,
+  "en": "endocrinologist",
+  "zh": "内分泌科医生",
+  "ipa": "/ˌendəkrɪˈnɒlədʒɪst/",
+  "ex": "The endocrinologist follows her thyroid."
+ },
+ {
+  "id": 183,
+  "rank": 183,
+  "en": "enzymes",
+  "zh": "酶",
+  "ipa": "/ˈenzaɪmz/",
+  "ex": "Liver enzymes are slightly high."
+ },
+ {
+  "id": 184,
+  "rank": 184,
+  "en": "external fixator",
+  "zh": "外固定支架",
+  "ipa": "/ɪkˈstɜːnl fɪkˈseɪtə/",
+  "ex": "The external fixator was removed after six weeks."
+ },
+ {
+  "id": 185,
+  "rank": 185,
+  "en": "family history",
+  "zh": "家族史",
+  "ipa": "/ˈfæməli ˈhɪstəri/",
+  "ex": "There is a family history of diabetes."
+ },
+ {
+  "id": 186,
+  "rank": 186,
+  "en": "gallstones",
+  "zh": "胆囊结石",
+  "ipa": "/ˈɡɔːlstəʊnz/",
+  "ex": "Gallstones were found on ultrasound."
+ },
+ {
+  "id": 187,
+  "rank": 187,
+  "en": "ginger",
+  "zh": "生姜",
+  "ipa": "/ˈdʒɪndʒə/",
+  "ex": "She drinks ginger tea for nausea."
+ },
+ {
+  "id": 188,
+  "rank": 188,
+  "en": "GLP-1 receptor agonist",
+  "zh": "GLP-1受体激动剂",
+  "ipa": "/ˌdʒiː el piː wʌn rɪˈseptə ˈæɡənɪst/",
+  "ex": "A GLP-1 receptor agonist helps control appetite."
+ },
+ {
+  "id": 189,
+  "rank": 189,
+  "en": "hydration",
+  "zh": "水合状态（补水）",
+  "ipa": "/haɪˈdreɪʃn/",
+  "ex": "Good hydration prevents constipation."
+ },
+ {
+  "id": 190,
+  "rank": 190,
+  "en": "hyperglycemia",
+  "zh": "高血糖",
+  "ipa": "/ˌhaɪpəɡlaɪˈsiːmiə/",
+  "ex": "Hyperglycemia can cause thirst."
+ },
+ {
+  "id": 191,
+  "rank": 191,
+  "en": "hypovitaminosis",
+  "zh": "维生素缺乏",
+  "ipa": "/ˌhaɪpəʊˌvɪtəmɪˈnəʊsɪs/",
+  "ex": "Hypovitaminosis D is common in winter."
+ },
+ {
+  "id": 192,
+  "rank": 192,
+  "en": "ketogenic diet",
+  "zh": "生酮饮食",
+  "ipa": "/ˌkiːtəˈdʒenɪk ˈdaɪət/",
+  "ex": "A ketogenic diet is not for everyone."
+ },
+ {
+  "id": 193,
+  "rank": 193,
+  "en": "ketone bodies",
+  "zh": "酮体",
+  "ipa": "/ˈkiːtəʊn ˈbɒdiz/",
+  "ex": "Ketone bodies appear when fat is burned."
+ },
+ {
+  "id": 194,
+  "rank": 194,
+  "en": "ketosis",
+  "zh": "酮症",
+  "ipa": "/kiːˈtəʊsɪs/",
+  "ex": "Ketosis starts after two days of fasting."
+ },
+ {
+  "id": 195,
+  "rank": 195,
+  "en": "levothyroxine (Eutirox)",
+  "zh": "左甲状腺素（优甲乐）",
+  "ipa": "/ˌliːvəʊθaɪˈrɒksiːn/",
+  "ex": "She takes levothyroxine (Eutirox) every morning."
+ },
+ {
+  "id": 196,
+  "rank": 196,
+  "en": "liver fibrosis",
+  "zh": "肝纤维化",
+  "ipa": "/ˈlɪvə faɪˈbrəʊsɪs/",
+  "ex": "Liver fibrosis can improve at an early stage."
+ },
+ {
+  "id": 197,
+  "rank": 197,
+  "en": "meal plan",
+  "zh": "膳食方案",
+  "ipa": "/miːl plæn/",
+  "ex": "The meal plan includes five small meals."
+ },
+ {
+  "id": 198,
+  "rank": 198,
+  "en": "metformin",
+  "zh": "二甲双胍",
+  "ipa": "/metˈfɔːmɪn/",
+  "ex": "Metformin is the first drug for type 2 diabetes."
+ },
+ {
+  "id": 199,
+  "rank": 199,
+  "en": "oxygen saturation",
+  "zh": "血氧饱和度",
+  "ipa": "/ˈɒksɪdʒən ˌsætʃəˈreɪʃn/",
+  "ex": "His oxygen saturation was 97 per cent."
+ },
+ {
+  "id": 200,
+  "rank": 200,
+  "en": "pancreatic tumor",
+  "zh": "胰腺肿瘤",
+  "ipa": "/ˌpæŋkriˈætɪk ˈtjuːmə/",
+  "ex": "The pancreatic tumor was found on CT."
+ },
+ {
+  "id": 201,
+  "rank": 201,
+  "en": "physiotherapy",
+  "zh": "物理治疗（康复治疗）",
+  "ipa": "/ˌfɪziəʊˈθerəpi/",
+  "ex": "Physiotherapy improved his back pain."
+ },
+ {
+  "id": 202,
+  "rank": 202,
+  "en": "potassium",
+  "zh": "钾",
+  "ipa": "/pəˈtæsiəm/",
+  "ex": "His potassium is low after the diuretic."
+ },
+ {
+  "id": 203,
+  "rank": 203,
+  "en": "pruritus",
+  "zh": "瘙痒",
+  "ipa": "/pruˈraɪtəs/",
+  "ex": "Pruritus is common in liver disease."
+ },
+ {
+  "id": 204,
+  "rank": 204,
+  "en": "ramipril",
+  "zh": "雷米普利",
+  "ipa": "/ˈræmɪprɪl/",
+  "ex": "Ramipril controls his blood pressure."
+ },
+ {
+  "id": 205,
+  "rank": 205,
+  "en": "retinal hemorrhage",
+  "zh": "视网膜出血",
+  "ipa": "/ˈretɪnl ˈhemərɪdʒ/",
+  "ex": "Retinal hemorrhage was seen in the left eye."
+ },
+ {
+  "id": 206,
+  "rank": 206,
+  "en": "sarcopenia",
+  "zh": "肌少症",
+  "ipa": "/ˌsɑːkəʊˈpiːniə/",
+  "ex": "Sarcopenia is common in elderly patients."
+ },
+ {
+  "id": 207,
+  "rank": 207,
+  "en": "shoulders",
+  "zh": "肩部",
+  "ipa": "/ˈʃəʊldəz/",
+  "ex": "She feels pain in both shoulders."
+ },
+ {
+  "id": 208,
+  "rank": 208,
+  "en": "snoring",
+  "zh": "打鼾",
+  "ipa": "/ˈsnɔːrɪŋ/",
+  "ex": "His snoring disturbs his sleep."
+ },
+ {
+  "id": 209,
+  "rank": 209,
+  "en": "squat",
+  "zh": "深蹲",
+  "ipa": "/skwɒt/",
+  "ex": "He can do ten squats without pain."
+ },
+ {
+  "id": 210,
+  "rank": 210,
+  "en": "stool",
+  "zh": "粪便",
+  "ipa": "/stuːl/",
+  "ex": "The stool was normal in colour."
+ },
+ {
+  "id": 211,
+  "rank": 211,
+  "en": "therapeutic plan",
+  "zh": "治疗方案",
+  "ipa": "/ˌθerəˈpjuːtɪk plæn/",
+  "ex": "The therapeutic plan was explained to her."
+ },
+ {
+  "id": 212,
+  "rank": 212,
+  "en": "thyroid-stimulating hormone (TSH)",
+  "zh": "促甲状腺激素",
+  "ipa": "/ˈθaɪrɔɪd ˈstɪmjuleɪtɪŋ ˈhɔːməʊn/",
+  "ex": "The thyroid-stimulating hormone (TSH) is normal."
+ },
+ {
+  "id": 213,
+  "rank": 213,
+  "en": "topical therapy",
+  "zh": "局部外用治疗",
+  "ipa": "/ˈtɒpɪkl ˈθerəpi/",
+  "ex": "Topical therapy was prescribed for the rash."
+ },
+ {
+  "id": 214,
+  "rank": 214,
+  "en": "total cholesterol",
+  "zh": "总胆固醇",
+  "ipa": "/ˈtəʊtl kəˈlestərɒl/",
+  "ex": "His total cholesterol is 240."
+ },
+ {
+  "id": 215,
+  "rank": 215,
+  "en": "trauma",
+  "zh": "外伤",
+  "ipa": "/ˈtrɔːmə/",
+  "ex": "The knee pain started after a trauma."
+ },
+ {
+  "id": 216,
+  "rank": 216,
+  "en": "urologist",
+  "zh": "泌尿科医生",
+  "ipa": "/jʊəˈrɒlədʒɪst/",
+  "ex": "The urologist will check his prostate."
+ },
+ {
+  "id": 217,
+  "rank": 217,
+  "en": "vascular surgeon",
+  "zh": "血管外科医生",
+  "ipa": "/ˈvæskjələ ˈsɜːdʒən/",
+  "ex": "The vascular surgeon examined his legs."
+ },
+ {
+  "id": 218,
+  "rank": 218,
+  "en": "waist-to-height ratio",
+  "zh": "腰高比",
+  "ipa": "/weɪst tuː haɪt ˈreɪʃiəʊ/",
+  "ex": "His waist-to-height ratio is too high."
+ },
+ {
+  "id": 219,
+  "rank": 219,
+  "en": "weight gain",
+  "zh": "体重增加",
+  "ipa": "/ˈweɪt ɡeɪn/",
+  "ex": "She reports a weight gain of three kilos."
+ },
+ {
+  "id": 220,
+  "rank": 220,
+  "en": "adenoid",
+  "zh": "腺样体",
+  "ipa": "/ˈædɪnɔɪd/",
+  "ex": "The adenoids were enlarged on the scan."
+ },
+ {
+  "id": 221,
+  "rank": 221,
+  "en": "adhesions",
+  "zh": "粘连",
+  "ipa": "/ədˈhiːʒnz/",
+  "ex": "Adhesions were found during surgery."
+ },
+ {
+  "id": 222,
+  "rank": 222,
+  "en": "albumin-to-creatinine ratio",
+  "zh": "尿白蛋白/肌酐比值",
+  "ipa": "/ælˈbjuːmɪn tuː kriˈætəniːn ˈreɪʃiəʊ/",
+  "ex": "The albumin-to-creatinine ratio was slightly high."
+ },
+ {
+  "id": 223,
+  "rank": 223,
+  "en": "allergist",
+  "zh": "过敏科医生",
+  "ipa": "/ˈælədʒɪst/",
+  "ex": "The allergist tested her for a pollen allergy."
+ },
+ {
+  "id": 224,
+  "rank": 224,
+  "en": "allopurinol",
+  "zh": "别嘌醇",
+  "ipa": "/ˌæləʊˈpjʊərɪnɒl/",
+  "ex": "Allopurinol lowers uric acid."
+ },
+ {
+  "id": 225,
+  "rank": 225,
+  "en": "amiloride/hydrochlorothiazide (Moduretic)",
+  "zh": "阿米洛利/氢氯噻嗪",
+  "ipa": "/əˈmɪləraɪd/;/ˌhaɪdrəʊˌklɔːrəʊˈθaɪəzaɪd/",
+  "ex": "Amiloride/hydrochlorothiazide (Moduretic) was added for blood pressure."
+ },
+ {
+  "id": 226,
+  "rank": 226,
+  "en": "amoxicillin",
+  "zh": "阿莫西林",
+  "ipa": "/əˌmɒksɪˈsɪlɪn/",
+  "ex": "Amoxicillin was given for the infection."
+ },
+ {
+  "id": 227,
+  "rank": 227,
+  "en": "ankle",
+  "zh": "踝关节",
+  "ipa": "/ˈæŋkl/",
+  "ex": "Her ankle is swollen."
+ },
+ {
+  "id": 228,
+  "rank": 228,
+  "en": "antacid (aluminium/magnesium hydroxide)",
+  "zh": "铝镁抗酸剂",
+  "ipa": "/æntˈæsɪd/",
+  "ex": "An antacid (aluminium/magnesium hydroxide) helps the burning."
+ },
+ {
+  "id": 229,
+  "rank": 229,
+  "en": "antibodies",
+  "zh": "抗体",
+  "ipa": "/ˈæntibɒdiz/",
+  "ex": "The antibodies for thyroid disease were positive."
+ },
+ {
+  "id": 230,
+  "rank": 230,
+  "en": "atorvastatin",
+  "zh": "阿托伐他汀",
+  "ipa": "/əˌtɔːvəˈstætɪn/",
+  "ex": "Atorvastatin lowered his LDL cholesterol."
+ },
+ {
+  "id": 231,
+  "rank": 231,
+  "en": "atrial fibrillation",
+  "zh": "心房颤动",
+  "ipa": "/ˈeɪtriəl ˌfɪbrɪˈleɪʃn/",
+  "ex": "Atrial fibrillation needs blood thinners."
+ },
+ {
+  "id": 232,
+  "rank": 232,
+  "en": "autoimmune thyroiditis",
+  "zh": "自身免疫性甲状腺炎",
+  "ipa": "/ˌɔːtəʊɪˈmjuːn ˌθaɪrɔɪˈdaɪtɪs/",
+  "ex": "Autoimmune thyroiditis causes hypothyroidism."
+ },
+ {
+  "id": 233,
+  "rank": 233,
+  "en": "bile",
+  "zh": "胆汁",
+  "ipa": "/baɪl/",
+  "ex": "Bile helps digest fats."
+ },
+ {
+  "id": 234,
+  "rank": 234,
+  "en": "blood flow",
+  "zh": "血流",
+  "ipa": "/blʌd fləʊ/",
+  "ex": "The blood flow in his legs is reduced."
+ },
+ {
+  "id": 235,
+  "rank": 235,
+  "en": "blood pressure control",
+  "zh": "血压控制",
+  "ipa": "/blʌd ˈpreʃə kənˈtrəʊl/",
+  "ex": "Blood pressure control protects the kidneys."
+ },
+ {
+  "id": 236,
+  "rank": 236,
+  "en": "brace (orthosis)",
+  "zh": "支具（矫形器）",
+  "ipa": "/breɪs/",
+  "ex": "He wears a brace (orthosis) for his knee."
+ },
+ {
+  "id": 237,
+  "rank": 237,
+  "en": "brain",
+  "zh": "脑",
+  "ipa": "/breɪn/",
+  "ex": "The brain scan was normal."
+ },
+ {
+  "id": 238,
+  "rank": 238,
+  "en": "brain tumor",
+  "zh": "脑肿瘤",
+  "ipa": "/breɪn ˈtjuːmə/",
+  "ex": "The brain tumor was removed last year."
+ },
+ {
+  "id": 239,
+  "rank": 239,
+  "en": "breast cancer",
+  "zh": "乳腺癌",
+  "ipa": "/brest ˈkænsə/",
+  "ex": "Her mother had breast cancer."
+ },
+ {
+  "id": 240,
+  "rank": 240,
+  "en": "breathlessness (dyspnea)",
+  "zh": "气促（呼吸困难）",
+  "ipa": "/ˈbreθləsnəs/",
+  "ex": "He reports breathlessness (dyspnea) on effort."
+ },
+ {
+  "id": 241,
+  "rank": 241,
+  "en": "bruise",
+  "zh": "瘀斑",
+  "ipa": "/bruːz/",
+  "ex": "She has a bruise on her arm."
+ },
+ {
+  "id": 242,
+  "rank": 242,
+  "en": "calf",
+  "zh": "小腿肚",
+  "ipa": "/kɑːf/",
+  "ex": "He felt a pain in his left calf."
+ },
+ {
+  "id": 243,
+  "rank": 243,
+  "en": "caloric deficit",
+  "zh": "热量缺口",
+  "ipa": "/kəˈlɒrɪk ˈdefɪsɪt/",
+  "ex": "A caloric deficit leads to weight loss."
+ },
+ {
+  "id": 244,
+  "rank": 244,
+  "en": "central nervous system",
+  "zh": "中枢神经系统",
+  "ipa": "/ˈsentrəl ˈnɜːvəs ˈsɪstəm/",
+  "ex": "The drug acts on the central nervous system."
+ },
+ {
+  "id": 245,
+  "rank": 245,
+  "en": "chest",
+  "zh": "胸部",
+  "ipa": "/tʃest/",
+  "ex": "He felt pressure in his chest."
+ },
+ {
+  "id": 246,
+  "rank": 246,
+  "en": "chia seeds",
+  "zh": "奇亚籽",
+  "ipa": "/ˈtʃiːə siːdz/",
+  "ex": "He adds chia seeds to his yoghurt."
+ },
+ {
+  "id": 247,
+  "rank": 247,
+  "en": "cholecystectomy",
+  "zh": "胆囊切除术",
+  "ipa": "/ˌkəʊlɪsɪˈstektəmi/",
+  "ex": "A cholecystectomy was performed in 2023."
+ },
+ {
+  "id": 248,
+  "rank": 248,
+  "en": "chronic disease",
+  "zh": "慢性疾病",
+  "ipa": "/ˈkrɒnɪk dɪˈziːz/",
+  "ex": "Diabetes is a chronic disease."
+ },
+ {
+  "id": 249,
+  "rank": 249,
+  "en": "complete blood count",
+  "zh": "血常规",
+  "ipa": "/kəmˈpliːt blʌd kaʊnt/",
+  "ex": "The complete blood count was normal."
+ },
+ {
+  "id": 250,
+  "rank": 250,
+  "en": "connective tissue disease",
+  "zh": "结缔组织病",
+  "ipa": "/kəˈnektɪv ˈtɪʃuː dɪˈziːz/",
+  "ex": "Connective tissue disease can affect the joints."
+ },
+ {
+  "id": 251,
+  "rank": 251,
+  "en": "coronary arteries",
+  "zh": "冠状动脉",
+  "ipa": "/ˈkɒrənri ˈɑːtəriz/",
+  "ex": "The coronary arteries are normal on CT."
+ },
+ {
+  "id": 252,
+  "rank": 252,
+  "en": "corticosteroid",
+  "zh": "糖皮质激素",
+  "ipa": "/ˌkɔːtɪkəʊˈstɪərɔɪd/",
+  "ex": "He took a corticosteroid for the flare."
+ },
+ {
+  "id": 253,
+  "rank": 253,
+  "en": "cotton-wool spot",
+  "zh": "棉絮斑",
+  "ipa": "/ˈkɒtn wʊl spɒt/",
+  "ex": "A cotton-wool spot was seen in the eye."
+ },
+ {
+  "id": 254,
+  "rank": 254,
+  "en": "coxarthrosis",
+  "zh": "髋关节骨关节炎",
+  "ipa": "/ˌkɒksɑːˈθrəʊsɪs/",
+  "ex": "Coxarthrosis limits her walking."
+ },
+ {
+  "id": 255,
+  "rank": 255,
+  "en": "cross-reactive allergy",
+  "zh": "交叉过敏",
+  "ipa": "/ˌkrɒsriˈæktɪv ˈælədʒi/",
+  "ex": "A cross-reactive allergy appeared after the fruit."
+ },
+ {
+  "id": 256,
+  "rank": 256,
+  "en": "cystatin C",
+  "zh": "胱抑素C",
+  "ipa": "/ˈsɪstətɪn ˈsiː/",
+  "ex": "Cystatin C is a marker of kidney function."
+ },
+ {
+  "id": 257,
+  "rank": 257,
+  "en": "dairy products",
+  "zh": "乳制品",
+  "ipa": "/ˈdeəri ˈprɒdʌkts/",
+  "ex": "He reduced dairy products for the bloating."
+ },
+ {
+  "id": 258,
+  "rank": 258,
+  "en": "dermatologist",
+  "zh": "皮肤科医生",
+  "ipa": "/ˌdɜːməˈtɒlədʒɪst/",
+  "ex": "The dermatologist saw her psoriasis."
+ },
+ {
+  "id": 259,
+  "rank": 259,
+  "en": "dietary fiber",
+  "zh": "膳食纤维",
+  "ipa": "/ˈdaɪətəri ˈfaɪbə/",
+  "ex": "Dietary fiber helps constipation."
+ },
+ {
+  "id": 260,
+  "rank": 260,
+  "en": "digestion",
+  "zh": "消化",
+  "ipa": "/daɪˈdʒestʃən/",
+  "ex": "Digestion is slower after the operation."
+ },
+ {
+  "id": 261,
+  "rank": 261,
+  "en": "dosage regimen",
+  "zh": "用法用量",
+  "ipa": "/ˈdəʊsɪdʒ ˈredʒɪmən/",
+  "ex": "The dosage regimen is written on the box."
+ },
+ {
+  "id": 262,
+  "rank": 262,
+  "en": "dydrogesterone (Duphaston)",
+  "zh": "地屈孕酮（达芙通）",
+  "ipa": "/ˌdaɪdrəʊˈdʒestərəʊn/",
+  "ex": "Dydrogesterone (Duphaston) was prescribed for her cycle."
+ },
+ {
+  "id": 263,
+  "rank": 263,
+  "en": "dynamometer",
+  "zh": "握力计",
+  "ipa": "/ˌdaɪnəˈmɒmɪtə/",
+  "ex": "The dynamometer measured her grip strength."
+ },
+ {
+  "id": 264,
+  "rank": 264,
+  "en": "dysentery",
+  "zh": "痢疾",
+  "ipa": "/ˈdɪsəntri/",
+  "ex": "Dysentery causes fever and bloody stools."
+ },
+ {
+  "id": 265,
+  "rank": 265,
+  "en": "dyslipidemia",
+  "zh": "血脂异常",
+  "ipa": "/ˌdɪslɪpɪˈdiːmiə/",
+  "ex": "Dyslipidemia is common in obesity."
+ },
+ {
+  "id": 266,
+  "rank": 266,
+  "en": "early satiety",
+  "zh": "早饱感",
+  "ipa": "/ˈɜːli səˈtaɪəti/",
+  "ex": "Early satiety is typical of gastroparesis."
+ },
+ {
+  "id": 267,
+  "rank": 267,
+  "en": "echocardiography",
+  "zh": "超声心动图",
+  "ipa": "/ˌekəʊkɑːdiˈɒɡrəfi/",
+  "ex": "Echocardiography showed a normal heart."
+ },
+ {
+  "id": 268,
+  "rank": 268,
+  "en": "energy expenditure",
+  "zh": "能量消耗",
+  "ipa": "/ˈenədʒi ɪkˈspendɪtʃə/",
+  "ex": "Exercise increases energy expenditure."
+ },
+ {
+  "id": 269,
+  "rank": 269,
+  "en": "exercise intolerance",
+  "zh": "运动不耐受",
+  "ipa": "/ˈeksəsaɪz ɪnˈtɒlərəns/",
+  "ex": "She reports exercise intolerance."
+ },
+ {
+  "id": 270,
+  "rank": 270,
+  "en": "exercise stress test",
+  "zh": "运动负荷试验",
+  "ipa": "/ˈeksəsaɪz stres test/",
+  "ex": "The exercise stress test was negative."
+ },
+ {
+  "id": 271,
+  "rank": 271,
+  "en": "ezetimibe",
+  "zh": "依折麦布",
+  "ipa": "/eˈzetɪmɪb/",
+  "ex": "Ezetimibe was added to the statin."
+ },
+ {
+  "id": 272,
+  "rank": 272,
+  "en": "fasting plasma glucose",
+  "zh": "空腹血糖",
+  "ipa": "/ˈfɑːstɪŋ ˈplæzmə ˈɡluːkəʊs/",
+  "ex": "His fasting plasma glucose is 126."
+ },
+ {
+  "id": 273,
+  "rank": 273,
+  "en": "finger prick",
+  "zh": "指尖采血",
+  "ipa": "/ˈfɪŋɡə prɪk/",
+  "ex": "He checks his sugar with a finger prick."
+ },
+ {
+  "id": 274,
+  "rank": 274,
+  "en": "folate",
+  "zh": "叶酸（盐）",
+  "ipa": "/ˈfəʊleɪt/",
+  "ex": "Folate is low in his blood test."
+ },
+ {
+  "id": 275,
+  "rank": 275,
+  "en": "free thyroxine (FT4)",
+  "zh": "游离甲状腺素",
+  "ipa": "/friː θaɪˈrɒksiːn/",
+  "ex": "The free thyroxine (FT4) is in the normal range."
+ },
+ {
+  "id": 276,
+  "rank": 276,
+  "en": "gamma-glutamyl transferase (GGT)",
+  "zh": "γ-谷氨酰转移酶",
+  "ipa": "/ˈɡæmə ˌɡluːtəmɪl ˈtrænsfəreɪz/",
+  "ex": "The gamma-glutamyl transferase (GGT) is high with alcohol."
+ },
+ {
+  "id": 277,
+  "rank": 277,
+  "en": "gastroenteritis",
+  "zh": "胃肠炎",
+  "ipa": "/ˌɡæstrəʊentəˈraɪtɪs/",
+  "ex": "Gastroenteritis caused vomiting for one day."
+ },
+ {
+  "id": 278,
+  "rank": 278,
+  "en": "gastrointestinal stromal tumor (GIST)",
+  "zh": "胃肠道间质瘤",
+  "ipa": "/ˌɡæstrəʊɪnˈtestɪnl ˈstrəʊml ˈtjuːmə/",
+  "ex": "A gastrointestinal stromal tumor (GIST) was found in the stomach."
+ },
+ {
+  "id": 279,
+  "rank": 279,
+  "en": "gastroparesis",
+  "zh": "胃轻瘫",
+  "ipa": "/ˌɡæstrəʊpəˈriːsɪs/",
+  "ex": "Gastroparesis causes early fullness."
+ },
+ {
+  "id": 280,
+  "rank": 280,
+  "en": "genetic screening",
+  "zh": "基因筛查",
+  "ipa": "/dʒəˈnetɪk ˈskriːnɪŋ/",
+  "ex": "Genetic screening was offered to the family."
+ },
+ {
+  "id": 281,
+  "rank": 281,
+  "en": "gestational diabetes",
+  "zh": "妊娠期糖尿病",
+  "ipa": "/dʒeˈsteɪʃənl ˌdaɪəˈbiːtiːz/",
+  "ex": "She had gestational diabetes in her last pregnancy."
+ },
+ {
+  "id": 282,
+  "rank": 282,
+  "en": "glomerular filtration rate (eGFR)",
+  "zh": "肾小球滤过率",
+  "ipa": "/ɡləˈmerjələ fɪlˈtreɪʃn reɪt/",
+  "ex": "The glomerular filtration rate (eGFR) is 72."
+ },
+ {
+  "id": 283,
+  "rank": 283,
+  "en": "glucose",
+  "zh": "葡萄糖",
+  "ipa": "/ˈɡluːkəʊs/",
+  "ex": "The glucose level is checked before breakfast."
+ },
+ {
+  "id": 284,
+  "rank": 284,
+  "en": "glucose-dependent insulinotropic polypeptide (GIP)",
+  "zh": "葡萄糖依赖性促胰岛素多肽",
+  "ipa": "/ˈɡluːkəʊs dɪˈpendənt ˌɪnsjʊlɪnəʊˈtrɒpɪk ˌpɒliˈpeptaɪd/",
+  "ex": "Glucose-dependent insulinotropic polypeptide (GIP) works with GLP-1."
+ },
+ {
+  "id": 285,
+  "rank": 285,
+  "en": "hand grip strength",
+  "zh": "握力",
+  "ipa": "/ˈhænd ɡrɪp streŋθ/",
+  "ex": "Hand grip strength was reduced."
+ },
+ {
+  "id": 286,
+  "rank": 286,
+  "en": "HDL cholesterol",
+  "zh": "高密度脂蛋白胆固醇",
+  "ipa": "/ˌeɪtʃ diː el kəˈlestərɒl/",
+  "ex": "His HDL cholesterol is quite good."
+ },
+ {
+  "id": 287,
+  "rank": 287,
+  "en": "hematologist",
+  "zh": "血液科医生",
+  "ipa": "/ˌhiːməˈtɒlədʒɪst/",
+  "ex": "The hematologist reviewed her blood count."
+ },
+ {
+  "id": 288,
+  "rank": 288,
+  "en": "hemoglobin",
+  "zh": "血红蛋白",
+  "ipa": "/ˌhiːməˈɡləʊbɪn/",
+  "ex": "Her hemoglobin is 11."
+ },
+ {
+  "id": 289,
+  "rank": 289,
+  "en": "hemorrhoids",
+  "zh": "痔",
+  "ipa": "/ˈhemərɔɪdz/",
+  "ex": "Hemorrhoids cause bleeding after stool."
+ },
+ {
+  "id": 290,
+  "rank": 290,
+  "en": "heterozygosity",
+  "zh": "杂合性",
+  "ipa": "/ˌhetərəʊzaɪˈɡɒsəti/",
+  "ex": "Heterozygosity for MTHFR is common."
+ },
+ {
+  "id": 291,
+  "rank": 291,
+  "en": "hiatal hernia",
+  "zh": "食管裂孔疝",
+  "ipa": "/haɪˈeɪtl ˈhɜːniə/",
+  "ex": "A hiatal hernia was seen on endoscopy."
+ },
+ {
+  "id": 292,
+  "rank": 292,
+  "en": "histamine",
+  "zh": "组胺",
+  "ipa": "/ˈhɪstəmiːn/",
+  "ex": "Histamine causes itching and redness."
+ },
+ {
+  "id": 293,
+  "rank": 293,
+  "en": "hypoglycemia",
+  "zh": "低血糖",
+  "ipa": "/ˌhaɪpəʊɡlaɪˈsiːmiə/",
+  "ex": "Hypoglycemia can happen at night."
+ },
+ {
+  "id": 294,
+  "rank": 294,
+  "en": "incretin",
+  "zh": "肠促胰素",
+  "ipa": "/ɪnˈkriːtɪn/",
+  "ex": "Incretin hormones are used in new diabetes drugs."
+ },
+ {
+  "id": 295,
+  "rank": 295,
+  "en": "inflammatory state",
+  "zh": "炎症状态",
+  "ipa": "/ɪnˈflæmətri steɪt/",
+  "ex": "A chronic inflammatory state damages the liver."
+ },
+ {
+  "id": 296,
+  "rank": 296,
+  "en": "injury",
+  "zh": "外伤（损伤）",
+  "ipa": "/ˈɪndʒəri/",
+  "ex": "He had a knee injury last year."
+ },
+ {
+  "id": 297,
+  "rank": 297,
+  "en": "insulin aspart",
+  "zh": "门冬胰岛素",
+  "ipa": "/ˈɪnsjʊlɪn ˈæspɑːt/",
+  "ex": "She uses insulin aspart at meals."
+ },
+ {
+  "id": 298,
+  "rank": 298,
+  "en": "insulin requirement",
+  "zh": "胰岛素需求量",
+  "ipa": "/ˈɪnsjʊlɪn rɪˈkwaɪəmənt/",
+  "ex": "His insulin requirement increased this month."
+ },
+ {
+  "id": 299,
+  "rank": 299,
+  "en": "intestinal motility",
+  "zh": "肠道动力",
+  "ipa": "/ɪnˈtestɪnl məʊˈtɪləti/",
+  "ex": "The drug slows intestinal motility."
+ },
+ {
+  "id": 300,
+  "rank": 300,
+  "en": "joint",
+  "zh": "关节",
+  "ipa": "/dʒɔɪnt/",
+  "ex": "The joint is swollen and warm."
+ },
+ {
+  "id": 301,
+  "rank": 301,
+  "en": "joint pain (arthralgia)",
+  "zh": "关节痛",
+  "ipa": "/dʒɔɪnt peɪn;/ɑːˈθrældʒə/",
+  "ex": "She reports joint pain (arthralgia) in the hands."
+ },
+ {
+  "id": 302,
+  "rank": 302,
+  "en": "levothyroxine",
+  "zh": "左甲状腺素",
+  "ipa": "/ˌliːvəʊθaɪˈrɒksiːn/",
+  "ex": "Levothyroxine is taken on an empty stomach."
+ },
+ {
+  "id": 303,
+  "rank": 303,
+  "en": "lipase",
+  "zh": "脂肪酶",
+  "ipa": "/ˈlaɪpeɪs/",
+  "ex": "The lipase was high during the pancreatitis."
+ },
+ {
+  "id": 304,
+  "rank": 304,
+  "en": "liver cancer",
+  "zh": "肝癌",
+  "ipa": "/ˈlɪvə ˈkænsə/",
+  "ex": "Liver cancer is monitored with ultrasound."
+ },
+ {
+  "id": 305,
+  "rank": 305,
+  "en": "liver cirrhosis",
+  "zh": "肝硬化",
+  "ipa": "/ˈlɪvə sɪˈrəʊsɪs/",
+  "ex": "Liver cirrhosis was diagnosed three years ago."
+ },
+ {
+  "id": 306,
+  "rank": 306,
+  "en": "liver damage",
+  "zh": "肝损害",
+  "ipa": "/ˈlɪvə ˈdæmɪdʒ/",
+  "ex": "Alcohol causes liver damage."
+ },
+ {
+  "id": 307,
+  "rank": 307,
+  "en": "liver metastasis",
+  "zh": "肝转移",
+  "ipa": "/ˈlɪvə məˈtæstəsɪs/",
+  "ex": "The scan showed a liver metastasis."
+ },
+ {
+  "id": 308,
+  "rank": 308,
+  "en": "low-calorie diet",
+  "zh": "低热量饮食",
+  "ipa": "/ˌləʊ ˈkæləri ˈdaɪət/",
+  "ex": "A low-calorie diet was started in March."
+ },
+ {
+  "id": 309,
+  "rank": 309,
+  "en": "macrogol (Movicol)",
+  "zh": "聚乙二醇散剂",
+  "ipa": "/ˈmækrəɡɒl/",
+  "ex": "Macrogol (Movicol) is taken once a day."
+ },
+ {
+  "id": 310,
+  "rank": 310,
+  "en": "maintenance therapy",
+  "zh": "维持治疗",
+  "ipa": "/ˈmeɪntənəns ˈθerəpi/",
+  "ex": "Maintenance therapy continues for one year."
+ },
+ {
+  "id": 311,
+  "rank": 311,
+  "en": "malleolus",
+  "zh": "踝",
+  "ipa": "/məˈliːələs/",
+  "ex": "She fractured the malleolus."
+ },
+ {
+  "id": 312,
+  "rank": 312,
+  "en": "menarche",
+  "zh": "月经初潮",
+  "ipa": "/meˈnɑːkiː/",
+  "ex": "Her menarche was at the age of twelve."
+ },
+ {
+  "id": 313,
+  "rank": 313,
+  "en": "metabolic risk",
+  "zh": "代谢风险",
+  "ipa": "/ˌmetəˈbɒlɪk rɪsk/",
+  "ex": "Metabolic risk increases with age."
+ },
+ {
+  "id": 314,
+  "rank": 314,
+  "en": "metastasis",
+  "zh": "转移",
+  "ipa": "/məˈtæstəsɪs/",
+  "ex": "No metastasis was found on the scan."
+ },
+ {
+  "id": 315,
+  "rank": 315,
+  "en": "migraine",
+  "zh": "偏头痛",
+  "ipa": "/ˈmiːɡreɪn/",
+  "ex": "Her migraine starts with visual changes."
+ },
+ {
+  "id": 316,
+  "rank": 316,
+  "en": "MTHFR gene",
+  "zh": "MTHFR基因",
+  "ipa": "/ˌem tiː eɪtʃ ef ɑː dʒiːn/",
+  "ex": "The MTHFR gene was tested."
+ },
+ {
+  "id": 317,
+  "rank": 317,
+  "en": "multivitamin",
+  "zh": "复合维生素",
+  "ipa": "/ˌmʌltiˈvɪtəmɪn/",
+  "ex": "He takes a multivitamin in the morning."
+ },
+ {
+  "id": 318,
+  "rank": 318,
+  "en": "neoplasm",
+  "zh": "肿瘤（新生物）",
+  "ipa": "/ˈniːəʊplæzəm/",
+  "ex": "The neoplasm was benign."
+ },
+ {
+  "id": 319,
+  "rank": 319,
+  "en": "neurologist",
+  "zh": "神经科医生",
+  "ipa": "/njʊəˈrɒlədʒɪst/",
+  "ex": "The neurologist examined her reflexes."
+ },
+ {
+  "id": 320,
+  "rank": 320,
+  "en": "normal weight",
+  "zh": "正常体重",
+  "ipa": "/ˈnɔːml weɪt/",
+  "ex": "She is of normal weight."
+ },
+ {
+  "id": 321,
+  "rank": 321,
+  "en": "nurse",
+  "zh": "护士",
+  "ipa": "/nɜːs/",
+  "ex": "The nurse measured his blood pressure."
+ },
+ {
+  "id": 322,
+  "rank": 322,
+  "en": "omega-3 fatty acids",
+  "zh": "ω-3脂肪酸",
+  "ipa": "/əʊˈmeɡə θriː ˈfæti ˈæsɪdz/",
+  "ex": "Omega-3 fatty acids can lower triglycerides."
+ },
+ {
+  "id": 323,
+  "rank": 323,
+  "en": "optical coherence tomography (OCT)",
+  "zh": "光学相干断层扫描",
+  "ipa": "/ˈɒptɪkl kəʊˈhɪərəns təˈmɒɡrəfi/",
+  "ex": "Optical coherence tomography (OCT) showed a normal macula."
+ },
+ {
+  "id": 324,
+  "rank": 324,
+  "en": "oral glucose tolerance test",
+  "zh": "糖耐量试验",
+  "ipa": "/ˈɔːrəl ˈɡluːkəʊs ˈtɒlərəns test/",
+  "ex": "The oral glucose tolerance test was abnormal."
+ },
+ {
+  "id": 325,
+  "rank": 325,
+  "en": "orthopedist",
+  "zh": "骨科医生",
+  "ipa": "/ˌɔːθəˈpiːdɪst/",
+  "ex": "The orthopedist examined her knee."
+ },
+ {
+  "id": 326,
+  "rank": 326,
+  "en": "osteopenia",
+  "zh": "骨量减少",
+  "ipa": "/ˌɒstiəʊˈpiːniə/",
+  "ex": "Osteopenia was found on the bone scan."
+ },
+ {
+  "id": 327,
+  "rank": 327,
+  "en": "osteoporosis",
+  "zh": "骨质疏松症",
+  "ipa": "/ˌɒstiəʊpəˈrəʊsɪs/",
+  "ex": "Osteoporosis increases the risk of fracture."
+ },
+ {
+  "id": 328,
+  "rank": 328,
+  "en": "pancreatic insufficiency",
+  "zh": "胰腺功能不全",
+  "ipa": "/ˌpæŋkriˈætɪk ˌɪnsəˈfɪʃnsi/",
+  "ex": "Pancreatic insufficiency causes fatty stools."
+ },
+ {
+  "id": 329,
+  "rank": 329,
+  "en": "pancreaticobiliary carcinoma",
+  "zh": "胰胆管癌",
+  "ipa": "/ˌpæŋkriˌætɪkəʊˈbɪliəri ˌkɑːsɪˈnəʊmə/",
+  "ex": "Pancreaticobiliary carcinoma was suspected on CT."
+ },
+ {
+  "id": 330,
+  "rank": 330,
+  "en": "peristalsis",
+  "zh": "蠕动",
+  "ipa": "/ˌperɪˈstɔːlsɪs/",
+  "ex": "Peristalsis moves food through the gut."
+ },
+ {
+  "id": 331,
+  "rank": 331,
+  "en": "phase angle",
+  "zh": "相位角",
+  "ipa": "/ˈfeɪz ˈæŋɡl/",
+  "ex": "The phase angle was low on bioimpedance."
+ },
+ {
+  "id": 332,
+  "rank": 332,
+  "en": "platelets",
+  "zh": "血小板",
+  "ipa": "/ˈpleɪtləts/",
+  "ex": "His platelets are slightly low."
+ },
+ {
+  "id": 333,
+  "rank": 333,
+  "en": "pneumological evaluation",
+  "zh": "呼吸科检查",
+  "ipa": "/ˌnjuːməˈlɒdʒɪkl ɪˌvæljuˈeɪʃn/",
+  "ex": "A pneumological evaluation was requested."
+ },
+ {
+  "id": 334,
+  "rank": 334,
+  "en": "pneumonia",
+  "zh": "肺炎",
+  "ipa": "/njuːˈməʊniə/",
+  "ex": "He had pneumonia last winter."
+ },
+ {
+  "id": 335,
+  "rank": 335,
+  "en": "polycystic ovary",
+  "zh": "多囊卵巢",
+  "ipa": "/ˌpɒliˈsɪstɪk ˈəʊvəri/",
+  "ex": "Polycystic ovary is linked to insulin resistance."
+ },
+ {
+  "id": 336,
+  "rank": 336,
+  "en": "polysomnography",
+  "zh": "多导睡眠图监测",
+  "ipa": "/ˌpɒlisɒmˈnɒɡrəfi/",
+  "ex": "Polysomnography confirmed sleep apnea."
+ },
+ {
+  "id": 337,
+  "rank": 337,
+  "en": "postprandial",
+  "zh": "餐后",
+  "ipa": "/ˌpəʊstˈprændiəl/",
+  "ex": "The postprandial glucose is too high."
+ },
+ {
+  "id": 338,
+  "rank": 338,
+  "en": "progestin",
+  "zh": "孕激素",
+  "ipa": "/prəʊˈdʒestɪn/",
+  "ex": "A progestin was added to her therapy."
+ },
+ {
+  "id": 339,
+  "rank": 339,
+  "en": "prostate-specific antigen (PSA)",
+  "zh": "前列腺特异性抗原",
+  "ipa": "/ˈprɒsteɪt spəˈsɪfɪk ˈæntɪdʒən/",
+  "ex": "The prostate-specific antigen (PSA) is normal."
+ },
+ {
+  "id": 340,
+  "rank": 340,
+  "en": "protein powder",
+  "zh": "蛋白粉",
+  "ipa": "/ˈprəʊtiːn ˈpaʊdə/",
+  "ex": "He adds protein powder to the milk."
+ },
+ {
+  "id": 341,
+  "rank": 341,
+  "en": "psoriasis",
+  "zh": "银屑病",
+  "ipa": "/səˈraɪəsɪs/",
+  "ex": "Her psoriasis is better in summer."
+ },
+ {
+  "id": 342,
+  "rank": 342,
+  "en": "receptor",
+  "zh": "受体",
+  "ipa": "/rɪˈseptə/",
+  "ex": "The drug blocks the receptor in the brain."
+ },
+ {
+  "id": 343,
+  "rank": 343,
+  "en": "red yeast rice lipid-lowering nutraceutical",
+  "zh": "红曲类降脂制剂",
+  "ipa": "/red jiːst raɪs/",
+  "ex": "A red yeast rice lipid-lowering nutraceutical was suggested."
+ },
+ {
+  "id": 344,
+  "rank": 344,
+  "en": "reflex",
+  "zh": "反射",
+  "ipa": "/ˈriːfleks/",
+  "ex": "The reflexes were normal."
+ },
+ {
+  "id": 345,
+  "rank": 345,
+  "en": "respiratory function test",
+  "zh": "肺功能检查",
+  "ipa": "/rəˈspɪrətri ˈfʌŋkʃn test/",
+  "ex": "The respiratory function test was normal."
+ },
+ {
+  "id": 346,
+  "rank": 346,
+  "en": "rosuvastatin",
+  "zh": "瑞舒伐他汀",
+  "ipa": "/rəʊˈsuːvəstætɪn/",
+  "ex": "Rosuvastatin replaced atorvastatin."
+ },
+ {
+  "id": 347,
+  "rank": 347,
+  "en": "scalp",
+  "zh": "头皮",
+  "ipa": "/skælp/",
+  "ex": "The rash is on his scalp."
+ },
+ {
+  "id": 348,
+  "rank": 348,
+  "en": "scintigraphy",
+  "zh": "核素显像（闪烁扫描）",
+  "ipa": "/sɪnˈtɪɡrəfi/",
+  "ex": "Scintigraphy showed normal thyroid uptake."
+ },
+ {
+  "id": 349,
+  "rank": 349,
+  "en": "sinus rhythm",
+  "zh": "窦性心律",
+  "ipa": "/ˈsaɪnəs ˈrɪðəm/",
+  "ex": "The ECG showed a sinus rhythm."
+ },
+ {
+  "id": 350,
+  "rank": 350,
+  "en": "sleep apnea",
+  "zh": "睡眠呼吸暂停",
+  "ipa": "/ˈsliːp ˈæpniə/",
+  "ex": "Sleep apnea worsens blood pressure."
+ },
+ {
+  "id": 351,
+  "rank": 351,
+  "en": "smoking",
+  "zh": "吸烟",
+  "ipa": "/ˈsməʊkɪŋ/",
+  "ex": "Smoking must be stopped."
+ },
+ {
+  "id": 352,
+  "rank": 352,
+  "en": "sodium",
+  "zh": "钠",
+  "ipa": "/ˈsəʊdiəm/",
+  "ex": "He should reduce sodium in his diet."
+ },
+ {
+  "id": 353,
+  "rank": 353,
+  "en": "solitary kidney",
+  "zh": "单侧肾（孤立肾）",
+  "ipa": "/ˈsɒlɪtəri ˈkɪdni/",
+  "ex": "He has a solitary kidney since childhood."
+ },
+ {
+  "id": 354,
+  "rank": 354,
+  "en": "specialist consultation",
+  "zh": "专科门诊",
+  "ipa": "/ˈspeʃəlɪst ˌkɒnslˈteɪʃn/",
+  "ex": "A specialist consultation was booked."
+ },
+ {
+  "id": 355,
+  "rank": 355,
+  "en": "sports medical examination",
+  "zh": "运动医学体检",
+  "ipa": "/spɔːts ˈmedɪkl ɪɡˌzæmɪˈneɪʃn/",
+  "ex": "The sports medical examination was normal."
+ },
+ {
+  "id": 356,
+  "rank": 356,
+  "en": "sprain",
+  "zh": "扭伤",
+  "ipa": "/spreɪn/",
+  "ex": "The ankle sprain healed in ten days."
+ },
+ {
+  "id": 357,
+  "rank": 357,
+  "en": "sternum",
+  "zh": "胸骨",
+  "ipa": "/ˈstɜːnəm/",
+  "ex": "The pain is behind the sternum."
+ },
+ {
+  "id": 358,
+  "rank": 358,
+  "en": "super-obesity",
+  "zh": "极重度肥胖",
+  "ipa": "/ˌsuːpər əʊˈbiːsəti/",
+  "ex": "Super-obesity requires specialised care."
+ },
+ {
+  "id": 359,
+  "rank": 359,
+  "en": "talus",
+  "zh": "距骨",
+  "ipa": "/ˈteɪləs/",
+  "ex": "The fracture involved the talus."
+ },
+ {
+  "id": 360,
+  "rank": 360,
+  "en": "target weight",
+  "zh": "目标体重",
+  "ipa": "/ˈtɑːɡɪt weɪt/",
+  "ex": "Her target weight is 70 kilos."
+ },
+ {
+  "id": 361,
+  "rank": 361,
+  "en": "tenderness",
+  "zh": "压痛",
+  "ipa": "/ˈtendənəs/",
+  "ex": "Tenderness was found in the right abdomen."
+ },
+ {
+  "id": 362,
+  "rank": 362,
+  "en": "thromboembolism",
+  "zh": "血栓栓塞",
+  "ipa": "/ˌθrɒmbəʊˈembəlɪzəm/",
+  "ex": "Thromboembolism is a risk after surgery."
+ },
+ {
+  "id": 363,
+  "rank": 363,
+  "en": "thrombotic risk",
+  "zh": "血栓风险",
+  "ipa": "/θrɒmˈbɒtɪk rɪsk/",
+  "ex": "His thrombotic risk is high."
+ },
+ {
+  "id": 364,
+  "rank": 364,
+  "en": "thyroid nodule",
+  "zh": "甲状腺结节",
+  "ipa": "/ˈθaɪrɔɪd ˈnɒdjuːl/",
+  "ex": "The thyroid nodule was benign at cytology."
+ },
+ {
+  "id": 365,
+  "rank": 365,
+  "en": "tirzepatide",
+  "zh": "替尔泊肽",
+  "ipa": "/tɜːˈzepətaɪd/",
+  "ex": "Tirzepatide is given by weekly injection."
+ },
+ {
+  "id": 366,
+  "rank": 366,
+  "en": "tolerability",
+  "zh": "耐受性",
+  "ipa": "/ˌtɒlərəˈbɪləti/",
+  "ex": "The tolerability of the drug was good."
+ },
+ {
+  "id": 367,
+  "rank": 367,
+  "en": "urinary analgesic/anti-inflammatory preparation",
+  "zh": "尿路镇痛抗炎制剂",
+  "ipa": "/ˈjʊərɪnəri ˌænəlˈdʒiːzɪk/",
+  "ex": "A urinary analgesic/anti-inflammatory preparation relieved the burning."
+ },
+ {
+  "id": 368,
+  "rank": 368,
+  "en": "vegetarian diet",
+  "zh": "素食饮食",
+  "ipa": "/ˌvedʒəˈteəriən ˈdaɪət/",
+  "ex": "A vegetarian diet can be well balanced."
+ },
+ {
+  "id": 369,
+  "rank": 369,
+  "en": "visceral fat",
+  "zh": "内脏脂肪",
+  "ipa": "/ˈvɪsərəl fæt/",
+  "ex": "Visceral fat is measured on the scan."
+ },
+ {
+  "id": 370,
+  "rank": 370,
+  "en": "vitamin B12",
+  "zh": "维生素B12",
+  "ipa": "/ˈvɪtəmɪn ˌbiː twelv/",
+  "ex": "Her vitamin B12 is low."
+ },
+ {
+  "id": 371,
+  "rank": 371,
+  "en": "warfarin (Coumadin)",
+  "zh": "华法林（可迈丁）",
+  "ipa": "/ˈwɔːfərɪn/",
+  "ex": "Warfarin (Coumadin) is checked with the INR."
+ },
+ {
+  "id": 372,
+  "rank": 372,
+  "en": "weight training",
+  "zh": "力量训练",
+  "ipa": "/ˈweɪt ˈtreɪnɪŋ/",
+  "ex": "Weight training builds muscle."
+ },
+ {
+  "id": 373,
+  "rank": 373,
+  "en": "24-hour urine collection",
+  "zh": "24小时尿液采集",
+  "ipa": "/ˌtwenti fɔː ˈaʊə ˈjʊərɪn kəˈlekʃn/",
+  "ex": "A 24-hour urine collection was requested."
+ },
+ {
+  "id": 374,
+  "rank": 374,
+  "en": "abdominal adiposity",
+  "zh": "腹部脂肪堆积",
+  "ipa": "/æbˈdɒmɪnl ˌædɪˈpɒsəti/",
+  "ex": "Abdominal adiposity increases the risk."
+ },
+ {
+  "id": 375,
+  "rank": 375,
+  "en": "abdominal aortic aneurysm",
+  "zh": "腹主动脉瘤",
+  "ipa": "/æbˈdɒmɪnl eɪˈɔːtɪk ˈænjərɪzəm/",
+  "ex": "The scan excluded an abdominal aortic aneurysm."
+ },
+ {
+  "id": 376,
+  "rank": 376,
+  "en": "abdominal bloating",
+  "zh": "腹胀",
+  "ipa": "/æbˈdɒmɪnl ˈbləʊtɪŋ/",
+  "ex": "She complains of abdominal bloating."
+ },
+ {
+  "id": 377,
+  "rank": 377,
+  "en": "acetylsalicylic acid (aspirin)",
+  "zh": "乙酰水杨酸（阿司匹林）",
+  "ipa": "/əˌsiːtɪlsælɪˈsɪlɪk ˈæsɪd/",
+  "ex": "Acetylsalicylic acid (aspirin) was started at 100 mg."
+ },
+ {
+  "id": 378,
+  "rank": 378,
+  "en": "allergy test",
+  "zh": "过敏原检测",
+  "ipa": "/ˈælədʒi test/",
+  "ex": "The allergy test was positive for dust."
+ },
+ {
+  "id": 379,
+  "rank": 379,
+  "en": "ambulatory blood pressure monitoring",
+  "zh": "动态血压监测",
+  "ipa": "/ˈæmbjələtəri blʌd ˈpreʃə ˈmɒnɪtərɪŋ/",
+  "ex": "Ambulatory blood pressure monitoring showed normal values."
+ },
+ {
+  "id": 380,
+  "rank": 380,
+  "en": "antihypertensive",
+  "zh": "降压药",
+  "ipa": "/ˌæntihaɪpəˈtensɪv/",
+  "ex": "He takes one antihypertensive in the morning."
+ },
+ {
+  "id": 381,
+  "rank": 381,
+  "en": "antiplatelet agent",
+  "zh": "抗血小板药",
+  "ipa": "/ˌæntiˈpleɪtlət ˈeɪdʒənt/",
+  "ex": "An antiplatelet agent was added after the stroke."
+ },
+ {
+  "id": 382,
+  "rank": 382,
+  "en": "atherosclerotic plaque",
+  "zh": "动脉粥样硬化斑块",
+  "ipa": "/ˌæθərəʊskləˈrɒtɪk plɑːk/",
+  "ex": "An atherosclerotic plaque was seen in the carotid."
+ },
+ {
+  "id": 383,
+  "rank": 383,
+  "en": "biliary colic",
+  "zh": "胆绞痛",
+  "ipa": "/ˈbɪliəri ˈkɒlɪk/",
+  "ex": "Biliary colic started after a fatty meal."
+ },
+ {
+  "id": 384,
+  "rank": 384,
+  "en": "biliary stasis",
+  "zh": "胆汁淤积",
+  "ipa": "/ˈbɪliəri ˈsteɪsɪs/",
+  "ex": "Biliary stasis can follow the operation."
+ },
+ {
+  "id": 385,
+  "rank": 385,
+  "en": "bloating (meteorism)",
+  "zh": "腹胀",
+  "ipa": "/ˈbləʊtɪŋ/",
+  "ex": "Bloating (meteorism) improved with the diet."
+ },
+ {
+  "id": 386,
+  "rank": 386,
+  "en": "blood pressure",
+  "zh": "血压",
+  "ipa": "/blʌd ˈpreʃə/",
+  "ex": "Her blood pressure is 130 over 80."
+ },
+ {
+  "id": 387,
+  "rank": 387,
+  "en": "blood vessels",
+  "zh": "血管",
+  "ipa": "/blʌd ˈveslz/",
+  "ex": "The blood vessels are damaged by diabetes."
+ },
+ {
+  "id": 388,
+  "rank": 388,
+  "en": "burning micturition",
+  "zh": "排尿灼痛",
+  "ipa": "/ˈbɜːnɪŋ ˌmɪktjʊəˈrɪʃn/",
+  "ex": "He reports burning micturition."
+ },
+ {
+  "id": 389,
+  "rank": 389,
+  "en": "carotid Doppler ultrasound",
+  "zh": "颈动脉多普勒超声",
+  "ipa": "/kəˈrɒtɪd ˈdɒplə ˈʌltrəsaʊnd/",
+  "ex": "The carotid Doppler ultrasound was normal."
+ },
+ {
+  "id": 390,
+  "rank": 390,
+  "en": "chest pain",
+  "zh": "胸痛",
+  "ipa": "/tʃest peɪn/",
+  "ex": "He came to the clinic with chest pain."
+ },
+ {
+  "id": 391,
+  "rank": 391,
+  "en": "chronic kidney disease",
+  "zh": "慢性肾脏病",
+  "ipa": "/ˈkrɒnɪk ˈkɪdni dɪˈziːz/",
+  "ex": "Chronic kidney disease is at stage three."
+ },
+ {
+  "id": 392,
+  "rank": 392,
+  "en": "coenzyme Q10",
+  "zh": "辅酶Q10",
+  "ipa": "/ˌkəʊˈenzaɪm ˌkjuː ten/",
+  "ex": "Coenzyme Q10 was suggested with the statin."
+ },
+ {
+  "id": 393,
+  "rank": 393,
+  "en": "combination therapy",
+  "zh": "联合治疗",
+  "ipa": "/ˌkɒmbɪˈneɪʃn ˈθerəpi/",
+  "ex": "Combination therapy works better here."
+ },
+ {
+  "id": 394,
+  "rank": 394,
+  "en": "compression stocking",
+  "zh": "弹力袜",
+  "ipa": "/kəmˈpreʃn ˈstɒkɪŋ/",
+  "ex": "She wears a compression stocking on the left leg."
+ },
+ {
+  "id": 395,
+  "rank": 395,
+  "en": "cranial CT",
+  "zh": "头颅CT",
+  "ipa": "/ˈkreɪniəl ˌsiː tiː/",
+  "ex": "The cranial CT was normal."
+ },
+ {
+  "id": 396,
+  "rank": 396,
+  "en": "deep vein thrombosis",
+  "zh": "深静脉血栓形成",
+  "ipa": "/diːp veɪn θrɒmˈbəʊsɪs/",
+  "ex": "A deep vein thrombosis was found in the calf."
+ },
+ {
+  "id": 397,
+  "rank": 397,
+  "en": "diaphragm",
+  "zh": "膈肌",
+  "ipa": "/ˈdaɪəfræm/",
+  "ex": "The diaphragm moves with breathing."
+ },
+ {
+  "id": 398,
+  "rank": 398,
+  "en": "disc herniation",
+  "zh": "椎间盘突出",
+  "ipa": "/ˈdɪsk ˌhɜːniˈeɪʃn/",
+  "ex": "The MRI showed a disc herniation."
+ },
+ {
+  "id": 399,
+  "rank": 399,
+  "en": "eating disorder",
+  "zh": "进食障碍",
+  "ipa": "/ˈiːtɪŋ dɪsˈɔːdə/",
+  "ex": "An eating disorder must be excluded."
+ },
+ {
+  "id": 400,
+  "rank": 400,
+  "en": "food intolerance",
+  "zh": "食物不耐受",
+  "ipa": "/fuːd ɪnˈtɒlərəns/",
+  "ex": "She has a food intolerance to lactose."
+ },
+ {
+  "id": 401,
+  "rank": 401,
+  "en": "free triiodothyronine (FT3)",
+  "zh": "游离三碘甲状腺原氨酸",
+  "ipa": "/friː ˌtraɪaɪədəʊˈθaɪrəniːn/",
+  "ex": "The free triiodothyronine (FT3) is normal."
+ },
+ {
+  "id": 402,
+  "rank": 402,
+  "en": "gastric acidity / heartburn",
+  "zh": "胃酸（反酸烧心）",
+  "ipa": "/ˈɡæstrɪk əˈsɪdəti/;/ˈhɑːtbɜːn/",
+  "ex": "Gastric acidity / heartburn is worse at night."
+ },
+ {
+  "id": 403,
+  "rank": 403,
+  "en": "genetic mutation",
+  "zh": "基因突变",
+  "ipa": "/dʒəˈnetɪk mjuːˈteɪʃn/",
+  "ex": "A genetic mutation was found in the MTHFR gene."
+ },
+ {
+  "id": 404,
+  "rank": 404,
+  "en": "glomerular hyperfiltration",
+  "zh": "肾小球高滤过",
+  "ipa": "/ɡləˈmerjələ ˌhaɪpəfɪlˈtreɪʃn/",
+  "ex": "Glomerular hyperfiltration appears in early diabetes."
+ },
+ {
+  "id": 405,
+  "rank": 405,
+  "en": "glycated hemoglobin (HbA1c)",
+  "zh": "糖化血红蛋白",
+  "ipa": "/ɡlaɪˈkeɪtɪd ˌhiːməˈɡləʊbɪn/",
+  "ex": "The glycated hemoglobin (HbA1c) is 7.2 per cent."
+ },
+ {
+  "id": 406,
+  "rank": 406,
+  "en": "half-life",
+  "zh": "半衰期",
+  "ipa": "/ˈhɑːf laɪf/",
+  "ex": "The half-life of the drug is about ten hours."
+ },
+ {
+  "id": 407,
+  "rank": 407,
+  "en": "Helicobacter pylori",
+  "zh": "幽门螺杆菌",
+  "ipa": "/ˌhelɪkəʊˈbæktə paɪˈlɔːraɪ/",
+  "ex": "Helicobacter pylori was treated with antibiotics."
+ },
+ {
+  "id": 408,
+  "rank": 408,
+  "en": "heparin",
+  "zh": "肝素",
+  "ipa": "/ˈhepərɪn/",
+  "ex": "Heparin was given during the hospital stay."
+ },
+ {
+  "id": 409,
+  "rank": 409,
+  "en": "homocysteine",
+  "zh": "同型半胱氨酸",
+  "ipa": "/ˌhəʊməʊˈsɪstiːn/",
+  "ex": "His homocysteine is high."
+ },
+ {
+  "id": 410,
+  "rank": 410,
+  "en": "immobilization",
+  "zh": "制动（活动受限）",
+  "ipa": "/ɪˌməʊbɪlaɪˈzeɪʃn/",
+  "ex": "Immobilization of the ankle lasted three weeks."
+ },
+ {
+  "id": 411,
+  "rank": 411,
+  "en": "intermittent fasting",
+  "zh": "间歇性禁食",
+  "ipa": "/ˌɪntəˈmɪtənt ˈfɑːstɪŋ/",
+  "ex": "Intermittent fasting helped her weight."
+ },
+ {
+  "id": 412,
+  "rank": 412,
+  "en": "intramedullary nail",
+  "zh": "髓内钉",
+  "ipa": "/ˌɪntrəməˈdʌləri neɪl/",
+  "ex": "An intramedullary nail was used for the femur."
+ },
+ {
+  "id": 413,
+  "rank": 413,
+  "en": "irritable bowel syndrome",
+  "zh": "肠易激综合征",
+  "ipa": "/ˈɪrɪtəbl ˈbaʊəl ˈsɪndrəʊm/",
+  "ex": "Irritable bowel syndrome causes cramps and bloating."
+ },
+ {
+  "id": 414,
+  "rank": 414,
+  "en": "liver function",
+  "zh": "肝功能",
+  "ipa": "/ˈlɪvə ˈfʌŋkʃn/",
+  "ex": "The liver function is normal."
+ },
+ {
+  "id": 415,
+  "rank": 415,
+  "en": "lower limb arteries",
+  "zh": "下肢动脉",
+  "ipa": "/ˈləʊə lɪm ˈɑːtəriz/",
+  "ex": "The lower limb arteries are calcified."
+ },
+ {
+  "id": 416,
+  "rank": 416,
+  "en": "lumbar region",
+  "zh": "腰部",
+  "ipa": "/ˈlʌmbə ˈriːdʒən/",
+  "ex": "She has pain in the lumbar region."
+ },
+ {
+  "id": 417,
+  "rank": 417,
+  "en": "malleolar fracture",
+  "zh": "踝部骨折",
+  "ipa": "/məˈliːələ ˈfræktʃə/",
+  "ex": "The malleolar fracture was treated with a cast."
+ },
+ {
+  "id": 418,
+  "rank": 418,
+  "en": "meal replacements",
+  "zh": "代餐",
+  "ipa": "/miːl rɪˈpleɪsmənts/",
+  "ex": "Meal replacements are used for two meals."
+ },
+ {
+  "id": 419,
+  "rank": 419,
+  "en": "Mediterranean diet",
+  "zh": "地中海饮食",
+  "ipa": "/ˌmedɪtəˈreɪniən ˈdaɪət/",
+  "ex": "The Mediterranean diet is rich in olive oil."
+ },
+ {
+  "id": 420,
+  "rank": 420,
+  "en": "medullary thyroid carcinoma",
+  "zh": "甲状腺髓样癌",
+  "ipa": "/ˈmedələri ˈθaɪrɔɪd ˌkɑːsɪˈnəʊmə/",
+  "ex": "Medullary thyroid carcinoma is rare."
+ },
+ {
+  "id": 421,
+  "rank": 421,
+  "en": "menstrual cycle",
+  "zh": "月经周期",
+  "ipa": "/ˈmenstruəl ˈsaɪkl/",
+  "ex": "Her menstrual cycle is regular."
+ },
+ {
+  "id": 422,
+  "rank": 422,
+  "en": "muscle pain (myalgia)",
+  "zh": "肌肉疼痛",
+  "ipa": "/ˈmʌsl peɪn;/maɪˈældʒə/",
+  "ex": "He reports muscle pain (myalgia) after the statin."
+ },
+ {
+  "id": 423,
+  "rank": 423,
+  "en": "myocardial infarction",
+  "zh": "心肌梗死",
+  "ipa": "/ˌmaɪəʊˈkɑːdiəl ɪnˈfɑːkʃn/",
+  "ex": "He had a myocardial infarction in 2022."
+ },
+ {
+  "id": 424,
+  "rank": 424,
+  "en": "nephroprotective",
+  "zh": "肾脏保护作用",
+  "ipa": "/ˌnefrəʊprəˈtektɪv/",
+  "ex": "The drug is nephroprotective."
+ },
+ {
+  "id": 425,
+  "rank": 425,
+  "en": "nitrofurantoin",
+  "zh": "呋喃妥因",
+  "ipa": "/ˌnaɪtrəʊfjʊəˈræntəʊɪn/",
+  "ex": "Nitrofurantoin was given for the urinary infection."
+ },
+ {
+  "id": 426,
+  "rank": 426,
+  "en": "oral anticoagulant therapy",
+  "zh": "口服抗凝治疗",
+  "ipa": "/ˈɔːrəl ˌæntikəʊˈæɡjələnt ˈθerəpi/",
+  "ex": "Oral anticoagulant therapy was started."
+ },
+ {
+  "id": 427,
+  "rank": 427,
+  "en": "organ failure",
+  "zh": "器官功能失代偿",
+  "ipa": "/ˈɔːɡən ˈfeɪljə/",
+  "ex": "Organ failure can follow a severe infection."
+ },
+ {
+  "id": 428,
+  "rank": 428,
+  "en": "orthostatic hypotension",
+  "zh": "体位性低血压",
+  "ipa": "/ˌɔːθəʊˈstætɪk ˌhaɪpəʊˈtenʃn/",
+  "ex": "Orthostatic hypotension causes dizziness."
+ },
+ {
+  "id": 429,
+  "rank": 429,
+  "en": "pancreatic enzymes",
+  "zh": "胰酶",
+  "ipa": "/ˌpæŋkriˈætɪk ˈenzaɪmz/",
+  "ex": "Pancreatic enzymes are taken with meals."
+ },
+ {
+  "id": 430,
+  "rank": 430,
+  "en": "pantoprazole",
+  "zh": "泮托拉唑",
+  "ipa": "/pænˈtɒprəzəʊl/",
+  "ex": "Pantoprazole was prescribed for the reflux."
+ },
+ {
+  "id": 431,
+  "rank": 431,
+  "en": "papillary thyroid carcinoma",
+  "zh": "甲状腺乳头状癌",
+  "ipa": "/pəˈpɪləri ˈθaɪrɔɪd ˌkɑːsɪˈnəʊmə/",
+  "ex": "Papillary thyroid carcinoma has a good prognosis."
+ },
+ {
+  "id": 432,
+  "rank": 432,
+  "en": "postmenopause",
+  "zh": "绝经后期",
+  "ipa": "/ˌpəʊstˈmenəpɔːz/",
+  "ex": "After postmenopause the risk of osteoporosis rises."
+ },
+ {
+  "id": 433,
+  "rank": 433,
+  "en": "postprandial hyperglycemia",
+  "zh": "餐后高血糖",
+  "ipa": "/ˌpəʊstˈprændiəl ˌhaɪpəɡlaɪˈsiːmiə/",
+  "ex": "Postprandial hyperglycemia needs a diet check."
+ },
+ {
+  "id": 434,
+  "rank": 434,
+  "en": "probiotics",
+  "zh": "益生菌制剂",
+  "ipa": "/ˌprəʊbaɪˈɒtɪks/",
+  "ex": "Probiotics helped the bloating."
+ },
+ {
+  "id": 435,
+  "rank": 435,
+  "en": "proton pump inhibitor",
+  "zh": "质子泵抑制剂",
+  "ipa": "/ˈprəʊtɒn pʌmp ɪnˈhɪbɪtə/",
+  "ex": "A proton pump inhibitor was started."
+ },
+ {
+  "id": 436,
+  "rank": 436,
+  "en": "psoriatic plaques",
+  "zh": "银屑病斑块",
+  "ipa": "/ˌsɒriˈætɪk plɑːks/",
+  "ex": "The psoriatic plaques are on the elbows."
+ },
+ {
+  "id": 437,
+  "rank": 437,
+  "en": "renal function",
+  "zh": "肾功能",
+  "ipa": "/ˈriːnl ˈfʌŋkʃn/",
+  "ex": "Her renal function is stable."
+ },
+ {
+  "id": 438,
+  "rank": 438,
+  "en": "retinal ischemia",
+  "zh": "视网膜缺血",
+  "ipa": "/ˈretɪnl ɪˈskiːmiə/",
+  "ex": "Retinal ischemia was seen in the left eye."
+ },
+ {
+  "id": 439,
+  "rank": 439,
+  "en": "sit-to-stand test",
+  "zh": "起立-坐下试验",
+  "ipa": "/sɪt tuː stænd test/",
+  "ex": "The sit-to-stand test took twelve seconds."
+ },
+ {
+  "id": 440,
+  "rank": 440,
+  "en": "skin rash",
+  "zh": "皮疹",
+  "ipa": "/ˈskɪn ræʃ/",
+  "ex": "The skin rash appeared after the antibiotic."
+ },
+ {
+  "id": 441,
+  "rank": 441,
+  "en": "supra-aortic trunks",
+  "zh": "主动脉弓上分支血管（颈部血管）",
+  "ipa": "/ˌsuːprə eɪˈɔːtɪk trʌŋks/",
+  "ex": "The supra-aortic trunks were normal on Doppler."
+ },
+ {
+  "id": 442,
+  "rank": 442,
+  "en": "surgical mesh",
+  "zh": "外科补片",
+  "ipa": "/ˈsɜːdʒɪkl meʃ/",
+  "ex": "A surgical mesh was used for the hernia."
+ },
+ {
+  "id": 443,
+  "rank": 443,
+  "en": "transient amaurosis",
+  "zh": "一过性黑矇",
+  "ipa": "/ˈtrænziənt ˌæmɔːˈrəʊsɪs/",
+  "ex": "Transient amaurosis lasted a few minutes."
+ },
+ {
+  "id": 444,
+  "rank": 444,
+  "en": "transvaginal ultrasound",
+  "zh": "经阴道超声",
+  "ipa": "/ˌtrænzˈvædʒɪnl ˈʌltrəsaʊnd/",
+  "ex": "The transvaginal ultrasound was normal."
+ },
+ {
+  "id": 445,
+  "rank": 445,
+  "en": "treatment discontinuation",
+  "zh": "停药",
+  "ipa": "/ˈtriːtmənt ˌdɪskənˌtɪnjuˈeɪʃn/",
+  "ex": "Treatment discontinuation caused a relapse."
+ },
+ {
+  "id": 446,
+  "rank": 446,
+  "en": "Trendelenburg position",
+  "zh": "头低脚高位",
+  "ipa": "/ˈtrendələnbɜːɡ pəˈzɪʃn/",
+  "ex": "The Trendelenburg position was used during surgery."
+ },
+ {
+  "id": 447,
+  "rank": 447,
+  "en": "urinalysis",
+  "zh": "尿液检查",
+  "ipa": "/ˌjʊərɪˈnæləsɪs/",
+  "ex": "The urinalysis showed no infection."
+ },
+ {
+  "id": 448,
+  "rank": 448,
+  "en": "ursodeoxycholic acid",
+  "zh": "熊去氧胆酸",
+  "ipa": "/ˌɜːsəʊdiːɒksɪˈkəʊlɪk ˈæsɪd/",
+  "ex": "Ursodeoxycholic acid was added for the liver."
+ },
+ {
+  "id": 449,
+  "rank": 449,
+  "en": "urticaria",
+  "zh": "荨麻疹",
+  "ipa": "/ˌɜːtɪˈkeəriə/",
+  "ex": "Urticaria appeared after the contrast."
+ },
+ {
+  "id": 450,
+  "rank": 450,
+  "en": "venous stasis",
+  "zh": "静脉淤滞",
+  "ipa": "/ˈviːnəs ˈsteɪsɪs/",
+  "ex": "Venous stasis causes leg swelling."
+ },
+ {
+  "id": 451,
+  "rank": 451,
+  "en": "ventricular function",
+  "zh": "心室功能",
+  "ipa": "/venˈtrɪkjələ ˈfʌŋkʃn/",
+  "ex": "The ventricular function is preserved."
+ },
+ {
+  "id": 452,
+  "rank": 452,
+  "en": "waist-to-hip ratio",
+  "zh": "腰臀比",
+  "ipa": "/weɪst tuː hɪp ˈreɪʃiəʊ/",
+  "ex": "Her waist-to-hip ratio is high."
+ },
+ {
+  "id": 453,
+  "rank": 453,
+  "en": "weight regain",
+  "zh": "体重回升（反弹）",
+  "ipa": "/weɪt rɪˈɡeɪn/",
+  "ex": "Weight regain often follows a strict diet."
+ },
+ {
+  "id": 454,
+  "rank": 454,
+  "en": "white blood cells",
+  "zh": "白细胞",
+  "ipa": "/waɪt blʌd selz/",
+  "ex": "His white blood cells are normal."
+ },
+ {
+  "id": 455,
+  "rank": 455,
+  "en": "wound healing",
+  "zh": "瘢痕愈合",
+  "ipa": "/ˈwuːnd ˈhiːlɪŋ/",
+  "ex": "Wound healing was slower than expected."
+ },
+ {
+  "id": 456,
+  "rank": 456,
+  "en": "retinopathy",
+  "zh": "视网膜病变",
+  "ipa": "/ˌretɪˈnɒpəθi/",
+  "ex": "Diabetic retinopathy was found on fundus examination."
+ },
+ {
+  "id": 457,
+  "rank": 457,
+  "en": "indication",
+  "zh": "适应症",
+  "ipa": "/ˌɪndɪˈkeɪʃn/",
+  "ex": "The main indication for this drug is type 2 diabetes."
+ },
+ {
+  "id": 458,
+  "rank": 458,
+  "en": "reduced intestinal peristalsis",
+  "zh": "肠道蠕动减弱",
+  "ipa": "/rɪˈdjuːst ɪnˈtestɪnl ˌperɪˈstælsɪs/",
+  "ex": "She had constipation due to reduced intestinal peristalsis."
+ },
+ {
+  "id": 459,
+  "rank": 459,
+  "en": "reduce dosage",
+  "zh": "减少剂量（减量）",
+  "ipa": "/rɪˈdjuːs ˈdəʊsɪdʒ/",
+  "ex": "We decided to reduce the dosage to avoid side effects."
+ },
+ {
+  "id": 460,
+  "rank": 460,
+  "en": "intestinal peristalsis",
+  "zh": "肠道蠕动",
+  "ipa": "/ɪnˈtestɪnl ˌperɪˈstælsɪs/",
+  "ex": "Intestinal peristalsis was normal on examination."
+ },
+ {
+  "id": 461,
+  "rank": 461,
+  "en": "blood lipids",
+  "zh": "血脂",
+  "ipa": "/blʌd ˈlɪpɪdz/",
+  "ex": "Blood lipids should be checked every three months."
+ },
+ {
+  "id": 462,
+  "rank": 462,
+  "en": "resistance training",
+  "zh": "抗阻运动",
+  "ipa": "/rɪˈzɪstəns ˈtreɪnɪŋ/",
+  "ex": "Resistance training twice a week helps maintain muscle mass."
+ },
+ {
+  "id": 463,
+  "rank": 463,
+  "en": "resistance exercise",
+  "zh": "抗阻运动（同义）",
+  "ipa": "/rɪˈzɪstəns ˈeksəsaɪz/",
+  "ex": "Resistance exercise is safe for most patients with fatty liver."
+ },
+ {
+  "id": 464,
+  "rank": 464,
+  "en": "aerobic exercise",
+  "zh": "有氧运动",
+  "ipa": "/eəˈrəʊbɪk ˈeksəsaɪz/",
+  "ex": "Aerobic exercise for 150 minutes a week is recommended."
+ },
+ {
+  "id": 465,
+  "rank": 465,
+  "en": "carotid plaque",
+  "zh": "颈动脉斑块",
+  "ipa": "/kəˈrɒtɪd plæk/",
+  "ex": "Carotid plaque was detected by ultrasound."
+ },
+ {
+  "id": 466,
+  "rank": 466,
+  "en": "thyroid tumor",
+  "zh": "甲状腺肿瘤",
+  "ipa": "/ˈθaɪrɔɪd ˈtuːmər/",
+  "ex": "The thyroid tumor was benign on biopsy."
+ },
+ {
+  "id": 467,
+  "rank": 467,
+  "en": "allergy history",
+  "zh": "过敏史",
+  "ipa": "/ˈælədʒi ˈhɪstri/",
+  "ex": "Ask about the patient's allergy history before prescribing."
+ },
+ {
+  "id": 468,
+  "rank": 468,
+  "en": "dietary prescription",
+  "zh": "膳食处方",
+  "ipa": "/ˈdaɪətəri prɪˈskrɪpʃn/",
+  "ex": "A dietary prescription was given at the first visit."
+ },
+ {
+  "id": 469,
+  "rank": 469,
+  "en": "exercise prescription",
+  "zh": "运动处方",
+  "ipa": "/ˈeksəsaɪz prɪˈskrɪpʃn/",
+  "ex": "We will make a personalized exercise prescription for patients with fatty liver."
+ },
+ {
+  "id": 470,
+  "rank": 470,
+  "en": "physical activity prescription",
+  "zh": "运动处方（书面/指南）",
+  "ipa": "/ˈfɪzɪkl ækˈtɪvəti prɪˈskrɪpʃn/",
+  "ex": "The guideline recommends a physical activity prescription for obese patients."
+ },
+ {
+  "id": 471,
+  "rank": 471,
+  "en": "shortness of breath on climbing stairs",
+  "zh": "爬楼梯喘",
+  "ipa": "/ˈʃɔːtnəs əv breθ ɒn ˈklaɪmɪŋ steəz/",
+  "ex": "He reported shortness of breath on climbing stairs."
+ },
+ {
+  "id": 472,
+  "rank": 472,
+  "en": "delayed gastric motility",
+  "zh": "胃蠕动变慢",
+  "ipa": "/dɪˈleɪd ˈɡæstrɪk məʊˈtɪləti/",
+  "ex": "Delayed gastric motility may cause early satiety."
+ },
+ {
+  "id": 473,
+  "rank": 473,
+  "en": "abdominal distension",
+  "zh": "胃胀",
+  "ipa": "/æbˈdɒmɪnl dɪˈstenʃn/",
+  "ex": "Abdominal distension was noted on examination."
+ },
+ {
+  "id": 474,
+  "rank": 474,
+  "en": "rehabilitation training",
+  "zh": "康复训练",
+  "ipa": "/ˌriːhəˌbɪlɪˈteɪʃn ˈtreɪnɪŋ/",
+  "ex": "Rehabilitation training improved his exercise capacity."
+ },
+ {
+  "id": 475,
+  "rank": 475,
+  "en": "thigh circumference",
+  "zh": "大腿围",
+  "ipa": "/θaɪ səˈkʌmfərəns/",
+  "ex": "Thigh circumference was measured on both legs."
+ },
+ {
+  "id": 476,
+  "rank": 476,
+  "en": "metabolic syndrome",
+  "zh": "代谢综合征",
+  "ipa": "/ˌmetəˈbɒlɪk ˈsɪndrəʊm/",
+  "ex": "Metabolic syndrome increases the risk of fatty liver disease."
+ }
+];
 /* 医学术语背单词 · 单页应用
-   数据：terms.json（455 条，按对话词频排序）
+   数据：terms.json（476 条，按对话词频排序）
    存储：localStorage
    复习：艾宾浩斯间隔 5min → 30min → 12h → 1d → 2d → 4d → 7d → 15d → 30d（全部通过=已掌握）
 */
@@ -894,7 +4703,7 @@ const OFFLINE_TERMS = [{"id":1,"rank":1,"en":"drug","zh":"药物","ipa":"/drʌɡ
 const INTERVALS = [5, 30, 720, 1440, 2880, 5760, 10080, 20160, 43200]; // 分钟
 const STAGE_LABEL = ['5 分钟', '30 分钟', '12 小时', '1 天', '2 天', '4 天', '7 天', '15 天', '30 天'];
 const KEY = 'medVocab.v1';
-const BUILD = 'v30 · 2026-09-20';   // 每次更新代码时改这里，用来判断“是否最新版本”
+const BUILD = 'v32 · 2026-09-20';   // 每次更新代码时改这里，用来判断“是否最新版本”
 
 const KIND_LABEL = { word: '单词' };
 const KIND_SPEAK = { word: 'en-GB' };
@@ -1552,6 +5361,7 @@ function renderKind(kind) {
   const cfg = LISTS[kind];
   const list = $(cfg.listId);
   if (!list) return;
+  if (kind === 'word' && $('allCount')) $('allCount').textContent = ITEMS.length + ' 条';   // 条数自动跟着词库走
   const q = cfg.search.trim().toLowerCase();
   const items = liveItems().filter(i => i.kind === kind).filter(i => {
     if (q && !((i.front + ' ' + i.back + ' ' + (i.ipa || '')).toLowerCase().includes(q))) return false;
@@ -1567,7 +5377,7 @@ function renderKind(kind) {
     list.innerHTML = `<p class="muted small">${cfg.empty}</p>`;
     return;
   }
-  const shown = items.slice(0, 300);
+  const shown = items.slice(0, 1000);   // 词库 476 条，整表都能翻到底
   if (items.length > 300) {
     const p = document.createElement('p');
     p.className = 'muted small';
