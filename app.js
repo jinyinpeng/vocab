@@ -9,7 +9,7 @@
 const INTERVALS = [5, 30, 720, 1440, 2880, 5760, 10080, 20160, 43200]; // 分钟
 const STAGE_LABEL = ['5 分钟', '30 分钟', '12 小时', '1 天', '2 天', '4 天', '7 天', '15 天', '30 天'];
 const KEY = 'medVocab.v1';
-const BUILD = 'v39 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
+const BUILD = 'v40 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
 
 const KIND_LABEL = { word: '单词' };
 const KIND_SPEAK = { word: 'en-GB' };
@@ -35,7 +35,7 @@ function defaultState() {
     // dayLearn / dayReview: 每日新学、每日复习上限，9999 = 不限
     settings: {
       size: 9999, autoSpeak: true, sizeExplicit: false, reviewMode: 'auto',
-      dayLearn: 20, dayReview: 100,
+      dayLearn: 70, dayReview: 100,
     },
   };
 }
@@ -46,15 +46,21 @@ function loadState() {
     S = raw ? Object.assign(defaultState(), JSON.parse(raw)) : defaultState();
     S.settings = Object.assign({
       size: 9999, autoSpeak: true, sizeExplicit: false, reviewMode: 'auto',
-      dayLearn: 20, dayReview: 100,
+      dayLearn: 70, dayReview: 100,
     }, S.settings || {});
     S.fav = S.fav || {};                                    // 旧存档没有收藏时补上
     S.gone = S.gone || {};                                  // 旧存档没有删除记录时补上
     S.checkins = S.checkins || {};
     S.sync = S.sync || {};
     if (!S.settings.sizeExplicit) S.settings.size = 9999;   // 老数据统一升级为“不限”
-    S.settings.dayLearn = Number(S.settings.dayLearn) > 0 ? Number(S.settings.dayLearn) : 20;
+    S.settings.dayLearn = Number(S.settings.dayLearn) > 0 ? Number(S.settings.dayLearn) : 70;
     S.settings.dayReview = Number(S.settings.dayReview) > 0 ? Number(S.settings.dayReview) : 100;
+    // 每日新学上限默认由 20 改成 70：老存档里还留着旧默认值 20 的一次性升到 70
+    //（如果之前手动选过 10/30/50/100，就不动它）
+    if (!S.settings.dayLearnV2) {
+      S.settings.dayLearnV2 = true;
+      if (Number(S.settings.dayLearn) === 20) S.settings.dayLearn = 70;
+    }
     // 老存档迁移：以前“当天有学习或复习记录”就算打过卡，补进打卡表，累计天数不清零
     Object.keys(S.stats).forEach(d => {
       const v = S.stats[d] || {};
@@ -213,7 +219,7 @@ const liveItems = () => ITEMS.filter(i => !isGone(i.key));
 
 /* ---------------- 每日限额（每日新学 / 每日复习） ---------------- */
 const dayCap = (v, dflt) => { const n = Math.floor(Number(v)); return n > 0 ? n : dflt; };
-const dayLearnCap = () => dayCap(S.settings.dayLearn, 20);
+const dayLearnCap = () => dayCap(S.settings.dayLearn, 70);
 const dayReviewCap = () => dayCap(S.settings.dayReview, 100);
 const dayLearnUsed = () => (S.stats[todayKey()] ? S.stats[todayKey()].learn || 0 : 0);
 const dayReviewUsed = () => (S.stats[todayKey()] ? S.stats[todayKey()].review || 0 : 0);
@@ -1022,7 +1028,7 @@ async function cloudLoad() {
     const keepUp = (S.sync || {}).up;
     S = unpackState(data);
     if (!S.settings.sizeExplicit) S.settings.size = 9999;
-    S.settings.dayLearn = Number(S.settings.dayLearn) > 0 ? Number(S.settings.dayLearn) : 20;
+    S.settings.dayLearn = Number(S.settings.dayLearn) > 0 ? Number(S.settings.dayLearn) : 70;
     S.settings.dayReview = Number(S.settings.dayReview) > 0 ? Number(S.settings.dayReview) : 100;
     S.sync = Object.assign({}, S.sync, { up: keepUp || S.sync.up, down: Date.now() });
     save();
