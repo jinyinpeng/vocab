@@ -9,7 +9,7 @@
 const INTERVALS = [5, 30, 720, 1440, 2880, 5760, 10080, 20160, 43200]; // 分钟
 const STAGE_LABEL = ['5 分钟', '30 分钟', '12 小时', '1 天', '2 天', '4 天', '7 天', '15 天', '30 天'];
 const KEY = 'medVocab.v1';
-const BUILD = 'v48 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
+const BUILD = 'v49 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
 
 const KIND_LABEL = { word: '单词' };
 const KIND_SPEAK = { word: 'en-GB' };
@@ -886,26 +886,20 @@ function afterBackup() {
   renderBackupInfo();
 }
 
-/* 在隐藏的 iframe 里点下载链接：文件照常下载，但当前页面不会被导航走
-   （直接在页面里点 <a download> 在手机浏览器/PWA 里会被当成打开新页面） */
-function downloadInFrame(text, name) {
+/* 直接触发浏览器下载（桌面浏览器用；download 属性不会被当成导航） */
+function downloadFile(text, name) {
   const url = URL.createObjectURL(new Blob([text], { type: 'application/json' }));
-  const frame = document.createElement('iframe');
-  frame.setAttribute('aria-hidden', 'true');
-  frame.style.cssText = 'position:fixed;left:-9999px;top:0;width:0;height:0;border:0';
-  document.body.appendChild(frame);
-  try {
-    const doc = frame.contentDocument;
-    const a = doc.createElement('a');
-    a.href = url;
-    a.download = name;
-    doc.body.appendChild(a);
-    a.click();
-  } catch (e) { /* 极老浏览器：忽略 */ }
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = name;
+  a.rel = 'noopener';
+  a.style.display = 'none';
+  document.body.appendChild(a);
+  a.click();
   setTimeout(() => {
-    try { frame.remove(); } catch (e) { /* 忽略 */ }
+    try { a.remove(); } catch (e) { /* 忽略 */ }
     URL.revokeObjectURL(url);
-  }, 20000);
+  }, 8000);
 }
 
 /* ---------------- 下拉更新 / 检查更新 ---------------- */
@@ -1217,14 +1211,14 @@ function bind() {
         toast('备份已存到手机「文件」里', 3000);
       }).catch(err => {
         if (err && err.name === 'AbortError') return;   // 用户自己取消了，就什么都不做
-        downloadInFrame(text, name);                    // 分享失败时退回下载
+        downloadFile(text, name);                       // 分享失败时退回下载
         afterBackup();
         toast('备份已下载：' + name, 3600);
       });
       return;
     }
 
-    downloadInFrame(text, name);
+    downloadFile(text, name);
     afterBackup();
     toast('备份已存到「文件」里：' + name, 4000);
   };
