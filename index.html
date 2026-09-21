@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>医学术语背单词 · 肝病门诊高频词</title>
+<title>我在意大利背医学词汇 · 肝病门诊高频词</title>
 <meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0f1420" media="(prefers-color-scheme: dark)">
 <meta name="format-detection" content="telephone=no">
@@ -35,7 +35,7 @@
 <link rel="manifest" href="manifest.json?v=21">
 <link rel="icon" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="apple-mobile-web-app-title" content="背单词">
+<meta name="apple-mobile-web-app-title" content="背医学词汇">
 <link rel="stylesheet" href="styles.css?v=15">
 </head>
 <body>
@@ -64,7 +64,7 @@
     <div class="brand">
       <span class="logo"><svg class="ic"><use href="#i-logo"/></svg></span>
       <div>
-        <h1>医学术语背单词</h1>
+        <h1>我在意大利背医学词汇</h1>
         <p class="sub">意大利肝病门诊真实对话 · 按频率排序</p>
       </div>
     </div>
@@ -117,7 +117,7 @@
         <div class="stat-card">
           <svg class="ic"><use href="#i-chart"/></svg>
           <span class="stat-num" id="homeStreak">0</span>
-          <span class="stat-label">连续打卡（天）</span>
+          <span class="stat-label">累计打卡（天）</span>
         </div>
       </div>
     </section>
@@ -186,7 +186,7 @@
           </div>
         </div>
         <div class="btn-row">
-          <button class="btn primary" id="btnExtraReview">立即复习全部生词（不等时间）</button>
+          <button class="btn primary" id="btnExtraReview">立即复习生词（不等时间）</button>
         </div>
         <div class="list" id="bookList"></div>
       </div>
@@ -251,6 +251,27 @@
               <option value="50">50 个</option>
             </select>
           </label>
+          <label class="field">
+            <span>每日新学上限</span>
+            <select id="dayLearn">
+              <option value="9999">不限</option>
+              <option value="10">10 个</option>
+              <option value="20">20 个</option>
+              <option value="30">30 个</option>
+              <option value="50">50 个</option>
+              <option value="100">100 个</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>每日复习上限</span>
+            <select id="dayReview">
+              <option value="9999">不限</option>
+              <option value="50">50 次</option>
+              <option value="100">100 次</option>
+              <option value="200">200 次</option>
+              <option value="300">300 次</option>
+            </select>
+          </label>
           <label class="field check">
             <span>自动朗读（英式男声）</span>
             <input type="checkbox" id="autoSpeak">
@@ -311,6 +332,6 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="app.js?v=34"></script>
+<script src="app.js?v=35"></script>
 </body>
 </html>
