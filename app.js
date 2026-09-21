@@ -9,7 +9,7 @@
 const INTERVALS = [5, 30, 720, 1440, 2880, 5760, 10080, 20160, 43200]; // 分钟
 const STAGE_LABEL = ['5 分钟', '30 分钟', '12 小时', '1 天', '2 天', '4 天', '7 天', '15 天', '30 天'];
 const KEY = 'medVocab.v1';
-const BUILD = 'v50 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
+const BUILD = 'v51 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
 
 const KIND_LABEL = { word: '单词' };
 const KIND_SPEAK = { word: 'en-GB' };
@@ -85,6 +85,12 @@ function stat() {
 
 /* ---------------- 工具 ---------------- */
 const $ = (id) => document.getElementById(id);
+
+/* 防抖：搜索框每敲一个字就重排整张列表太费，停 200ms 再算 */
+const debounce = (fn, ms) => {
+  let t = 0;
+  return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); };
+};
 
 function toast(msg, ms = 1700) {
   const t = $('toast');
@@ -349,10 +355,10 @@ function renderStudy() {
   const t = byKey[session.queue[session.idx]];
   const bk = S.book[t.key];
   const confirming = !!session.confirm;
-  $('cardRank').textContent = `词频 #${t.rank}`;
+  $('cardRank').textContent = `高频 #${t.rank}`;
   $('cardMode').textContent = session.mode === 'learn'
     ? '学习新词'
-    : (bk && bk.mastered ? '已掌握' : `第 ${(bk ? bk.stage : 0) + 1} 段复习 · 间隔 ${STAGE_LABEL[Math.min(bk ? bk.stage : 0, 8)]}`);
+    : (bk && bk.mastered ? '已掌握' : `复习 ${(bk ? bk.stage : 0) + 1}/${INTERVALS.length}`);
   $('cardEn').textContent = t.front;
   $('cardIpa').textContent = t.ipa || '';
   $('cardIpa').classList.remove('plain');
@@ -618,11 +624,11 @@ function renderHome() {
     + ' · 复习 ' + usedText(td.review || 0, dayReviewCap(), '次')
     + (S.checkins[todayKey()] ? ' · 今日打卡已完成 ✅' : '');
 
-  $('btnStartReview').textContent = dueToday ? `开始复习（${dueToday}）` : (due ? '今日复习已达上限' : '开始复习');
+  $('btnStartReview').textContent = dueToday ? `开始复习（${dueToday}）` : (due ? '今日复习已满' : '开始复习');
   $('btnStartReview').disabled = dueToday === 0;
   $('btnStartLearn').textContent = restToday
-    ? `开始学习（今日还剩 ${restToday} 个）`
-    : (restAll ? '今日新学已达上限' : '全部学完');
+    ? `开始学习（剩 ${restToday}）`
+    : (restAll ? '今日新学已满' : '全部学完');
 
   // 兼容被浏览器缓存的旧页面：若还存在词频分布模块就隐藏掉
   const freqPanel = $('freqBar');
@@ -634,11 +640,77 @@ function checkinDays() {
   return Object.keys(S.checkins || {}).length;
 }
 
+/* ---------------- 列表通用：分页渲染 + 事件委托 ----------------
+   词库有 600+ 条，一次性把整表塞进 DOM 在手机上会明显卡顿，
+   所以：先渲染一页（60 行），点「显示更多」再往后接；行的按钮用事件委托统一处理。 */
+const LIST_STEP = 60;
+
+/* 过滤条件变了就回到第一页；点「显示更多」再往后加一页
+   注意：结果比一页还少时要按实际条数来，否则会渲染出空行 */
+function pageSize(state, sig, total, more) {
+  if (state.sig !== sig) { state.sig = sig; state.shown = LIST_STEP; }
+  else if (more) state.shown = (state.shown || LIST_STEP) + LIST_STEP;
+  state.shown = Math.min(state.shown || LIST_STEP, total);
+  return state.shown;
+}
+
+function appendMoreButton(list, shown, total, onClick) {
+  if (shown >= total) return;
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn ghost more-btn';
+  btn.textContent = '显示更多（还有 ' + (total - shown) + ' 条）';
+  btn.onclick = onClick;
+  list.appendChild(btn);
+}
+
+function emptyList(list, text) {
+  list.textContent = '';
+  const p = document.createElement('p');
+  p.className = 'muted small list-empty';
+  p.textContent = text;
+  list.appendChild(p);
+}
+
+/* 列表行里的按钮统一在这里处理（kind: word=单词表 book=生词本） */
+function onRowAct(kind, key, act) {
+  const t = byKey[key];
+  if (!t) return;
+  if (act === 'say') { speak(t.front, KIND_SPEAK[t.kind], 2); return; }
+  if (act === 'fav') toast(toggleFav(key) ? '已收藏' : '已取消收藏', 1200);
+  else if (act === 'book') {
+    if (inBook(key)) { delete S.book[key]; toast('已移出生词本'); }
+    else { addBook(key); toast('已加入生词本'); }
+  } else if (act === 'know') {
+    if (kind === 'book') {                      // 生词本：标为已掌握
+      S.book[key].mastered = true;
+      S.book[key].due = null;
+      toast('已标为掌握 ✓');
+    } else if (isKnown(key)) {                  // 单词表：取消标记
+      delete S.known[key];
+      toast('已取消标记');
+    } else {                                    // 单词表：标为已认识
+      delete S.book[key];
+      S.known[key] = Date.now();
+      toast('已标为认识 ✓');
+    }
+  } else if (act === 'del') {                   // 生词本：移出
+    delete S.book[key];
+    toast('已移出生词本');
+  }
+  save();
+  renderKind('word');
+  renderBook();
+  renderHome();
+  renderStats();
+}
+
 /* ---------------- 生词本 ---------------- */
 let bookFilter = 'due';
 let bookSearch = '';
+const bookPage = { sig: '', shown: LIST_STEP };
 
-function renderBook() {
+function renderBook(more) {
   const list = $('bookList');
   const all = validKeys(S.book);
   const due = all.filter(en => !S.book[en].mastered && S.book[en].due <= Date.now());
@@ -662,82 +734,60 @@ function renderBook() {
     });
   }
 
-  list.innerHTML = '';
   if (!items.length) {
-    list.innerHTML = `<p class="muted small">${q ? '没有匹配的词。' : bookFilter === 'fav' ? '还没有收藏的词。' : '这里还是空的。'}</p>`;
+    emptyList(list, q ? '没有匹配的词。' : bookFilter === 'fav' ? '还没有收藏的词。' : '这里还是空的。');
     return;
   }
-  items.forEach(en => list.appendChild(bookRow(en)));
+  const shown = pageSize(bookPage, bookFilter + '|' + q, items.length, more);
+  const frag = document.createDocumentFragment();
+  for (let i = 0; i < shown; i++) frag.appendChild(bookRow(items[i]));
+  list.textContent = '';
+  list.appendChild(frag);
+  appendMoreButton(list, shown, items.length, () => renderBook(true));
 }
 
 function bookRow(en) {
-  const t = byKey[en] || { key: en, kind: 'word', front: en, back: '', ipa: '', sub: '', tag: '单词', rank: '-' };
+  const t = byKey[en] || { key: en, kind: 'word', front: en, back: '', ipa: '', rank: '-' };
   const e = S.book[en];
   const fav = isFav(en);
   const row = document.createElement('div');
   row.className = 'row';
+  row.dataset.key = en;
 
-  const dots = e ? Array.from({ length: INTERVALS.length },
-    (_, i) => `<i class="dot ${i < e.stage ? 'on' : ''}"></i>`).join('') : '';
-  const right = escapeHtml(t.ipa || '');
   const meta = e
-    ? `${e.mastered ? '<span class="status-chip mastered">已掌握</span>' : `<span class="status-chip book">${relTime(e.due)}</span>`}
-       <span class="dots">${dots}</span><span> 对 ${e.ok || 0} / 错 ${e.fail || 0}</span>`
+    ? (e.mastered ? '<span class="status-chip mastered">已掌握</span>'
+      : '<span class="status-chip book">' + relTime(e.due) + '</span>')
+    + (e.mastered ? '' : '<span class="row-tag">第 ' + ((e.stage || 0) + 1) + ' 段</span>')
+    + '<span class="row-tag">对 ' + (e.ok || 0) + ' · 错 ' + (e.fail || 0) + '</span>'
     : '<span class="status-chip">仅收藏</span>';
 
   row.innerHTML = `
-    <div>
-      <div class="en">${escapeHtml(t.front)} <span class="ipa">${right}</span></div>
-      <div class="zh">${escapeHtml(t.back || '')} ${fav ? '<span class="status-chip fav">收藏</span>' : ''}</div>
+    <div class="row-main">
+      <div class="en">${escapeHtml(t.front)} <span class="ipa">${escapeHtml(t.ipa || '')}</span></div>
       <div class="meta">${meta}</div>
     </div>
     <div class="row-actions">
-      <button class="mini" data-act="say" title="朗读"><svg class="ic"><use href="#i-sound"/></svg></button>
-      <button class="mini fav${fav ? ' on' : ''}" data-act="fav" title="${fav ? '取消收藏' : '加入收藏'}"><svg class="ic"><use href="#i-star"/></svg></button>
-      ${e ? '<button class="mini ok" data-act="know" title="标记为已掌握">掌握</button>'
-    + '<button class="mini danger" data-act="del" title="移出生词本">移除</button>'
-    : '<button class="mini ok" data-act="book" title="加入生词本">加入生词本</button>'}
+      <button type="button" class="mini ico" data-act="say" title="朗读" aria-label="朗读"><svg class="ic"><use href="#i-sound"/></svg></button>
+      <button type="button" class="mini ico fav${fav ? ' on' : ''}" data-act="fav" title="${fav ? '取消收藏' : '加入收藏'}" aria-label="收藏"><svg class="ic"><use href="#i-star"/></svg></button>
+      ${e
+        ? '<button type="button" class="mini ok" data-act="know">标为已掌握</button>'
+        + '<button type="button" class="mini danger" data-act="del">移出生词本</button>'
+        : '<button type="button" class="mini ok" data-act="book">加入生词本</button>'}
     </div>`;
-
-  row.querySelector('[data-act="say"]').onclick = () => speak(t.front, KIND_SPEAK[t.kind]);
-  row.querySelector('[data-act="fav"]').onclick = () => {
-    const on = toggleFav(en);
-    save();
-    toast(on ? '已收藏' : '已取消收藏', 1200);
-    renderHome(); renderBook(); renderStats(); refreshLists();
-  };
-  if (e) {
-    row.querySelector('[data-act="know"]').onclick = () => {
-      S.book[en].mastered = true; S.book[en].due = null; save();
-      toast('已标记为掌握'); renderHome(); renderBook(); renderStats(); refreshLists();
-    };
-    row.querySelector('[data-act="del"]').onclick = () => {
-      delete S.book[en]; save();
-      toast('已移出生词本'); renderHome(); renderBook(); renderStats(); refreshLists();
-    };
-  } else {
-    row.querySelector('[data-act="book"]').onclick = () => {
-      addBook(en); save();
-      toast('已加入生词本'); renderHome(); renderBook(); renderStats(); refreshLists();
-    };
-  }
   return row;
 }
 
-function refreshLists() { renderAll(); }
+function refreshLists() { renderKind('word'); }
 
 /* ---------------- 列表（单词表） ---------------- */
 const LISTS = {
-  word: { filter: 'all', search: '', listId: 'allList', empty: '没有匹配的单词。' },
+  word: { filter: 'all', search: '', listId: 'allList', empty: '没有匹配的单词。', sig: '', shown: LIST_STEP },
 };
 
-function renderKind(kind) {
+function kindItems(kind) {
   const cfg = LISTS[kind];
-  const list = $(cfg.listId);
-  if (!list) return;
-  if (kind === 'word' && $('allCount')) $('allCount').textContent = ITEMS.length + ' 条';   // 条数自动跟着词库走
   const q = cfg.search.trim().toLowerCase();
-  const items = liveItems().filter(i => i.kind === kind).filter(i => {
+  return liveItems().filter(i => i.kind === kind).filter(i => {
     if (q && !((i.front + ' ' + i.back + ' ' + (i.ipa || '')).toLowerCase().includes(q))) return false;
     if (cfg.filter === 'new') return !isKnown(i.key) && !inBook(i.key);
     if (cfg.filter === 'known') return isKnown(i.key);
@@ -745,20 +795,21 @@ function renderKind(kind) {
     if (cfg.filter === 'mastered') return isMastered(i.key);
     return true;
   });
+}
 
-  list.innerHTML = '';
-  if (!items.length) {
-    list.innerHTML = `<p class="muted small">${cfg.empty}</p>`;
-    return;
-  }
-  const shown = items.slice(0, 1000);   // 词库 476 条，整表都能翻到底
-  if (items.length > 300) {
-    const p = document.createElement('p');
-    p.className = 'muted small';
-    p.textContent = `匹配 ${items.length} 条，先显示前 300 条，请用搜索缩小范围。`;
-    list.appendChild(p);
-  }
-  shown.forEach(i => list.appendChild(itemRow(i, kind)));
+function renderKind(kind, more) {
+  const cfg = LISTS[kind];
+  const list = $(cfg.listId);
+  if (!list) return;
+  if (kind === 'word' && $('allCount')) $('allCount').textContent = ITEMS.length + ' 条';   // 条数自动跟着词库走
+  const items = kindItems(kind);
+  if (!items.length) { emptyList(list, cfg.empty); return; }
+  const shown = pageSize(cfg, cfg.filter + '|' + cfg.search.trim().toLowerCase(), items.length, more);
+  const frag = document.createDocumentFragment();
+  for (let i = 0; i < shown; i++) frag.appendChild(itemRow(items[i], kind));
+  list.textContent = '';
+  list.appendChild(frag);
+  appendMoreButton(list, shown, items.length, () => renderKind(kind, true));
 }
 
 const renderAll = () => renderKind('word');
@@ -766,47 +817,24 @@ const renderAll = () => renderKind('word');
 function itemRow(t, kind) {
   const row = document.createElement('div');
   row.className = 'row';
+  row.dataset.key = t.key;
   let chip = '<span class="status-chip">未学</span>';
   if (isMastered(t.key)) chip = '<span class="status-chip mastered">已掌握</span>';
   else if (inBook(t.key)) chip = '<span class="status-chip book">生词本</span>';
   else if (isKnown(t.key)) chip = '<span class="status-chip known">已认识</span>';
 
   const fav = isFav(t.key);
-  const head = `#${t.rank} ${escapeHtml(t.front)} <span class="ipa">${escapeHtml(t.ipa || '')}</span>`;
-  const sub = '';
-
   row.innerHTML = `
-    <div>
-      <div class="en">${head}</div>
+    <div class="row-main">
+      <div class="en"><span class="row-tag no">#${t.rank}</span>${escapeHtml(t.front)} <span class="ipa">${escapeHtml(t.ipa || '')}</span></div>
       <div class="zh">${escapeHtml(t.back || '')} ${chip}</div>
-      ${sub}
     </div>
     <div class="row-actions">
-      <button class="mini" data-act="say" title="朗读"><svg class="ic"><use href="#i-sound"/></svg></button>
-      <button class="mini fav${fav ? ' on' : ''}" data-act="fav" title="${fav ? '取消收藏' : '收藏'}"><svg class="ic"><use href="#i-star"/></svg></button>
-      <button class="mini" data-act="book">${inBook(t.key) ? '移除' : '加生词本'}</button>
-      <button class="mini ok" data-act="know">${isKnown(t.key) ? '取消认识' : '认识'}</button>
+      <button type="button" class="mini ico" data-act="say" title="朗读" aria-label="朗读"><svg class="ic"><use href="#i-sound"/></svg></button>
+      <button type="button" class="mini ico fav${fav ? ' on' : ''}" data-act="fav" title="${fav ? '取消收藏' : '收藏'}" aria-label="收藏"><svg class="ic"><use href="#i-star"/></svg></button>
+      <button type="button" class="mini" data-act="book">${inBook(t.key) ? '移出生词本' : '加入生词本'}</button>
+      <button type="button" class="mini ok" data-act="know">${isKnown(t.key) ? '取消已认识' : '标为已认识'}</button>
     </div>`;
-
-  const redraw = () => {
-    save(); renderKind(kind); renderBook(); renderHome(); renderStats();
-  };
-  row.querySelector('[data-act="say"]').onclick = () => speak(t.front, KIND_SPEAK[t.kind]);
-  row.querySelector('[data-act="fav"]').onclick = () => {
-    const on = toggleFav(t.key);
-    toast(on ? '已收藏' : '已取消收藏', 1200);
-    redraw();
-  };
-  row.querySelector('[data-act="book"]').onclick = () => {
-    if (inBook(t.key)) { delete S.book[t.key]; toast('已移出生词本'); }
-    else { addBook(t.key); toast('已加入生词本'); }
-    redraw();
-  };
-  row.querySelector('[data-act="know"]').onclick = () => {
-    if (isKnown(t.key)) { delete S.known[t.key]; }
-    else { delete S.book[t.key]; S.known[t.key] = Date.now(); }
-    redraw();
-  };
   return row;
 }
 
@@ -1145,24 +1173,35 @@ function bind() {
   $('btnExtraReview').onclick = () => startStudy('extra');
   $('autoSpeak').addEventListener('change', e => { S.settings.autoSpeak = e.target.checked; save(); });
 
+  // 列表行的按钮：一个监听管住整张表（行是动态生成的，逐行挂监听在手机上很卡）
+  [['allList', 'word'], ['bookList', 'book']].forEach(([id, kind]) => {
+    const el = $(id);
+    if (!el) return;
+    el.addEventListener('click', e => {
+      const btn = e.target.closest('button[data-act]');
+      if (!btn) return;
+      const row = btn.closest('.row');
+      if (row && row.dataset.key) onRowAct(kind, row.dataset.key, btn.dataset.act);
+    });
+  });
+
+  const setWordSearch = debounce(v => { LISTS.word.search = v; renderKind('word'); }, 200);
+  const setBookSearch = debounce(v => { bookSearch = v; renderBook(); }, 200);
+
   $('bookFilters').addEventListener('click', e => {
     const c = e.target.closest('.chip'); if (!c) return;
     bookFilter = c.dataset.f;
     [...e.currentTarget.children].forEach(x => x.classList.toggle('active', x === c));
     renderBook();
   });
-  [['allFilters', 'word', 'searchInput']]
-    .forEach(([fid, kind, sid]) => {
-      $(fid).addEventListener('click', e => {
-        const c = e.target.closest('.chip'); if (!c) return;
-        LISTS[kind].filter = c.dataset.f;
-        [...e.currentTarget.children].forEach(x => x.classList.toggle('active', x === c));
-        renderKind(kind);
-      });
-      $(sid).addEventListener('input', e => { LISTS[kind].search = e.target.value; renderKind(kind); });
-    });
-
-  $('bookSearch').addEventListener('input', e => { bookSearch = e.target.value; renderBook(); });
+  $('allFilters').addEventListener('click', e => {
+    const c = e.target.closest('.chip'); if (!c) return;
+    LISTS.word.filter = c.dataset.f;
+    [...e.currentTarget.children].forEach(x => x.classList.toggle('active', x === c));
+    renderKind('word');
+  });
+  $('searchInput').addEventListener('input', e => setWordSearch(e.target.value));
+  $('bookSearch').addEventListener('input', e => setBookSearch(e.target.value));
 
   // 侧栏/顶部快捷入口：有待复习就复习，否则学新词
   $('railGo').onclick = () => {
