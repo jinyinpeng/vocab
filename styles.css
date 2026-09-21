@@ -65,7 +65,10 @@ html[data-theme="dark"] {
 
 /* ---------- 2. 基础 ---------- */
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+html {
+  -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;   /* 手机上点按钮不再闪灰色方块 */
+}
 
 body {
   margin: 0;
@@ -237,6 +240,9 @@ kbd {
 }
 .mini .ic { width: 16px; height: 16px; }
 .mini:active { transform: scale(.96); }
+/* 只放图标的迷你按钮（列表里的朗读 / 收藏） */
+.mini.ico { width: 34px; padding: 0; justify-content: center; }
+.mini.ico .ic { width: 17px; height: 17px; }
 .mini.ok { color: var(--success); border-color: transparent; background: var(--success-soft); }
 .mini.danger { color: var(--danger); border-color: transparent; background: var(--danger-soft); }
 .mini.fav.on { color: var(--warn); border-color: transparent; background: var(--warn-soft); }
@@ -303,10 +309,6 @@ input[type="checkbox"]:checked::after { transform: translateX(20px); }
 .status-chip.mastered { background: var(--primary-soft); color: var(--primary); }
 .status-chip.fav { background: var(--warn-soft); color: var(--warn); }
 
-.dots { display: inline-flex; gap: 3px; margin-left: 6px; vertical-align: middle; }
-.dot { width: 7px; height: 7px; border-radius: 50%; background: var(--line); display: inline-block; }
-.dot.on { background: var(--success); }
-
 .steps { margin: var(--sp-3) 0 0; padding-left: 20px; }
 .steps li { margin: var(--sp-2) 0; line-height: 1.7; font-size: var(--fs-sm); color: var(--text-2); }
 .steps .mini, .steps .btn { margin-left: var(--sp-2); vertical-align: middle; }
@@ -338,16 +340,16 @@ html[data-theme="dark"] .hero { background: linear-gradient(135deg, #3557b8 0%, 
 .hero-progress { flex: 0 0 auto; background: rgba(255, 255, 255, .28); height: 8px; }
 .hero-progress .bar { background: #fff; }
 .hero-actions { display: flex; gap: var(--sp-2); flex-wrap: wrap; margin-top: var(--sp-1); }
+.hero-actions .btn { white-space: nowrap; }   /* 按钮文字不换行，挤不下就整颗换到下一行 */
 .hero .btn { background: rgba(255, 255, 255, .16); border-color: rgba(255, 255, 255, .38); color: #fff; backdrop-filter: blur(2px); }
 .hero .btn.primary { background: #fff; border-color: #fff; color: #24409e; box-shadow: 0 8px 20px rgba(0, 0, 0, .16); }
 .hero .btn[disabled] { opacity: .5; }
 .hero-line { margin: 0; color: rgba(255, 255, 255, .85) !important; }
 .hero-line:empty { display: none; }
 
-/* 首页：主入口 + 磁贴在垂直方向居中（空间不足时自动靠上，不会裁切） */
-#view-home { justify-content: center; }
-#view-home > .hero { flex: 0 0 auto; margin-top: auto; }
-#view-home > .tiles { margin-bottom: auto; }
+/* 首页：内容从顶部排（原来垂直居中，手机上方会留一大块空白） */
+#view-home > .hero { flex: 0 0 auto; }
+#view-home > .tiles { flex: 0 0 auto; }
 
 /* 生词本 / 单词表：面板铺满，避免底部留白 */
 #view-wordbook .panel,
@@ -438,19 +440,35 @@ html[data-theme="dark"] .hero { background: linear-gradient(135deg, #3557b8 0%, 
 .study-actions .btn kbd { margin-left: 3px; }
 .panel.empty { text-align: center; align-items: center; flex: 0 0 auto; }
 
-/* 列表 */
-.list { margin-top: var(--sp-3); display: flex; flex-direction: column; gap: var(--sp-2); min-height: 0; }
+/* 列表：扁平分隔线式（原来每行一个方框，又重又乱，还拉高了行高） */
+.list { margin-top: var(--sp-2); display: flex; flex-direction: column; min-height: 0; }
 .row {
   display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--sp-3); align-items: center;
-  border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--sp-3);
-  background: var(--surface); transition: border-color .16s var(--ease), background .16s var(--ease);
+  padding: 11px 4px; border-top: 1px solid var(--line);
+  background: var(--surface); transition: background .16s var(--ease);
+  content-visibility: auto; contain-intrinsic-size: auto 84px;   /* 屏幕外的行不渲染，长列表滑动更顺 */
 }
-.row:hover { border-color: color-mix(in srgb, var(--primary) 26%, var(--line)); }
+.row:first-child { border-top: 0; }
+.row-main { min-width: 0; }
 .row .en { font-weight: 650; overflow-wrap: anywhere; }
 .row .zh { font-size: var(--fs-sm); color: var(--text-2); }
 .row .ipa { font-family: ui-monospace, monospace; font-size: 12.5px; color: var(--muted); }
 .row .meta { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 4px; font-size: var(--fs-xs); color: var(--muted); }
-.row-actions { display: flex; gap: var(--sp-1); align-items: center; }
+.row-actions { display: flex; gap: 6px; align-items: center; flex-wrap: nowrap; justify-content: flex-end; }
+.row-tag {
+  display: inline-block; padding: 1px 7px; border-radius: var(--r-full);
+  background: var(--surface-2); color: var(--muted); font-size: var(--fs-xs); font-weight: 600;
+  white-space: nowrap;
+}
+.row-tag.no { margin-right: 6px; color: var(--text-2); font-variant-numeric: tabular-nums; }
+.row:hover { background: var(--surface-2); }
+@media (hover: none) { .row:hover { background: var(--surface); } }
+.list-empty { padding: var(--sp-5) 0; text-align: center; }
+.list .more-btn {
+  border: 0; border-top: 1px solid var(--line); border-radius: 0;
+  background: var(--surface-2); color: var(--text-2); min-height: 46px; margin-top: 2px;
+}
+.list .more-btn:hover { background: var(--primary-soft); color: var(--primary); }
 
 /* 图表 */
 .chart-wrap { margin-top: var(--sp-5); }
@@ -518,13 +536,19 @@ html[data-theme="dark"] .toast { background: #2b3550; }
   .tiles { gap: var(--sp-2); }
   .study-actions { bottom: calc(var(--tabbar-h) + var(--sp-2) + env(safe-area-inset-bottom)); }
   .toast { bottom: calc(var(--tabbar-h) + var(--sp-4) + env(safe-area-inset-bottom)); }
-  .foot { padding-bottom: var(--sp-2); }
+  .foot { padding-bottom: var(--sp-2); opacity: .72; }
+  /* 筛选标签排成一行横滑，不再换行占两行 */
+  .filters { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+  .filters::-webkit-scrollbar { display: none; }
+  .filters .chip { flex: 0 0 auto; }
 }
 
-/* 窄屏：列表行的操作按钮换行到下一行 */
+/* 窄屏：列表行的按钮换到文字下面一行 */
 @media (max-width: 560px) {
-  .row { grid-template-columns: minmax(0, 1fr); gap: var(--sp-2); }
-  .row-actions { flex-wrap: wrap; }
+  .row { grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 10px 2px; align-items: start; }
+  .row-actions { justify-content: flex-start; }
+  .row-actions .mini { font-size: 12px; min-height: 32px; padding: 5px 9px; }
+  .row-actions .mini.ico { width: 32px; padding: 0; }
   #btnFav span { display: none; }
   .card-meta { justify-content: flex-start; }
 }
