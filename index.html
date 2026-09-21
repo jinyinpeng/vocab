@@ -309,33 +309,6 @@
           <input type="file" id="fileInput" class="hidden" accept=".json,.txt,application/json,text/plain">
         </div>
 
-        <div class="group">
-          <h3>云端同步</h3>
-          <p class="muted small">每天「学习 + 复习」都完成后算今日打卡完成，会自动上传一次；也可以随时手动保存或恢复。</p>
-          <p class="muted small">也可以让电脑端生成一个「一键链接」发到手机，点开就自动配好（不用手动复制令牌）。</p>
-          <div class="btn-row">
-            <button class="btn primary" id="btnCloudSave">保存到云端</button>
-            <button class="btn" id="btnCloudLoad">从云端恢复</button>
-          </div>
-          <details class="details" id="cloudTokenWrap">
-            <summary>填写同步令牌（一台设备只需一次）</summary>
-            <p class="muted small">存到自己的 GitHub 仓库里。先点下面按钮生成令牌（勾选 public_repo 即可），复制后粘到框里保存：</p>
-            <p class="muted small">令牌可以直接粘贴，也可以把电脑发来的<b>整条「一键链接」</b>粘进来（会自动取里面的令牌）。注意：一键链接必须在<b>打开这个 App 的同一个浏览器/入口</b>里点，微信里点开的链接和 Safari 不通用。</p>
-            <div class="btn-row">
-              <a class="btn" id="btnTokenLink" target="_blank" rel="noopener"
-                 href="https://github.com/settings/tokens/new?scopes=public_repo&amp;description=medvocab-cloud-sync">去生成令牌</a>
-            </div>
-            <input id="cloudToken" class="search" type="password" autocomplete="off"
-                   placeholder="粘贴令牌，或把整条一键链接粘进来">
-            <div class="btn-row">
-              <button class="btn" id="btnTokenSave">保存令牌</button>
-              <button class="btn danger" id="btnTokenClear">清除令牌</button>
-              <span class="muted small" id="tokenInfo"></span>
-            </div>
-          </details>
-          <p class="muted small" id="cloudInfo"></p>
-        </div>
-
         <div class="group danger-zone">
           <h3>维护</h3>
           <div class="btn-row">
@@ -360,6 +333,6 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="app.js?v=45"></script>
+<script src="app.js?v=46"></script>
 </body>
 </html>
