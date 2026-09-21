@@ -4950,7 +4950,7 @@ const OFFLINE_TERMS = [
 const INTERVALS = [5, 30, 720, 1440, 2880, 5760, 10080, 20160, 43200]; // 分钟
 const STAGE_LABEL = ['5 分钟', '30 分钟', '12 小时', '1 天', '2 天', '4 天', '7 天', '15 天', '30 天'];
 const KEY = 'medVocab.v1';
-const BUILD = 'v35 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
+const BUILD = 'v36 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
 
 const KIND_LABEL = { word: '单词' };
 const KIND_SPEAK = { word: 'en-GB' };
@@ -5151,7 +5151,8 @@ const dayLearnUsed = () => (S.stats[todayKey()] ? S.stats[todayKey()].learn || 0
 const dayReviewUsed = () => (S.stats[todayKey()] ? S.stats[todayKey()].review || 0 : 0);
 const dayLearnLeft = () => Math.max(0, dayLearnCap() - dayLearnUsed());
 const dayReviewLeft = () => Math.max(0, dayReviewCap() - dayReviewUsed());
-const capLabel = (cap, unit) => (cap >= 9999 ? '不限' : cap + ' ' + unit);
+/* 今日用量的展示文字：设了上限显示 "3/20 个"，不限则显示 "3 个" */
+const usedText = (used, cap, unit) => (cap >= 9999 ? used + ' ' + unit : used + '/' + cap + ' ' + unit);
 
 function addBook(en) {
   const now = Date.now();
@@ -5226,7 +5227,7 @@ function renderStudy() {
     const restNew = newQueue(9999).length;
     const canLearnMore = Math.min(dayLearnLeft(), restNew);
     $('emptyTitle').textContent = session && session.mode === 'learn' ? '本轮新词学完了 🎉' : '本轮复习完成 🎉';
-    $('emptyText').textContent = `本轮 ${n} 个 · 今日新学 ${td2.learn}/${capLabel(dayLearnCap(), '个')}`
+    $('emptyText').textContent = `本轮 ${n} 个 · 今日新学 ${usedText(td2.learn, dayLearnCap(), '个')}`
       + (canLearnMore ? ` · 今日还能学 ${canLearnMore} 个`
         : (restNew ? ' · 今日新学已达上限' : ' · 全部学完'));
     $('btnEmptyAction').textContent = (session && session.mode === 'learn' && canLearnMore) ? '继续学新词' : '返回今日';
@@ -5512,8 +5513,8 @@ function renderHome() {
   if (bar) bar.style.width = pct + '%';
 
   const td = S.stats[todayKey()] || { learn: 0, review: 0 };
-  $('todayLine').textContent = `今日：新学 ${td.learn || 0}/${capLabel(dayLearnCap(), '个')}`
-    + ` · 复习 ${td.review || 0}/${capLabel(dayReviewCap(), '次')}`;
+  $('todayLine').textContent = '今日：新学 ' + usedText(td.learn || 0, dayLearnCap(), '个')
+    + ' · 复习 ' + usedText(td.review || 0, dayReviewCap(), '次');
 
   $('btnStartReview').textContent = dueToday ? `开始复习（${dueToday}）` : (due ? '今日复习已达上限' : '开始复习');
   $('btnStartReview').disabled = dueToday === 0;
