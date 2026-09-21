@@ -9,7 +9,7 @@
 const INTERVALS = [5, 30, 720, 1440, 2880, 5760, 10080, 20160, 43200]; // 分钟
 const STAGE_LABEL = ['5 分钟', '30 分钟', '12 小时', '1 天', '2 天', '4 天', '7 天', '15 天', '30 天'];
 const KEY = 'medVocab.v1';
-const BUILD = 'v36 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
+const BUILD = 'v38 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
 
 const KIND_LABEL = { word: '单词' };
 const KIND_SPEAK = { word: 'en-GB' };
@@ -29,6 +29,8 @@ function defaultState() {
     gone: {},       // en -> 删除时间（从系统里移除的词）
     fav: {},        // en -> 收藏时间戳
     stats: {},      // 'YYYY-MM-DD' -> {learn, review, ok, fail}
+    checkins: {},   // 'YYYY-MM-DD' -> 打卡完成时间（当天学习 + 复习都完成）
+    sync: {},       // {up: 上次上传云端时间, down: 上次从云端恢复时间}
     // size: 每轮学习数量，9999 = 不限；reviewMode: auto / instant / manual
     // dayLearn / dayReview: 每日新学、每日复习上限，9999 = 不限
     settings: {
@@ -48,9 +50,16 @@ function loadState() {
     }, S.settings || {});
     S.fav = S.fav || {};                                    // 旧存档没有收藏时补上
     S.gone = S.gone || {};                                  // 旧存档没有删除记录时补上
+    S.checkins = S.checkins || {};
+    S.sync = S.sync || {};
     if (!S.settings.sizeExplicit) S.settings.size = 9999;   // 老数据统一升级为“不限”
     S.settings.dayLearn = Number(S.settings.dayLearn) > 0 ? Number(S.settings.dayLearn) : 20;
     S.settings.dayReview = Number(S.settings.dayReview) > 0 ? Number(S.settings.dayReview) : 100;
+    // 老存档迁移：以前“当天有学习或复习记录”就算打过卡，补进打卡表，累计天数不清零
+    Object.keys(S.stats).forEach(d => {
+      const v = S.stats[d] || {};
+      if (((v.learn || 0) + (v.review || 0)) > 0 && !S.checkins[d]) S.checkins[d] = 1;
+    });
   } catch (e) {
     S = defaultState();
   }
@@ -245,6 +254,40 @@ function failReview(en) {
   return e.due;
 }
 
+/* ---------------- 今日打卡（学习和复习都完成才算） ---------------- */
+/* 学习：今日新学额度用完，或已经没新词可学
+   复习：今日复习额度用完，或已经没有到期的生词 */
+function dailyDone() {
+  const learnDone = dayLearnLeft() <= 0 || newQueue(9999).length === 0;
+  const reviewDone = dayReviewLeft() <= 0 || dueList().length === 0;
+  return learnDone && reviewDone;
+}
+
+/* 每次进度变化后统一走这里：存档 → 刷界面 → 判断今日打卡 */
+function commit() {
+  save();
+  renderStudy();
+  renderHome();
+  renderView(currentView());
+  maybeCheckin();
+}
+
+function maybeCheckin() {
+  const k = todayKey();
+  if (S.checkins[k]) return false;      // 今天已经打过卡
+  if (!dailyDone()) return false;
+  S.checkins[k] = Date.now();
+  save();
+  renderHome();
+  renderSyncInfo();
+  toast('今日打卡完成 🎉 正在上传到云端…', 2200);
+  cloudSave(true).then(ok => {
+    toast(ok ? '今日打卡完成 🎉 进度已同步到云端'
+      : '今日打卡完成 🎉 云端没传上去，稍后可手动「保存到云端」', 3000);
+  });
+  return true;
+}
+
 /* ---------------- 学习 / 复习会话 ---------------- */
 function startStudy(mode) {
   let queue;
@@ -356,10 +399,7 @@ function next() {
   clearAutoTimer();
   session.idx++;
   restoreCard();
-  save();
-  renderStudy();
-  renderView(currentView());
-  renderHome();
+  commit();
 }
 
 /* 显示第 idx 张卡片：若这张卡之前判定过，就恢复当时的判定状态（可改判） */
@@ -436,7 +476,7 @@ function answer(choice) {
       ? '已改判为「认识」· 移出生词本'
       : '已改判为「不认识」· 加入生词本，' + STAGE_LABEL[0] + '后再复习', 2400);
     clearAutoTimer();   // 一旦改判就停下来，让用户慢慢核对
-    save(); renderStudy(); renderHome(); renderView(currentView());
+    commit();
     return;
   }
 
@@ -471,7 +511,7 @@ function answer(choice) {
     toast(msg, 1400);
     session.idx++;
     restoreCard();
-    save(); renderStudy(); renderHome(); renderView(currentView());
+    commit();
     return;
   }
 
@@ -487,7 +527,7 @@ function answer(choice) {
     toast(learnMsg + (rm === 'auto' ? ' · 稍后下一张' : ''), 1400);
   }
 
-  save(); renderStudy(); renderHome(); renderView(currentView());
+  commit();
   scheduleAutoNext(en);
 }
 
@@ -500,10 +540,7 @@ function scheduleAutoNext(en) {
     if (session && session.confirm && session.confirm.en === en) {
       session.idx++;
       restoreCard();
-      save();
-      renderStudy();
-      renderHome();
-      renderView(currentView());
+      commit();
     }
   }, 1500);
 }
@@ -524,6 +561,7 @@ function finishDelete(en) {
   save();
   toast('已删除「' + name + '」', 1400);
   renderStudy(); renderHome(); renderBook(); renderAll(); renderStats();
+  maybeCheckin();
 }
 
 function sayCurrentWord() {
@@ -573,7 +611,8 @@ function renderHome() {
 
   const td = S.stats[todayKey()] || { learn: 0, review: 0 };
   $('todayLine').textContent = '今日：新学 ' + usedText(td.learn || 0, dayLearnCap(), '个')
-    + ' · 复习 ' + usedText(td.review || 0, dayReviewCap(), '次');
+    + ' · 复习 ' + usedText(td.review || 0, dayReviewCap(), '次')
+    + (S.checkins[todayKey()] ? ' · 今日打卡已完成 ✅' : '');
 
   $('btnStartReview').textContent = dueToday ? `开始复习（${dueToday}）` : (due ? '今日复习已达上限' : '开始复习');
   $('btnStartReview').disabled = dueToday === 0;
@@ -586,12 +625,9 @@ function renderHome() {
   if (freqPanel && freqPanel.parentElement) freqPanel.parentElement.remove();
 }
 
-/* 累计打卡天数：有学习或复习记录的天数总和（不要求连续，断几天也不会清零） */
+/* 累计打卡天数：完成过“今日学习 + 今日复习”的天数总和（不要求连续，断几天也不会清零） */
 function checkinDays() {
-  return Object.keys(S.stats).filter(d => {
-    const v = S.stats[d] || {};
-    return ((v.learn || 0) + (v.review || 0)) > 0;
-  }).length;
+  return Object.keys(S.checkins || {}).length;
 }
 
 /* ---------------- 生词本 ---------------- */
@@ -817,6 +853,9 @@ function unpackState(data) {
     out.stats = data.stats || {};
     out.settings = Object.assign(out.settings, data.settings || {});
     Object.keys(data.fav || {}).forEach(x => { if (byKey[x]) out.fav[x] = data.fav[x] || now; });
+    Object.keys(data.gone || {}).forEach(x => { if (byKey[x]) out.gone[x] = data.gone[x] || now; });
+    out.checkins = Object.assign({}, data.checkins || {});
+    out.sync = Object.assign({}, data.sync || {});
     return out;
   }
   (data.k || []).forEach(i => { const key = ITEMS[i] && ITEMS[i].key; if (key) out.known[key] = now; });
@@ -873,6 +912,127 @@ async function parseShareText(input) {
   const s = txt.indexOf('{'), e = txt.lastIndexOf('}');
   if (s >= 0 && e > s) return JSON.parse(txt.slice(s, e + 1));
   throw new Error('没找到可导入的内容，请把整段文字都粘进来');
+}
+
+/* ---------------- 云端同步（存在 GitHub 仓库里的 progress.json） ----------------
+   读：同源读 progress.json，不需要令牌
+   写：GitHub Contents API，需要一次性填一个令牌（只存在本机，不会跟着存档上传/导出）
+   打卡完成后会自动上传一次；也可以在「进度备份」里手动保存 / 恢复
+*/
+const CLOUD = {
+  api: 'https://api.github.com/repos/jinyinpeng/vocab/contents/progress.json',
+  // 用绝对地址：在线版和「离线单文件版」都能读到同一份云端进度
+  url: 'https://jinyinpeng.github.io/vocab/progress.json',
+  tokenKey: KEY + '.gh-token',
+};
+
+function getToken() { try { return localStorage.getItem(CLOUD.tokenKey) || ''; } catch (e) { return ''; } }
+function setToken(t) {
+  try {
+    if (t) localStorage.setItem(CLOUD.tokenKey, t);
+    else localStorage.removeItem(CLOUD.tokenKey);
+  } catch (e) { /* 隐私模式等 */ }
+}
+
+/* UTF-8 安全的 base64（GitHub 接口要求） */
+function b64encodeUtf8(str) {
+  const bytes = new TextEncoder().encode(str);
+  let bin = '';
+  for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+  return btoa(bin);
+}
+
+function fmtTime(ts) {
+  const d = new Date(ts);
+  const p = n => String(n).padStart(2, '0');
+  return p(d.getMonth() + 1) + '-' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
+}
+
+function renderSyncInfo() {
+  const el = $('cloudInfo');
+  if (!el) return;
+  const s = S.sync || {};
+  const parts = [getToken() ? '令牌已保存 ✓' : '还没填令牌（保存到云端需要）'];
+  if (s.up) parts.push('上次上传 ' + fmtTime(s.up));
+  if (s.down) parts.push('上次恢复 ' + fmtTime(s.down));
+  el.textContent = parts.join(' · ');
+  const ti = $('tokenInfo');
+  if (ti) ti.textContent = getToken() ? '已保存（只存在这台设备上）' : '';
+  const box = $('cloudToken');
+  if (box) box.placeholder = getToken() ? '已保存令牌，重新粘贴可替换' : '粘贴 GitHub 令牌（ghp_…）';
+}
+
+async function cloudSha(token) {
+  const res = await fetch(CLOUD.api + '?t=' + Date.now(), {
+    headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json' },
+    cache: 'no-store',
+  });
+  if (!res.ok) return null;                       // 404 = 云端还没有这个文件
+  return (await res.json()).sha || null;
+}
+
+async function cloudSave(silent) {
+  const token = getToken();
+  if (!token) {
+    if (!silent) toast('请先在「云端同步」里填一次令牌', 2600);
+    return false;
+  }
+  const put = sha => fetch(CLOUD.api, {
+    method: 'PUT',
+    headers: {
+      Authorization: 'Bearer ' + token,
+      Accept: 'application/vnd.github+json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(Object.assign({
+      message: '云备份 ' + new Date().toISOString().slice(0, 16).replace('T', ' '),
+      content: b64encodeUtf8(JSON.stringify(S, null, 1)),
+      branch: 'main',
+    }, sha ? { sha } : {})),
+  });
+  try {
+    let res = await put(await cloudSha(token));
+    if (res.status === 409 || res.status === 422) res = await put(await cloudSha(token));   // 云端刚被改过：重取 sha 再传
+    if (!res.ok) {
+      const hint = res.status === 401 ? '（令牌无效或已过期）'
+        : res.status === 403 ? '（令牌权限不够，需要 public_repo 权限）'
+          : res.status === 404 ? '（仓库或权限不对）' : '';
+      throw new Error('HTTP ' + res.status + hint);
+    }
+    S.sync = Object.assign({}, S.sync, { up: Date.now() });
+    save();
+    renderSyncInfo();
+    if (!silent) toast('已保存到云端 ✓');
+    return true;
+  } catch (e) {
+    if (!silent) toast('保存失败：' + ((e && e.message) || e), 3200);
+    return false;
+  }
+}
+
+async function cloudLoad() {
+  try {
+    const res = await fetch(CLOUD.url + '?t=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) {
+      throw new Error(res.status === 404
+        ? '云端还没有备份（先在常用设备点一次「保存到云端」）' : 'HTTP ' + res.status);
+    }
+    const data = await res.json();
+    const keepUp = (S.sync || {}).up;
+    S = unpackState(data);
+    if (!S.settings.sizeExplicit) S.settings.size = 9999;
+    S.settings.dayLearn = Number(S.settings.dayLearn) > 0 ? Number(S.settings.dayLearn) : 20;
+    S.settings.dayReview = Number(S.settings.dayReview) > 0 ? Number(S.settings.dayReview) : 100;
+    S.sync = Object.assign({}, S.sync, { up: keepUp || S.sync.up, down: Date.now() });
+    save();
+    session = null;
+    renderAll2();
+    toast('已从云端恢复：已学 ' + learnedCount() + ' / ' + liveItems().length, 2800);
+    return true;
+  } catch (e) {
+    toast('恢复失败：' + ((e && e.message) || e), 3200);
+    return false;
+  }
 }
 
 /* ---------------- 下拉更新 / 检查更新 ---------------- */
@@ -1165,6 +1325,26 @@ function bind() {
     }
   };
 
+  $('btnCloudSave').onclick = () => cloudSave(false);
+  $('btnCloudLoad').onclick = () => {
+    if (!confirm('从云端恢复会用云端的进度覆盖本机（进度、生词本、收藏、设置），继续？')) return;
+    cloudLoad();
+  };
+  $('btnTokenSave').onclick = () => {
+    const v = ($('cloudToken').value || '').trim();
+    if (!v) { toast('请先粘贴令牌'); return; }
+    if (!/^(gh[pousr]_|github_pat_)/.test(v)) { toast('这看起来不是 GitHub 令牌（应以 ghp_ 开头）'); return; }
+    setToken(v);
+    $('cloudToken').value = '';
+    renderSyncInfo();
+    toast('令牌已保存，现在可以保存到云端了');
+  };
+  $('btnTokenClear').onclick = () => {
+    setToken('');
+    renderSyncInfo();
+    toast('已清除令牌', 1400);
+  };
+
   $('btnCheckUpdate').onclick = () => checkUpdate();
 
   $('btnWechat').onclick = () => {
@@ -1242,6 +1422,7 @@ function renderAll2() {
   $('dayReview').value = String(dayReviewCap());
   $('autoSpeak').checked = !!S.settings.autoSpeak;
   $('reviewMode').value = S.settings.reviewMode || 'auto';
+  renderSyncInfo();
   const bi = $('buildInfo');
   if (bi) bi.textContent = '当前版本 ' + BUILD;
 }
@@ -1260,7 +1441,7 @@ function initOffline() {
   try {
     // 注意：sw.js 每次发布新版本时，把下面的 ?v= 数字 +1
     //（CDN/代理会缓存同路径文件，加版本号才能让浏览器拿到新的 Service Worker）
-    navigator.serviceWorker.register('sw.js?v=26', { updateViaCache: 'none' })
+    navigator.serviceWorker.register('sw.js?v=27', { updateViaCache: 'none' })
       .then(() => navigator.serviceWorker.ready)
       .then(reg => {
         const bi = $('buildInfo');
