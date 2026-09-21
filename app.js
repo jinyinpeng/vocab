@@ -9,7 +9,7 @@
 const INTERVALS = [5, 30, 720, 1440, 2880, 5760, 10080, 20160, 43200]; // 分钟
 const STAGE_LABEL = ['5 分钟', '30 分钟', '12 小时', '1 天', '2 天', '4 天', '7 天', '15 天', '30 天'];
 const KEY = 'medVocab.v1';
-const BUILD = 'v46 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
+const BUILD = 'v47 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
 
 const KIND_LABEL = { word: '单词' };
 const KIND_SPEAK = { word: 'en-GB' };
@@ -809,43 +809,7 @@ function itemRow(t, kind) {
   return row;
 }
 
-/* ---------------- 备份码解析（导入用） ---------------- */
-const SHARE_PREFIX = 'MV1:';
-
-function b64decode(str) {
-  const s = str.replace(/-/g, '+').replace(/_/g, '/');
-  const pad = s.length % 4 ? '='.repeat(4 - (s.length % 4)) : '';
-  const bin = atob(s + pad);
-  const out = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
-  return out;
-}
-
-async function gunzipBytes(bytes) {
-  const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
-  return new Uint8Array(await new Response(stream).arrayBuffer());
-}
-
-/* 把进度压成一段很短的文本：条目用序号表示，时间用“还有几分钟”表示 */
-function packState() {
-  const idx = new Map(ITEMS.map((it, i) => [it.key, i]));
-  const now = Date.now();
-  const k = Object.keys(S.known).map(x => idx.get(x)).filter(i => i !== undefined).sort((a, b) => a - b);
-  const b = [];
-  Object.keys(S.book).forEach(x => {
-    const i = idx.get(x);
-    if (i === undefined) return;
-    const e = S.book[x];
-    b.push([i, e.stage || 0, e.mastered ? -1 : Math.round(((e.due || now) - now) / 60000), e.ok || 0, e.fail || 0]);
-  });
-  b.sort((x, y) => x[0] - y[0]);
-  const s = Object.keys(S.stats).sort().map(d => {
-    const v = S.stats[d];
-    return [d, v.learn || 0, v.review || 0, v.ok || 0, v.fail || 0];
-  });
-  return JSON.stringify({ v: 1, n: ITEMS.length, st: S.settings, k, b, s });
-}
-
+/* ---------------- 备份文件解析（恢复用） ---------------- */
 function unpackState(data) {
   const now = Date.now();
   const out = defaultState();
@@ -885,35 +849,32 @@ function readFileText(file) {
   });
 }
 
-/* 从任意文本里解析：支持压缩码、旧版 JSON、以及夹在聊天文字里的整段内容 */
-async function parseShareText(input) {
+/* 备份文件就是一段 JSON；这里宽松一点，文件前后夹了别的字符也能解析出来 */
+function parseBackupText(input) {
   const txt = String(input || '');
-  // 允许文本里带换行/空格（微信复制常会自动换行），遇到中文等非代码字符自动停止
-  const m = txt.match(/MV1:[\sA-Za-z0-9_\-=+\/]+/);
-  if (m) {
-    const code = m[0].slice(SHARE_PREFIX.length).replace(/\s+/g, '');
-    const kind = code[0];
-    let json;
-    try {
-      const bytes = b64decode(code.slice(1));
-      if (kind === 'G') {
-        if (!('DecompressionStream' in window)) throw new Error('这台设备的浏览器不支持解压，请改用「从文件导入」');
-        json = new TextDecoder().decode(await gunzipBytes(bytes));
-      } else {
-        json = new TextDecoder().decode(bytes);
-      }
-    } catch (e) {
-      throw new Error(e && e.message ? e.message : '这段文字无法识别');
-    }
-    try {
-      return JSON.parse(json);
-    } catch (e) {
-      throw new Error('文字好像不完整（缺了开头或结尾），请把整段内容完整复制过来');
-    }
-  }
   const s = txt.indexOf('{'), e = txt.lastIndexOf('}');
-  if (s >= 0 && e > s) return JSON.parse(txt.slice(s, e + 1));
-  throw new Error('没找到可导入的内容，请把整段文字都粘进来');
+  if (s < 0 || e <= s) throw new Error('这个文件不像是备份文件');
+  try {
+    return JSON.parse(txt.slice(s, e + 1));
+  } catch (err) {
+    throw new Error('备份内容读不出来（文件可能不完整）');
+  }
+}
+
+/* ---------------- 进度备份状态 ---------------- */
+function fmtTime(ts) {
+  const d = new Date(ts);
+  const p = n => String(n).padStart(2, '0');
+  return p(d.getMonth() + 1) + '-' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
+}
+
+function renderBackupInfo() {
+  const el = $('backupInfo');
+  if (!el) return;
+  const parts = ['已学 ' + learnedCount() + ' / ' + liveItems().length];
+  if (S.lastBackupAt) parts.push('上次备份 ' + fmtTime(S.lastBackupAt));
+  if (S.lastRestoreAt) parts.push('上次恢复 ' + fmtTime(S.lastRestoreAt));
+  el.textContent = parts.join(' · ');
 }
 
 /* ---------------- 下拉更新 / 检查更新 ---------------- */
@@ -1193,10 +1154,10 @@ function bind() {
     toast(info, 2600);
   };
 
-  const importText = async (text, msgId) => {
+  const importText = (text, msgId) => {
     if (msgId) $(msgId).textContent = '';
     try {
-      applyImported(await parseShareText(text), msgId);
+      applyImported(parseBackupText(text), msgId);
       return true;
     } catch (err) {
       const msg = (err && err.message) || String(err);
@@ -1208,45 +1169,51 @@ function bind() {
 
   $('btnCheckUpdate').onclick = () => checkUpdate();
 
-  $('btnWechat').onclick = () => {
-    const wrap = $('wechatWrap');
-    wrap.classList.toggle('hidden');
-    if (!wrap.classList.contains('hidden')) $('wechatInfo').textContent = '';
-  };
-
-  $('btnOpenWeChat').onclick = () => {
-    try { window.location.href = 'weixin://'; } catch (e) { /* 电脑上无此协议 */ }
-  };
-
-  $('btnPickFile').onclick = () => $('fileInput').click();
-
-  $('fileInput').addEventListener('change', async (e) => {
-    const f = e.target.files && e.target.files[0];
-    if (!f) return;
-    $('wechatInfo').textContent = '正在读取 ' + f.name + ' …';
-    await importText(await readFileText(f), 'wechatInfo');
-    e.target.value = '';
-  });
-
-  $('btnDoImport').onclick = () => importText($('pasteBox').value, 'pasteInfo');
-
+  /* 一键备份：直接下载到手机的「文件」里（浏览器下载，不用自己选路径） */
   $('btnExport').onclick = () => {
-    const blob = new Blob([JSON.stringify(S, null, 1)], { type: 'application/json' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'medvocab-backup-' + todayKey() + '.json';
-    a.click();
-    URL.revokeObjectURL(a.href);
+    const name = 'medvocab-backup-' + todayKey() + '.json';
+    try {
+      const blob = new Blob([JSON.stringify(S, null, 1)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 5000);
+    } catch (e) {
+      toast('备份失败，换个浏览器再试', 3000);
+      return;
+    }
+    S.lastBackupAt = Date.now();
+    save();
+    renderBackupInfo();
+    toast('备份已存到手机「文件」里：' + name, 4000);
   };
+
+  /* 一键恢复：直接打开手机的「文件」，选那份备份，选中就自动恢复 */
   $('btnImport').onclick = () => {
-    const inp = document.createElement('input');
-    inp.type = 'file'; inp.accept = '.json,.txt,application/json,text/plain';
-    inp.onchange = async () => {
-      const f = inp.files[0]; if (!f) return;
-      await importText(await readFileText(f), null);
-    };
+    const inp = $('fileInput');
+    inp.value = '';       // 允许重复选同一个文件
     inp.click();
   };
+
+  $('fileInput').addEventListener('change', async e => {
+    const inp = e.target;
+    const f = inp.files && inp.files[0];
+    if (!f) return;
+    // 本机已经有进度时才多问一句，避免手滑覆盖（新机恢复直接过）
+    if ((learnedCount() + checkinDays()) > 0
+      && !confirm('用「' + f.name + '」覆盖本机现在的学习进度？')) { inp.value = ''; return; }
+    const ok = await importText(await readFileText(f), null);
+    if (ok) {
+      S.lastRestoreAt = Date.now();
+      save();
+      renderBackupInfo();
+    }
+    inp.value = '';
+  });
   $('btnRestore').onclick = () => {
     const n = restoreAllGone();
     if (!n) { toast('没有已删除的词'); return; }
@@ -1283,6 +1250,7 @@ function renderAll2() {
   $('dayReview').value = String(dayReviewCap());
   $('autoSpeak').checked = !!S.settings.autoSpeak;
   $('reviewMode').value = S.settings.reviewMode || 'auto';
+  renderBackupInfo();
   const bi = $('buildInfo');
   if (bi) bi.textContent = '当前版本 ' + BUILD;
 }
