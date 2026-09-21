@@ -9,7 +9,7 @@
 const INTERVALS = [5, 30, 720, 1440, 2880, 5760, 10080, 20160, 43200]; // 分钟
 const STAGE_LABEL = ['5 分钟', '30 分钟', '12 小时', '1 天', '2 天', '4 天', '7 天', '15 天', '30 天'];
 const KEY = 'medVocab.v1';
-const BUILD = 'v52 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
+const BUILD = 'v53 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
 
 const KIND_LABEL = { word: '单词' };
 const KIND_SPEAK = { word: 'en-GB' };
@@ -232,8 +232,12 @@ const dayLearnUsed = () => (S.stats[todayKey()] ? S.stats[todayKey()].learn || 0
 const dayReviewUsed = () => (S.stats[todayKey()] ? S.stats[todayKey()].review || 0 : 0);
 const dayLearnLeft = () => Math.max(0, dayLearnCap() - dayLearnUsed());
 const dayReviewLeft = () => Math.max(0, dayReviewCap() - dayReviewUsed());
-/* 今日用量的展示文字：设了上限显示 "3/20 个"，不限则显示 "3 个" */
-const usedText = (used, cap, unit) => (cap >= 9999 ? used + ' ' + unit : used + '/' + cap + ' ' + unit);
+/* 今日用量的展示文字：设了上限显示 "3/20 个"，不限显示 "3 个"，超了显示 "75 个（超出今日 70）" */
+const usedText = (used, cap, unit) => {
+  if (cap >= 9999) return used + ' ' + unit;
+  if (used > cap) return used + ' ' + unit + '（超出今日 ' + cap + '）';
+  return used + '/' + cap + ' ' + unit;
+};
 
 function addBook(en) {
   const now = Date.now();
@@ -298,13 +302,20 @@ function maybeCheckin() {
   return true;
 }
 
-/* ---------------- 学习 / 复习会话 ---------------- */
-function startStudy(mode) {
+/* ---------------- 学习 / 复习会话 ----------------
+   over = true 表示「再学一轮」：今日额度已经学满，手动再要一轮（数量还是按每日上限那个数） */
+function startStudy(mode, over) {
   let queue;
   if (mode === 'learn') {
     const left = dayLearnLeft();
-    if (left <= 0) { toast('今日新学已达上限（' + dayLearnCap() + ' 个），明天再学', 2400); return; }
-    queue = newQueue(Math.min(left, Number(S.settings.size) || 20));
+    if (left <= 0 && !over) {
+      const rest = newQueue(9999).length;
+      toast(rest ? `今日 ${dayLearnCap()} 个新词已学完 ✓ 还想学就点「再学一轮」` : '新词已经全部学完了', 3400);
+      return;
+    }
+    const limit = (over && left <= 0) ? dayLearnCap() : left;
+    queue = newQueue(Math.min(limit, Number(S.settings.size) || 20));
+    if (over && left <= 0) toast(`再学一轮：又 ${queue.length} 个（今日已超出 ${dayLearnCap()} 个）`, 2600);
   } else if (mode === 'review') {
     const left = dayReviewLeft();
     if (left <= 0) { toast('今日复习已达上限（' + dayReviewCap() + ' 次），明天再来', 2400); return; }
@@ -338,11 +349,13 @@ function renderStudy() {
     const td2 = S.stats[todayKey()] || { learn: 0, review: 0 };
     const restNew = newQueue(9999).length;
     const canLearnMore = Math.min(dayLearnLeft(), restNew);
+    const canOver = !canLearnMore && restNew > 0;      // 今日已学满，但还有新词 → 可以再学一轮
     $('emptyTitle').textContent = session && session.mode === 'learn' ? '本轮新词学完了 🎉' : '本轮复习完成 🎉';
     $('emptyText').textContent = `本轮 ${n} 个 · 今日新学 ${usedText(td2.learn, dayLearnCap(), '个')}`
       + (canLearnMore ? ` · 今日还能学 ${canLearnMore} 个`
-        : (restNew ? ' · 今日新学已达上限' : ' · 全部学完'));
-    $('btnEmptyAction').textContent = (session && session.mode === 'learn' && canLearnMore) ? '继续学新词' : '返回今日';
+        : (canOver ? ' · 今日已学满，可以「再学一轮」' : ' · 全部学完'));
+    $('btnEmptyAction').textContent = (session && session.mode === 'learn' && (canLearnMore || canOver))
+      ? (canLearnMore ? '继续学新词' : '再学一轮') : '返回今日';
     $('studyBar').style.width = '100%';
     $('studyCounter').textContent = `${n} / ${n}`;
     return;
@@ -626,9 +639,10 @@ function renderHome() {
 
   $('btnStartReview').textContent = dueToday ? `开始复习（${dueToday}）` : (due ? '今日复习已满' : '开始复习');
   $('btnStartReview').disabled = dueToday === 0;
+  // 今日学满但还有新词 → 按钮给个「再学一轮」的口子（超出上限继续学）
   $('btnStartLearn').textContent = restToday
     ? `开始学习（剩 ${restToday}）`
-    : (restAll ? '今日新学已满' : '全部学完');
+    : (restAll ? '再学一轮' : '全部学完');
 
   // 兼容被浏览器缓存的旧页面：若还存在词频分布模块就隐藏掉
   const freqPanel = $('freqBar');
@@ -1141,22 +1155,30 @@ function bind() {
   $('tabs').addEventListener('click', e => {
     const b = e.target.closest('.tab');
     if (!b) return;
-    if (b.dataset.view === 'study' && !session) { startStudy('learn'); return; }
+    // 点「学习」时，如果今日已学满但还有新词，就直接给「再学一轮」（超出上限继续）
+    if (b.dataset.view === 'study' && !session) {
+      startStudy('learn', dayLearnLeft() <= 0 && newQueue(9999).length > 0);
+      return;
+    }
     switchView(b.dataset.view);
   });
 
   $('btnStartReview').onclick = () => startStudy('review');
-  $('btnStartLearn').onclick = () => startStudy('learn');
+  $('btnStartLearn').onclick = () => {
+    startStudy('learn', dayLearnLeft() <= 0 && newQueue(9999).length > 0);
+  };
   $('btnReveal').onclick = () => revealOrNext();
   $('btnKnown').onclick = () => answer('known');
   $('btnUnknown').onclick = () => answer('unknown');
   $('btnPrev').onclick = () => goPrev();
   $('btnPrev2').onclick = () => goPrev();
   $('btnEmptyAction').onclick = () => {
+    const restNew = (session && session.mode === 'learn') ? newQueue(9999).length : 0;
+    const capped = dayLearnLeft() <= 0 && restNew > 0;                       // 今日已满但还有新词
     const again = session && session.mode === 'learn'
-      && Math.min(dayLearnLeft(), newQueue(9999).length);
+      && (capped || Math.min(dayLearnLeft(), restNew));
     session = null;
-    if (again) startStudy('learn'); else switchView('home');
+    if (again) startStudy('learn', capped); else switchView('home');
   };
   $('cardIpa').onclick = () => sayCurrentWord();
   // 卡片右下角的喇叭
@@ -1205,7 +1227,8 @@ function bind() {
 
   // 侧栏/顶部快捷入口：有待复习就复习，否则学新词
   $('railGo').onclick = () => {
-    if (dueList().length) startStudy('review'); else startStudy('learn');
+    if (dueList().length) { startStudy('review'); return; }
+    startStudy('learn', dayLearnLeft() <= 0 && newQueue(9999).length > 0);
   };
 
   $('reviewMode').addEventListener('change', e => {
