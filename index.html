@@ -36,7 +36,7 @@
 <link rel="icon" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-title" content="背医学词汇">
-<link rel="stylesheet" href="styles.css?v=15">
+<link rel="stylesheet" href="styles.css?v=16">
 </head>
 <body>
 
@@ -203,7 +203,7 @@
           </label>
           <div class="filters" id="allFilters">
             <button class="chip active" data-f="all">全部</button>
-            <button class="chip" data-f="new">未学</button>
+            <button class="chip" data-f="new">还没学</button>
             <button class="chip" data-f="known">已认识</button>
             <button class="chip" data-f="book">生词本</button>
             <button class="chip" data-f="mastered">已掌握</button>
@@ -219,7 +219,7 @@
         <div class="panel-head"><h2>学习数据</h2></div>
         <div class="cards small-cards">
           <div class="stat-card"><span class="stat-num" id="stLearned">0</span><span class="stat-label">已学词数</span></div>
-          <div class="stat-card"><span class="stat-num" id="stKnown">0</span><span class="stat-label">一次就认识</span></div>
+          <div class="stat-card"><span class="stat-num" id="stKnown">0</span><span class="stat-label">标为已认识</span></div>
           <div class="stat-card"><span class="stat-num" id="stBook">0</span><span class="stat-label">生词总数</span></div>
           <div class="stat-card"><span class="stat-num" id="stMastered">0</span><span class="stat-label">已掌握</span></div>
           <div class="stat-card"><span class="stat-num" id="stToday">0</span><span class="stat-label">今日复习次数</span></div>
@@ -234,7 +234,7 @@
         <div class="group">
           <h3>学习偏好</h3>
           <label class="field">
-            <span>判定后节奏</span>
+            <span>答完后何时下一张</span>
             <select id="reviewMode">
               <option value="auto">显示答案 1.5 秒后下一张</option>
               <option value="instant">立刻下一张</option>
@@ -242,7 +242,7 @@
             </select>
           </label>
           <label class="field">
-            <span>每轮学习数量</span>
+            <span>一次学习多少个</span>
             <select id="sessionSize">
               <option value="9999">不限</option>
               <option value="10">10 个</option>
@@ -294,12 +294,12 @@
         <div class="group danger-zone">
           <h3>维护</h3>
           <div class="btn-row">
-            <button class="btn" id="btnCheckUpdate">检查更新</button>
+            <button class="btn" id="btnCheckUpdate">更新到最新版本</button>
             <span class="muted small" id="updateInfo"></span>
           </div>
           <div class="btn-row">
-            <button class="btn" id="btnRestore">恢复已删除的词</button>
-            <button class="btn danger" id="btnReset">清空全部进度</button>
+            <button class="btn" id="btnRestore">找回删掉的词</button>
+            <button class="btn danger" id="btnReset">清空所有学习记录</button>
           </div>
         </div>
       </div>
@@ -315,6 +315,6 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="app.js?v=50"></script>
+<script src="app.js?v=51"></script>
 </body>
 </html>
