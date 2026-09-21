@@ -1,7 +1,7 @@
 /* 我在意大利背医学词汇 · 离线缓存
    首次联网打开后，页面、样式、脚本、词库都会被存到本机，
    之后没网也能正常背单词（进度本来就存在本机）。 */
-const CACHE = 'medvocab-v45';   // 每次发布新版本改这里，旧缓存会自动清掉
+const CACHE = 'medvocab-v46';   // 每次发布新版本改这里，旧缓存会自动清掉
 
 const CORE = [
   './',
@@ -77,12 +77,6 @@ self.addEventListener('fetch', event => {
   let origin;
   try { origin = new URL(req.url).origin; } catch (e) { return; }
   if (origin !== self.location.origin) return;
-
-  // 云端进度文件：永远走网络取最新，不能被缓存挡住（否则「从云端恢复」会拿到旧数据）
-  if (/progress\.json(\?|$)/i.test(req.url)) {
-    event.respondWith(fetch(req, { cache: 'no-store' }));
-    return;
-  }
 
   // 打开页面：联网优先（保证拿到最新版本）；断网时用缓存离线打开
   if (req.mode === 'navigate') {
