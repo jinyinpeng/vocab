@@ -9,7 +9,7 @@
 const INTERVALS = [5, 30, 720, 1440, 2880, 5760, 10080, 20160, 43200]; // 分钟
 const STAGE_LABEL = ['5 分钟', '30 分钟', '12 小时', '1 天', '2 天', '4 天', '7 天', '15 天', '30 天'];
 const KEY = 'medVocab.v1';
-const BUILD = 'v40 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
+const BUILD = 'v41 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
 
 const KIND_LABEL = { word: '单词' };
 const KIND_SPEAK = { word: 'en-GB' };
@@ -1017,6 +1017,21 @@ async function cloudSave(silent) {
   }
 }
 
+/* 一键配置：把令牌放在 #tok=… 里用手机点开，就自动存好并抹掉地址栏里的令牌
+   （# 后面的内容不会发给服务器，只在本地传递） */
+function applyTokenFromUrl() {
+  const m = (location.hash || '').match(/tok=([A-Za-z0-9_\-]+)/);
+  if (!m) return false;
+  setToken(m[1]);
+  try { history.replaceState(null, '', location.pathname + location.search); }
+  catch (e) { location.hash = ''; }
+  renderSyncInfo();
+  toast('云端同步已配好 ✓ 打卡完成后会自动上传', 3600);
+  // 本机已经有进度就顺手备份一次；空进度不会覆盖云端
+  if (learnedCount() + checkinDays() > 0) setTimeout(() => cloudSave(true), 1500);
+  return true;
+}
+
 async function cloudLoad() {
   try {
     const res = await fetch(CLOUD.url + '?t=' + Date.now(), { cache: 'no-store' });
@@ -1479,6 +1494,7 @@ async function init() {
     return;
   }
   buildItems();
+  applyTokenFromUrl();   // 支持「一键链接」配置云端令牌
 
   bind();
   initPullToRefresh();
