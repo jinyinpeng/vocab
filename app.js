@@ -9,7 +9,7 @@
 const INTERVALS = [5, 30, 720, 1440, 2880, 5760, 10080, 20160, 43200]; // 分钟
 const STAGE_LABEL = ['5 分钟', '30 分钟', '12 小时', '1 天', '2 天', '4 天', '7 天', '15 天', '30 天'];
 const KEY = 'medVocab.v1';
-const BUILD = 'v43 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
+const BUILD = 'v44 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
 
 const KIND_LABEL = { word: '单词' };
 const KIND_SPEAK = { word: 'en-GB' };
@@ -981,7 +981,17 @@ async function cloudSha(token) {
 async function cloudSave(silent) {
   const token = getToken();
   if (!token) {
-    if (!silent) toast('请先在「云端同步」里填一次令牌', 2600);
+    if (!silent) {
+      // 把「填写同步令牌」那一块自动展开并聚焦，省得用户找不到
+      const wrap = $('cloudTokenWrap');
+      if (wrap) {
+        wrap.open = true;
+        try { wrap.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) { /* 忽略 */ }
+      }
+      const box = $('cloudToken');
+      if (box) setTimeout(() => { try { box.focus(); } catch (e) { /* 忽略 */ } }, 300);
+      toast('这台设备还没填令牌：把令牌（或整条一键链接）粘到下面框里保存', 4000);
+    }
     return false;
   }
   const put = sha => fetch(CLOUD.api, {
@@ -1353,13 +1363,16 @@ function bind() {
     cloudLoad();
   };
   $('btnTokenSave').onclick = () => {
-    const v = ($('cloudToken').value || '').trim();
-    if (!v) { toast('请先粘贴令牌'); return; }
-    if (!/^(gh[pousr]_|github_pat_)/.test(v)) { toast('这看起来不是 GitHub 令牌（应以 ghp_ 开头）'); return; }
+    const raw = ($('cloudToken').value || '').trim();
+    // 允许直接粘贴令牌，也允许把整条「一键链接」粘进来（自动从里面取令牌）
+    const hit = raw.match(/tok=([A-Za-z0-9_\-]+)/);
+    const v = hit ? hit[1] : raw;
+    if (!v) { toast('请先粘贴令牌，或把那条一键链接整个粘进来', 3000); return; }
+    if (!/^(gh[pousr]_|github_pat_)/.test(v)) { toast('这看起来不是 GitHub 令牌（应以 ghp_ / gho_ 开头）', 3000); return; }
     setToken(v);
     $('cloudToken').value = '';
     renderSyncInfo();
-    toast('令牌已保存，现在可以保存到云端了');
+    toast('令牌已保存，现在可以「保存到云端」了');
   };
   $('btnTokenClear').onclick = () => {
     setToken('');
