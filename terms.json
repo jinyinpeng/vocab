@@ -4030,5 +4030,1109 @@
   "zh": "铁剂",
   "ipa": "/ˈaɪən ˈsʌplɪmənt/",
   "ex": "An iron supplement corrected her anemia."
+ },
+ {
+  "id": 505,
+  "rank": 505,
+  "en": "body mass index (BMI)",
+  "zh": "体质指数（BMI）",
+  "ipa": "/ˈbɒdi mæs ˈɪndeks/",
+  "ex": "Body mass index was 34 kg/m2, consistent with class I obesity."
+ },
+ {
+  "id": 506,
+  "rank": 506,
+  "en": "impaired fasting glucose",
+  "zh": "空腹血糖受损",
+  "ipa": "/ɪmˈpeəd ˈfɑːstɪŋ ˈɡluːkəʊs/",
+  "ex": "Impaired fasting glucose was documented on repeated testing."
+ },
+ {
+  "id": 507,
+  "rank": 507,
+  "en": "impaired glucose tolerance",
+  "zh": "糖耐量减低",
+  "ipa": "/ɪmˈpeəd ˈɡluːkəʊs ˈtɒlərəns/",
+  "ex": "Impaired glucose tolerance was documented on the oral glucose tolerance test."
+ },
+ {
+  "id": 508,
+  "rank": 508,
+  "en": "hypertriglyceridemia",
+  "zh": "高甘油三酯血症",
+  "ipa": "/ˌhaɪpətraɪˌɡlɪsəraɪˈdiːmiə/",
+  "ex": "Severe hypertriglyceridemia may precipitate acute pancreatitis."
+ },
+ {
+  "id": 509,
+  "rank": 509,
+  "en": "glycemic control",
+  "zh": "血糖控制",
+  "ipa": "/ɡlaɪˈsiːmɪk kənˈtrəʊl/",
+  "ex": "Glycemic control remained adequate without glucose-lowering agents."
+ },
+ {
+  "id": 510,
+  "rank": 510,
+  "en": "nocturnal hypoglycemia",
+  "zh": "夜间低血糖",
+  "ipa": "/nɒkˈtɜːnl ˌhaɪpəʊɡlaɪˈsiːmiə/",
+  "ex": "Nocturnal hypoglycemia was asymptomatic and detected only by the sensor."
+ },
+ {
+  "id": 511,
+  "rank": 511,
+  "en": "asymptomatic hypoglycemia",
+  "zh": "无症状性低血糖",
+  "ipa": "/ˌeɪsɪmptəˈmætɪk ˌhaɪpəʊɡlaɪˈsiːmiə/",
+  "ex": "Asymptomatic hypoglycemia is frequent in long-standing type 1 diabetes."
+ },
+ {
+  "id": 512,
+  "rank": 512,
+  "en": "hypoglycemia unawareness",
+  "zh": "低血糖感知减退",
+  "ipa": "/ˌhaɪpəʊɡlaɪˈsiːmiə ˌʌnəˈweənəs/",
+  "ex": "Hypoglycemia unawareness increases the risk of severe hypoglycemic events."
+ },
+ {
+  "id": 513,
+  "rank": 513,
+  "en": "hyperinsulinemia",
+  "zh": "高胰岛素血症",
+  "ipa": "/ˌhaɪpəˌɪnsjʊlɪˈniːmiə/",
+  "ex": "Excess simple sugars worsen hyperinsulinemia in patients with excess weight."
+ },
+ {
+  "id": 514,
+  "rank": 514,
+  "en": "continuous glucose monitoring (CGM)",
+  "zh": "动态血糖监测",
+  "ipa": "/kənˈtɪnjuəs ˈɡluːkəʊs ˈmɒnɪtərɪŋ/",
+  "ex": "Continuous glucose monitoring revealed a prolonged nocturnal hypoglycemic episode."
+ },
+ {
+  "id": 515,
+  "rank": 515,
+  "en": "self-monitoring of blood glucose",
+  "zh": "自我血糖监测",
+  "ipa": "/ˌself ˈmɒnɪtərɪŋ əv blʌd ˈɡluːkəʊs/",
+  "ex": "Self-monitoring of blood glucose was performed once a week."
+ },
+ {
+  "id": 516,
+  "rank": 516,
+  "en": "carbohydrate counting",
+  "zh": "碳水化合物计数",
+  "ipa": "/ˌkɑːbəʊˈhaɪdreɪt ˈkaʊntɪŋ/",
+  "ex": "Carbohydrate counting allows accurate adjustment of the prandial insulin dose."
+ },
+ {
+  "id": 517,
+  "rank": 517,
+  "en": "basal insulin",
+  "zh": "基础胰岛素",
+  "ipa": "/ˈbeɪsl ˈɪnsjʊlɪn/",
+  "ex": "Basal insulin was titrated according to fasting glucose levels."
+ },
+ {
+  "id": 518,
+  "rank": 518,
+  "en": "insulin secretion",
+  "zh": "胰岛素分泌",
+  "ipa": "/ˈɪnsjʊlɪn sɪˈkriːʃn/",
+  "ex": "The drug stimulates insulin secretion to keep glucose within range."
+ },
+ {
+  "id": 519,
+  "rank": 519,
+  "en": "insulin pump",
+  "zh": "胰岛素泵",
+  "ipa": "/ˈɪnsjʊlɪn pʌmp/",
+  "ex": "An insulin pump provides continuous subcutaneous insulin infusion."
+ },
+ {
+  "id": 520,
+  "rank": 520,
+  "en": "artificial pancreas",
+  "zh": "人工胰腺",
+  "ipa": "/ˌɑːtɪˈfɪʃl ˈpæŋkriəs/",
+  "ex": "The artificial pancreas combines a glucose sensor and a pump with a control algorithm."
+ },
+ {
+  "id": 521,
+  "rank": 521,
+  "en": "lipohypertrophy",
+  "zh": "注射部位脂肪增生",
+  "ipa": "/ˌlɪpəʊhaɪˈpɜːtrəfi/",
+  "ex": "Rotating the injection sites prevents lipohypertrophy of the subcutaneous tissue."
+ },
+ {
+  "id": 522,
+  "rank": 522,
+  "en": "transaminases",
+  "zh": "转氨酶",
+  "ipa": "/trænzˈæmɪneɪzɪz/",
+  "ex": "Transaminases were mildly elevated, suggesting hepatic involvement."
+ },
+ {
+  "id": 523,
+  "rank": 523,
+  "en": "alanine aminotransferase (ALT)",
+  "zh": "丙氨酸氨基转移酶",
+  "ipa": "/ˈæləniːn əˌmiːnəʊˈtrænsfəreɪs/",
+  "ex": "Alanine aminotransferase is a marker of hepatic cytolysis."
+ },
+ {
+  "id": 524,
+  "rank": 524,
+  "en": "aspartate aminotransferase (AST)",
+  "zh": "天冬氨酸氨基转移酶",
+  "ipa": "/əˈspɑːteɪt əˌmiːnəʊˈtrænsfəreɪs/",
+  "ex": "Aspartate aminotransferase was mildly elevated."
+ },
+ {
+  "id": 525,
+  "rank": 525,
+  "en": "bilirubin",
+  "zh": "胆红素",
+  "ipa": "/ˌbɪlɪˈruːbɪn/",
+  "ex": "Total bilirubin was within the normal range."
+ },
+ {
+  "id": 526,
+  "rank": 526,
+  "en": "C-reactive protein (CRP)",
+  "zh": "C反应蛋白",
+  "ipa": "/ˌsiː riˈæktɪv ˈprəʊtiːn/",
+  "ex": "C-reactive protein was elevated, indicating an underlying inflammatory process."
+ },
+ {
+  "id": 527,
+  "rank": 527,
+  "en": "biliary sludge",
+  "zh": "胆泥",
+  "ipa": "/ˈbɪliəri slʌdʒ/",
+  "ex": "Biliary sludge was reported on abdominal ultrasound."
+ },
+ {
+  "id": 528,
+  "rank": 528,
+  "en": "hepatologist",
+  "zh": "肝病科医师",
+  "ipa": "/ˌhepəˈtɒlədʒɪst/",
+  "ex": "The patient was referred to a hepatologist for evaluation of fatty liver disease."
+ },
+ {
+  "id": 529,
+  "rank": 529,
+  "en": "complement C3 and C4",
+  "zh": "补体C3和C4",
+  "ipa": "/ˈkɒmplɪmənt ˌsiː ˈθriː ənd ˌsiː ˈfɔː/",
+  "ex": "Complement C3 and C4 were altered, supporting a rheumatological work-up."
+ },
+ {
+  "id": 530,
+  "rank": 530,
+  "en": "serum iron",
+  "zh": "血清铁",
+  "ipa": "/ˈsɪərəm ˈaɪən/",
+  "ex": "Serum iron was measured to rule out depleted iron stores."
+ },
+ {
+  "id": 531,
+  "rank": 531,
+  "en": "iron deficiency",
+  "zh": "缺铁",
+  "ipa": "/ˈaɪən dɪˈfɪʃnsi/",
+  "ex": "Iron deficiency may precede the onset of overt anemia."
+ },
+ {
+  "id": 532,
+  "rank": 532,
+  "en": "hemoglobin electrophoresis",
+  "zh": "血红蛋白电泳",
+  "ipa": "/ˌhiːməˈɡləʊbɪn ɪˌlektrəˈfɔːrɪsɪs/",
+  "ex": "Hemoglobin electrophoresis was requested to exclude a thalassemic trait."
+ },
+ {
+  "id": 533,
+  "rank": 533,
+  "en": "thalassemia minor",
+  "zh": "轻型地中海贫血",
+  "ipa": "/ˌθæləˈsiːmiə ˈmaɪnə/",
+  "ex": "Hemoglobin electrophoresis suggested a possible thalassemia minor."
+ },
+ {
+  "id": 534,
+  "rank": 534,
+  "en": "proteinuria",
+  "zh": "蛋白尿",
+  "ipa": "/ˌprəʊtiːˈnjʊəriə/",
+  "ex": "Long-standing hypertension may damage the glomerular barrier and cause proteinuria."
+ },
+ {
+  "id": 535,
+  "rank": 535,
+  "en": "glomerular filtration barrier",
+  "zh": "肾小球滤过屏障",
+  "ipa": "/ɡləˈmerjʊlə fɪlˈtreɪʃn ˈbæriə/",
+  "ex": "Chronic hypertension can alter the glomerular filtration barrier."
+ },
+ {
+  "id": 536,
+  "rank": 536,
+  "en": "urinary tract infection",
+  "zh": "尿路感染",
+  "ipa": "/ˈjʊərɪnəri trækt ɪnˈfekʃn/",
+  "ex": "Urinary tract infection was treated with nitrofurantoin."
+ },
+ {
+  "id": 537,
+  "rank": 537,
+  "en": "cystitis",
+  "zh": "膀胱炎",
+  "ipa": "/sɪˈstaɪtɪs/",
+  "ex": "Recurrent cystitis may require prophylactic antibiotic therapy."
+ },
+ {
+  "id": 538,
+  "rank": 538,
+  "en": "diuretic",
+  "zh": "利尿剂",
+  "ipa": "/ˌdaɪjʊˈretɪk/",
+  "ex": "Diuretic herbal infusions were discouraged because of fluid retention."
+ },
+ {
+  "id": 539,
+  "rank": 539,
+  "en": "ACE inhibitor",
+  "zh": "血管紧张素转换酶抑制剂",
+  "ipa": "/ˌeɪsiːˈiː ɪnˈhɪbɪtə/",
+  "ex": "The patient was switched to an ACE inhibitor for its nephroprotective effect."
+ },
+ {
+  "id": 540,
+  "rank": 540,
+  "en": "low molecular weight heparin",
+  "zh": "低分子肝素",
+  "ipa": "/ləʊ məˈlekjʊlə weɪt ˈhepərɪn/",
+  "ex": "Low molecular weight heparin was continued until the vascular review."
+ },
+ {
+  "id": 541,
+  "rank": 541,
+  "en": "statin intolerance",
+  "zh": "他汀不耐受",
+  "ipa": "/ˈstætɪn ɪnˈtɒlərəns/",
+  "ex": "Statin intolerance was suspected because of persistent muscle symptoms."
+ },
+ {
+  "id": 542,
+  "rank": 542,
+  "en": "monotherapy",
+  "zh": "单药治疗",
+  "ipa": "/ˌmɒnəʊˈθerəpi/",
+  "ex": "Monotherapy is no longer recommended for high-risk hypercholesterolemia."
+ },
+ {
+  "id": 543,
+  "rank": 543,
+  "en": "thrombophilia",
+  "zh": "血栓形成倾向",
+  "ipa": "/ˌθrɒmbəʊˈfɪliə/",
+  "ex": "Heterozygosity for the MTHFR mutation confers a predisposition to thrombophilia."
+ },
+ {
+  "id": 544,
+  "rank": 544,
+  "en": "atherogenic cholesterol",
+  "zh": "致动脉粥样硬化性胆固醇",
+  "ipa": "/ˌæθərəʊˈdʒenɪk kəˈlestərɒl/",
+  "ex": "Atherogenic cholesterol, chiefly LDL cholesterol, drives plaque formation."
+ },
+ {
+  "id": 545,
+  "rank": 545,
+  "en": "cardiovascular protection",
+  "zh": "心血管保护",
+  "ipa": "/ˌkɑːdiəʊˈvæskjʊlə prəˈtekʃn/",
+  "ex": "GLP-1 receptor agonists confer cardiovascular protection beyond weight loss."
+ },
+ {
+  "id": 546,
+  "rank": 546,
+  "en": "cascade screening",
+  "zh": "级联筛查",
+  "ipa": "/kæˈskeɪd ˈskriːnɪŋ/",
+  "ex": "Cascade screening of first-degree relatives is recommended when lipoprotein(a) is elevated."
+ },
+ {
+  "id": 547,
+  "rank": 547,
+  "en": "risk modifier",
+  "zh": "风险修饰因素",
+  "ipa": "/rɪsk ˈmɒdɪfaɪə/",
+  "ex": "Stress at work acts as a risk modifier in patients with obesity."
+ },
+ {
+  "id": 548,
+  "rank": 548,
+  "en": "blood pressure target",
+  "zh": "血压目标值",
+  "ipa": "/ˈblʌd ˌpreʃə ˈtɑːɡɪt/",
+  "ex": "The blood pressure target was set below 130/80 mmHg."
+ },
+ {
+  "id": 549,
+  "rank": 549,
+  "en": "home blood pressure monitoring",
+  "zh": "家庭血压监测",
+  "ipa": "/həʊm blʌd ˈpreʃə ˈmɒnɪtərɪŋ/",
+  "ex": "Home blood pressure monitoring over one week was recommended to confirm the office readings."
+ },
+ {
+  "id": 550,
+  "rank": 550,
+  "en": "heart rate",
+  "zh": "心率",
+  "ipa": "/hɑːt reɪt/",
+  "ex": "Heart rate was 76 beats per minute."
+ },
+ {
+  "id": 551,
+  "rank": 551,
+  "en": "tachycardia",
+  "zh": "心动过速",
+  "ipa": "/ˌtækɪˈkɑːdiə/",
+  "ex": "The ECG showed sinus tachycardia without atrial fibrillation."
+ },
+ {
+  "id": 552,
+  "rank": 552,
+  "en": "diastolic function",
+  "zh": "舒张功能",
+  "ipa": "/ˌdaɪəˈstɒlɪk ˈfʌŋkʃn/",
+  "ex": "Left ventricular diastolic function was preserved on echocardiography."
+ },
+ {
+  "id": 553,
+  "rank": 553,
+  "en": "depression",
+  "zh": "抑郁",
+  "ipa": "/dɪˈpreʃn/",
+  "ex": "Depression and stressful life events can worsen eating behaviour."
+ },
+ {
+  "id": 554,
+  "rank": 554,
+  "en": "paresthesia",
+  "zh": "感觉异常",
+  "ipa": "/ˌpærɪsˈθiːziə/",
+  "ex": "Transient paresthesia of the tongue was reported after the injection."
+ },
+ {
+  "id": 555,
+  "rank": 555,
+  "en": "numbness",
+  "zh": "麻木",
+  "ipa": "/ˈnʌmnəs/",
+  "ex": "She complained of persistent numbness in the operated area."
+ },
+ {
+  "id": 556,
+  "rank": 556,
+  "en": "joint swelling",
+  "zh": "关节肿胀",
+  "ipa": "/dʒɔɪnt ˈswelɪŋ/",
+  "ex": "Morning joint swelling was reported in both hands."
+ },
+ {
+  "id": 557,
+  "rank": 557,
+  "en": "gout",
+  "zh": "痛风",
+  "ipa": "/ɡaʊt/",
+  "ex": "He had a history of gout affecting the feet and hands."
+ },
+ {
+  "id": 558,
+  "rank": 558,
+  "en": "etoricoxib",
+  "zh": "依托考昔",
+  "ipa": "/ˌetəˈrɪkəʊsɪb/",
+  "ex": "Etoricoxib was prescribed as needed for joint pain."
+ },
+ {
+  "id": 559,
+  "rank": 559,
+  "en": "biologic therapy",
+  "zh": "生物制剂治疗",
+  "ipa": "/ˌbaɪəˈlɒdʒɪk ˈθerəpi/",
+  "ex": "Biologic therapy was given every three months for psoriasis."
+ },
+ {
+  "id": 560,
+  "rank": 560,
+  "en": "rheumatologist",
+  "zh": "风湿科医生",
+  "ipa": "/ˌruːməˈtɒlədʒɪst/",
+  "ex": "The patient was referred to a rheumatologist for suspected connective tissue disease."
+ },
+ {
+  "id": 561,
+  "rank": 561,
+  "en": "hyperthyroidism",
+  "zh": "甲状腺功能亢进",
+  "ipa": "/ˌhaɪpəˈθaɪrɔɪdɪzəm/",
+  "ex": "Her mother had a history of hyperthyroidism in her youth."
+ },
+ {
+  "id": 562,
+  "rank": 562,
+  "en": "thyroidectomy",
+  "zh": "甲状腺切除术",
+  "ipa": "/ˌθaɪrɔɪˈdektəmi/",
+  "ex": "The benign thyroid tumor was removed by thyroidectomy."
+ },
+ {
+  "id": 563,
+  "rank": 563,
+  "en": "basal cell carcinoma",
+  "zh": "基底细胞癌",
+  "ipa": "/ˈbeɪsl sel ˌkɑːsɪˈnəʊmə/",
+  "ex": "Two superficial basal cell carcinomas were excised by the dermatologist."
+ },
+ {
+  "id": 564,
+  "rank": 564,
+  "en": "angioedema",
+  "zh": "血管性水肿",
+  "ipa": "/ˌændʒiəʊɪˈdiːmə/",
+  "ex": "Angioedema of the lips and throat requires urgent assessment."
+ },
+ {
+  "id": 565,
+  "rank": 565,
+  "en": "histamine intolerance",
+  "zh": "组胺不耐受",
+  "ipa": "/ˈhɪstəmiːn ɪnˈtɒlərəns/",
+  "ex": "In histamine intolerance, histamine-rich foods may cause swelling of the tongue and throat."
+ },
+ {
+  "id": 566,
+  "rank": 566,
+  "en": "alopecia",
+  "zh": "脱发",
+  "ipa": "/ˌæləˈpiːʃə/",
+  "ex": "Diffuse alopecia during rapid weight loss is usually self-limiting."
+ },
+ {
+  "id": 567,
+  "rank": 567,
+  "en": "omeprazole",
+  "zh": "奥美拉唑",
+  "ipa": "/əˈmeprəzəʊl/",
+  "ex": "Omeprazole was prescribed for gastritis."
+ },
+ {
+  "id": 568,
+  "rank": 568,
+  "en": "cholecalciferol",
+  "zh": "胆钙化醇（维生素D3）",
+  "ipa": "/ˌkəʊlɪkælˈsɪfərɒl/",
+  "ex": "Cholecalciferol 10,000 IU weekly maintained normal vitamin D levels."
+ },
+ {
+  "id": 569,
+  "rank": 569,
+  "en": "osmotic laxative",
+  "zh": "渗透性泻药",
+  "ipa": "/ɒzˈmɒtɪk ˈlæksətɪv/",
+  "ex": "An osmotic laxative was prescribed for chronic constipation."
+ },
+ {
+  "id": 570,
+  "rank": 570,
+  "en": "laxative",
+  "zh": "泻药",
+  "ipa": "/ˈlæksətɪv/",
+  "ex": "Long-term laxative use was replaced by dietary fibre supplementation."
+ },
+ {
+  "id": 571,
+  "rank": 571,
+  "en": "flatulence",
+  "zh": "肠胀气",
+  "ipa": "/ˈflætjʊləns/",
+  "ex": "The patient reported nausea and flatulence during the first weeks of therapy."
+ },
+ {
+  "id": 572,
+  "rank": 572,
+  "en": "bowel habit",
+  "zh": "排便习惯",
+  "ipa": "/ˈbaʊəl ˈhæbɪt/",
+  "ex": "Bowel habit was regular before the treatment was started."
+ },
+ {
+  "id": 573,
+  "rank": 573,
+  "en": "abdominal cramps",
+  "zh": "腹部绞痛",
+  "ipa": "/æbˈdɒmɪnl kræmps/",
+  "ex": "She complained of abdominal cramps and diffuse abdominal tenderness."
+ },
+ {
+  "id": 574,
+  "rank": 574,
+  "en": "epigastric pain",
+  "zh": "上腹痛",
+  "ipa": "/ˌepɪˈɡæstrɪk peɪn/",
+  "ex": "Band-like epigastric pain radiating to the back suggests pancreatic involvement."
+ },
+ {
+  "id": 575,
+  "rank": 575,
+  "en": "headache",
+  "zh": "头痛",
+  "ipa": "/ˈhedeɪk/",
+  "ex": "She reported evening headache after eating sweet foods."
+ },
+ {
+  "id": 576,
+  "rank": 576,
+  "en": "dehydration",
+  "zh": "脱水",
+  "ipa": "/ˌdiːhaɪˈdreɪʃn/",
+  "ex": "These drugs increase the risk of dehydration if fluid intake is poor."
+ },
+ {
+  "id": 577,
+  "rank": 577,
+  "en": "fluid intake",
+  "zh": "液体摄入量",
+  "ipa": "/ˈfluːɪd ˈɪnteɪk/",
+  "ex": "An adequate fluid intake of at least two litres a day is essential."
+ },
+ {
+  "id": 578,
+  "rank": 578,
+  "en": "whole grains",
+  "zh": "全谷物",
+  "ipa": "/həʊl ɡreɪnz/",
+  "ex": "Whole grains and adequate hydration help relieve chronic constipation."
+ },
+ {
+  "id": 579,
+  "rank": 579,
+  "en": "plant protein",
+  "zh": "植物蛋白",
+  "ipa": "/plɑːnt ˈprəʊtiːn/",
+  "ex": "Legumes and legume-based pasta provide a valuable source of plant protein."
+ },
+ {
+  "id": 580,
+  "rank": 580,
+  "en": "caloric intake",
+  "zh": "热量摄入",
+  "ipa": "/kəˈlɒrɪk ˈɪnteɪk/",
+  "ex": "Caloric intake was progressively reduced without compromising protein intake."
+ },
+ {
+  "id": 581,
+  "rank": 581,
+  "en": "healthy plate",
+  "zh": "健康餐盘",
+  "ipa": "/ˈhelθi pleɪt/",
+  "ex": "Patients were advised to follow the healthy plate model at lunch and dinner."
+ },
+ {
+  "id": 582,
+  "rank": 582,
+  "en": "nutritional status",
+  "zh": "营养状况",
+  "ipa": "/njuːˈtrɪʃənl ˈsteɪtəs/",
+  "ex": "A good phase angle reflects a preserved nutritional status."
+ },
+ {
+  "id": 583,
+  "rank": 583,
+  "en": "nutritional counselling",
+  "zh": "营养咨询",
+  "ipa": "/njuːˈtrɪʃənl ˈkaʊnsəlɪŋ/",
+  "ex": "Nutritional counselling was scheduled before starting pharmacotherapy."
+ },
+ {
+  "id": 584,
+  "rank": 584,
+  "en": "anthropometric measurements",
+  "zh": "人体测量指标",
+  "ipa": "/ˌænθrəpəˈmetrɪk ˈmeʒəmənts/",
+  "ex": "Weight, height and circumferences were recorded as anthropometric measurements."
+ },
+ {
+  "id": 585,
+  "rank": 585,
+  "en": "neck circumference",
+  "zh": "颈围",
+  "ipa": "/nek səˈkʌmfərəns/",
+  "ex": "Neck circumference was 36 cm at today's assessment."
+ },
+ {
+  "id": 586,
+  "rank": 586,
+  "en": "total body water",
+  "zh": "全身水分",
+  "ipa": "/ˈtəʊtl ˈbɒdi ˈwɔːtə/",
+  "ex": "Total body water was estimated by bioelectrical impedance analysis."
+ },
+ {
+  "id": 587,
+  "rank": 587,
+  "en": "extracellular water",
+  "zh": "细胞外水分",
+  "ipa": "/ˌekstrəˈseljələ wɔːtə/",
+  "ex": "Bioelectrical impedance analysis estimates extracellular water and fat mass."
+ },
+ {
+  "id": 588,
+  "rank": 588,
+  "en": "body cell mass",
+  "zh": "体细胞量",
+  "ipa": "/ˈbɒdi sel mæs/",
+  "ex": "Body cell mass was reduced, suggesting loss of lean tissue."
+ },
+ {
+  "id": 589,
+  "rank": 589,
+  "en": "reactance",
+  "zh": "电抗（生物电阻抗参数）",
+  "ipa": "/riˈæktəns/",
+  "ex": "Reactance measured by bioelectrical impedance analysis increased after the intervention."
+ },
+ {
+  "id": 590,
+  "rank": 590,
+  "en": "muscle quality",
+  "zh": "肌肉质量",
+  "ipa": "/ˈmʌsl ˈkwɒləti/",
+  "ex": "Muscle quality was estimated from the phase angle at bioimpedance analysis."
+ },
+ {
+  "id": 591,
+  "rank": 591,
+  "en": "lower limb strength",
+  "zh": "下肢肌力",
+  "ipa": "/ˈləʊə lɪm streŋθ/",
+  "ex": "Lower limb strength was assessed with the chair stand test."
+ },
+ {
+  "id": 592,
+  "rank": 592,
+  "en": "resistance band",
+  "zh": "弹力带",
+  "ipa": "/rɪˈzɪstəns bænd/",
+  "ex": "Resistance band exercises were prescribed to preserve muscle mass."
+ },
+ {
+  "id": 593,
+  "rank": 593,
+  "en": "anaerobic exercise",
+  "zh": "无氧运动",
+  "ipa": "/ˌænəˈrəʊbɪk ˈeksəsaɪz/",
+  "ex": "Anaerobic exercise was combined with aerobic training twice a week."
+ },
+ {
+  "id": 594,
+  "rank": 594,
+  "en": "weight cycling",
+  "zh": "体重循环（反复减重反弹）",
+  "ipa": "/weɪt ˈsaɪklɪŋ/",
+  "ex": "Repeated weight cycling is particularly harmful for the organism."
+ },
+ {
+  "id": 595,
+  "rank": 595,
+  "en": "weight maintenance",
+  "zh": "体重维持",
+  "ipa": "/weɪt ˈmeɪntənəns/",
+  "ex": "Weight maintenance requires long-term pharmacological support."
+ },
+ {
+  "id": 596,
+  "rank": 596,
+  "en": "weight plateau",
+  "zh": "体重平台期",
+  "ipa": "/weɪt ˈplætəʊ/",
+  "ex": "A weight plateau is commonly observed after two years of GLP-1 receptor agonist therapy."
+ },
+ {
+  "id": 597,
+  "rank": 597,
+  "en": "dose escalation",
+  "zh": "剂量递增",
+  "ipa": "/dəʊs ˌeskəˈleɪʃn/",
+  "ex": "Dose escalation was scheduled only if the drug was well tolerated."
+ },
+ {
+  "id": 598,
+  "rank": 598,
+  "en": "dose tapering",
+  "zh": "剂量递减",
+  "ipa": "/dəʊs ˈteɪpərɪŋ/",
+  "ex": "Dose tapering was planned at the next follow-up visit."
+ },
+ {
+  "id": 599,
+  "rank": 599,
+  "en": "maintenance dose",
+  "zh": "维持剂量",
+  "ipa": "/ˈmeɪntənəns dəʊs/",
+  "ex": "The maintenance dose of semaglutide was 1 mg once weekly."
+ },
+ {
+  "id": 600,
+  "rank": 600,
+  "en": "minimum effective dose",
+  "zh": "最低有效剂量",
+  "ipa": "/ˈmɪnɪməm ɪˈfektɪv dəʊs/",
+  "ex": "Treatment was continued at the minimum effective dose."
+ },
+ {
+  "id": 601,
+  "rank": 601,
+  "en": "dose skipping",
+  "zh": "漏服剂量",
+  "ipa": "/ˈdəʊs ˈskɪpɪŋ/",
+  "ex": "Dose skipping is discouraged because the drug is designed for weekly administration."
+ },
+ {
+  "id": 602,
+  "rank": 602,
+  "en": "once-weekly dosing",
+  "zh": "每周一次给药",
+  "ipa": "/wʌns ˈwiːkli ˈdəʊsɪŋ/",
+  "ex": "Once-weekly dosing was maintained without any missed administration."
+ },
+ {
+  "id": 603,
+  "rank": 603,
+  "en": "medication adherence",
+  "zh": "用药依从性",
+  "ipa": "/ˌmedɪˈkeɪʃn ədˈhɪərəns/",
+  "ex": "Medication adherence was reviewed at every follow-up visit."
+ },
+ {
+  "id": 604,
+  "rank": 604,
+  "en": "treatment adherence",
+  "zh": "治疗依从性",
+  "ipa": "/ˈtriːtmənt ədˈhɪərəns/",
+  "ex": "Treatment adherence tends to decline after two years of chronic therapy."
+ },
+ {
+  "id": 605,
+  "rank": 605,
+  "en": "treatment response",
+  "zh": "治疗反应",
+  "ipa": "/ˈtriːtmənt rɪˈspɒns/",
+  "ex": "An excellent treatment response was documented after twelve months."
+ },
+ {
+  "id": 606,
+  "rank": 606,
+  "en": "follow-up interval",
+  "zh": "随访间隔",
+  "ipa": "/ˈfɒləʊ ʌp ˈɪntəvl/",
+  "ex": "The follow-up interval was set at three months."
+ },
+ {
+  "id": 607,
+  "rank": 607,
+  "en": "induction phase",
+  "zh": "诱导治疗期",
+  "ipa": "/ɪnˈdʌkʃn feɪz/",
+  "ex": "The induction phase aims to reach the target body weight."
+ },
+ {
+  "id": 608,
+  "rank": 608,
+  "en": "maintenance phase",
+  "zh": "维持治疗期",
+  "ipa": "/ˈmeɪntənəns feɪz/",
+  "ex": "During the maintenance phase the dose was gradually reduced."
+ },
+ {
+  "id": 609,
+  "rank": 609,
+  "en": "pharmacokinetics",
+  "zh": "药代动力学",
+  "ipa": "/ˌfɑːməkəʊkɪˈnetɪks/",
+  "ex": "Its pharmacokinetics allow a single weekly administration."
+ },
+ {
+  "id": 610,
+  "rank": 610,
+  "en": "subcutaneous injection",
+  "zh": "皮下注射",
+  "ipa": "/ˌsʌbkjuˈteɪniəs ɪnˈdʒekʃn/",
+  "ex": "The drug is given by subcutaneous injection once weekly."
+ },
+ {
+  "id": 611,
+  "rank": 611,
+  "en": "prefilled injection pen",
+  "zh": "预充式注射笔",
+  "ipa": "/ˌpriːˈfɪld ɪnˈdʒekʃn pen/",
+  "ex": "The prefilled injection pen contains four doses."
+ },
+ {
+  "id": 612,
+  "rank": 612,
+  "en": "injection site",
+  "zh": "注射部位",
+  "ipa": "/ɪnˈdʒekʃn saɪt/",
+  "ex": "The injection site is rotated between the abdomen, thigh and arm."
+ },
+ {
+  "id": 613,
+  "rank": 613,
+  "en": "injection site rotation",
+  "zh": "注射部位轮换",
+  "ipa": "/ɪnˈdʒekʃn saɪt rəʊˈteɪʃn/",
+  "ex": "Injection site rotation is required to ensure adequate absorption."
+ },
+ {
+  "id": 614,
+  "rank": 614,
+  "en": "self-injection",
+  "zh": "自行注射",
+  "ipa": "/ˌself ɪnˈdʒekʃn/",
+  "ex": "The patient was trained in self-injection before starting therapy."
+ },
+ {
+  "id": 615,
+  "rank": 615,
+  "en": "telemedicine",
+  "zh": "远程医疗",
+  "ipa": "/ˌtelɪˈmedɪsn/",
+  "ex": "The ultrasound report was uploaded to the telemedicine platform."
+ },
+ {
+  "id": 616,
+  "rank": 616,
+  "en": "video consultation",
+  "zh": "视频问诊",
+  "ipa": "/ˈvɪdiəʊ ˌkɒnslˈteɪʃn/",
+  "ex": "A video consultation with the dietitian was scheduled after one month."
+ },
+ {
+  "id": 617,
+  "rank": 617,
+  "en": "food noise",
+  "zh": "食物噪声（持续性进食念头）",
+  "ipa": "/fuːd nɔɪz/",
+  "ex": "Food noise decreased markedly after the first injection."
+ },
+ {
+  "id": 618,
+  "rank": 618,
+  "en": "emotional eating",
+  "zh": "情绪性进食",
+  "ipa": "/ɪˈməʊʃənl ˈiːtɪŋ/",
+  "ex": "Emotional eating was addressed with psychological support during the programme."
+ },
+ {
+  "id": 619,
+  "rank": 619,
+  "en": "binge eating",
+  "zh": "暴食",
+  "ipa": "/bɪndʒ ˈiːtɪŋ/",
+  "ex": "She denied binge eating but reported occasional loss of dietary control."
+ },
+ {
+  "id": 620,
+  "rank": 620,
+  "en": "psychological support",
+  "zh": "心理支持",
+  "ipa": "/ˌsaɪkəˈlɒdʒɪkl səˈpɔːt/",
+  "ex": "Psychological support was offered alongside dietary counselling."
+ },
+ {
+  "id": 621,
+  "rank": 621,
+  "en": "bereavement",
+  "zh": "丧亲（居丧期）",
+  "ipa": "/bɪˈriːvmənt/",
+  "ex": "Recent bereavement contributed to the progressive weight gain."
+ },
+ {
+  "id": 622,
+  "rank": 622,
+  "en": "perimenopause",
+  "zh": "围绝经期",
+  "ipa": "/ˌperɪˈmenəpɔːz/",
+  "ex": "Night awakenings are frequently reported during perimenopause."
+ },
+ {
+  "id": 623,
+  "rank": 623,
+  "en": "hot flushes",
+  "zh": "潮热",
+  "ipa": "/ˌhɒt ˈflʌʃɪz/",
+  "ex": "She complained of hot flushes and disturbed sleep in the last year."
+ },
+ {
+  "id": 624,
+  "rank": 624,
+  "en": "menstrual irregularity",
+  "zh": "月经不规律",
+  "ipa": "/ˈmenstruəl ɪˌreɡjʊˈlærəti/",
+  "ex": "Menstrual irregularity with cycles lasting up to ninety days was reported."
+ },
+ {
+  "id": 625,
+  "rank": 625,
+  "en": "preconception",
+  "zh": "孕前期",
+  "ipa": "/ˌpriːkənˈsepʃn/",
+  "ex": "The drug must be discontinued during preconception planning."
+ },
+ {
+  "id": 626,
+  "rank": 626,
+  "en": "caesarean section",
+  "zh": "剖宫产",
+  "ipa": "/sɪˌzeəriən ˈsekʃn/",
+  "ex": "The infant was delivered by caesarean section."
+ },
+ {
+  "id": 627,
+  "rank": 627,
+  "en": "meniscal tear",
+  "zh": "半月板撕裂",
+  "ipa": "/məˈnɪskl teə/",
+  "ex": "MRI confirmed a meniscal tear of the medial compartment."
+ },
+ {
+  "id": 628,
+  "rank": 628,
+  "en": "knee replacement",
+  "zh": "膝关节置换",
+  "ipa": "/niː rɪˈpleɪsmənt/",
+  "ex": "Knee replacement was deferred because the patient was considered too young."
+ },
+ {
+  "id": 629,
+  "rank": 629,
+  "en": "knee prosthesis",
+  "zh": "膝关节假体",
+  "ipa": "/niː prɒsˈθiːsɪs/",
+  "ex": "She received vitamin D supplementation after knee prosthesis surgery."
+ },
+ {
+  "id": 630,
+  "rank": 630,
+  "en": "gonarthrosis",
+  "zh": "膝关节骨关节炎",
+  "ipa": "/ˌɡəʊnɑːˈθrəʊsɪs/",
+  "ex": "Gonarthrosis may develop early after meniscal surgery."
+ },
+ {
+  "id": 631,
+  "rank": 631,
+  "en": "degenerative disc disease",
+  "zh": "椎间盘退行性病变",
+  "ipa": "/dɪˈdʒenərətɪv ˈdɪsk dɪˈziːz/",
+  "ex": "She reported degenerative disc disease of the lumbar spine."
+ },
+ {
+  "id": 632,
+  "rank": 632,
+  "en": "recurrence",
+  "zh": "复发",
+  "ipa": "/rɪˈkʌrəns/",
+  "ex": "There is a risk of recurrence after surgical correction of the deformity."
+ },
+ {
+  "id": 633,
+  "rank": 633,
+  "en": "elbow",
+  "zh": "肘部",
+  "ipa": "/ˈelbəʊ/",
+  "ex": "Psoriatic plaques were present on the elbows and scalp."
+ },
+ {
+  "id": 634,
+  "rank": 634,
+  "en": "crutches",
+  "zh": "拐杖",
+  "ipa": "/ˈkrʌtʃɪz/",
+  "ex": "She walked with crutches for ten days after the operation."
+ },
+ {
+  "id": 635,
+  "rank": 635,
+  "en": "genetic predisposition",
+  "zh": "遗传易感性",
+  "ipa": "/dʒəˈnetɪk ˌpriːdɪspəˈzɪʃn/",
+  "ex": "His hypercholesterolemia is largely explained by a genetic predisposition."
+ },
+ {
+  "id": 636,
+  "rank": 636,
+  "en": "systemic disease",
+  "zh": "全身性疾病",
+  "ipa": "/sɪˈstemɪk dɪˈziːz/",
+  "ex": "Obesity is a systemic disease that can affect several organs."
+ },
+ {
+  "id": 637,
+  "rank": 637,
+  "en": "anaesthesiologist",
+  "zh": "麻醉科医生",
+  "ipa": "/ˌænəsˌθiːziˈɒlədʒɪst/",
+  "ex": "The anaesthesiologist advised further weight loss before any elective procedure."
+ },
+ {
+  "id": 638,
+  "rank": 638,
+  "en": "pre-anaesthetic assessment",
+  "zh": "麻醉前评估",
+  "ipa": "/ˌpriː ænəsˈθetɪk əˈsesmənt/",
+  "ex": "A pre-anaesthetic assessment was performed six months before surgery."
+ },
+ {
+  "id": 639,
+  "rank": 639,
+  "en": "internist",
+  "zh": "内科医师",
+  "ipa": "/ɪnˈtɜːnɪst/",
+  "ex": "The internist assessed whether drug therapy was indicated."
+ },
+ {
+  "id": 640,
+  "rank": 640,
+  "en": "pacemaker",
+  "zh": "心脏起搏器",
+  "ipa": "/ˈpeɪsmeɪkə/",
+  "ex": "Bioelectrical impedance analysis is not performed in patients with a pacemaker."
+ },
+ {
+  "id": 641,
+  "rank": 641,
+  "en": "appendectomy",
+  "zh": "阑尾切除术",
+  "ipa": "/ˌæpənˈdektəmi/",
+  "ex": "She had undergone an appendectomy several years earlier."
+ },
+ {
+  "id": 642,
+  "rank": 642,
+  "en": "fluorescein angiography",
+  "zh": "荧光素眼底血管造影",
+  "ipa": "/ˈflʊərəsiːn ˌændʒiˈɒɡrəfi/",
+  "ex": "Fluorescein angiography excluded active retinal neovascularisation."
  }
 ]
