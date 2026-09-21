@@ -1,13 +1,15 @@
-/* 医学术语背单词 · 单页应用
+/* 我在意大利背医学词汇 · 单页应用
    数据：terms.json（476 条，按对话词频排序）
    存储：localStorage
    复习：艾宾浩斯间隔 5min → 30min → 12h → 1d → 2d → 4d → 7d → 15d → 30d（全部通过=已掌握）
+   打卡：统计「累计打卡天数」（有学习或复习记录的天数总和）
+   每日限额：settings.dayLearn 每日新学上限 / settings.dayReview 每日复习上限（9999 = 不限）
 */
 
 const INTERVALS = [5, 30, 720, 1440, 2880, 5760, 10080, 20160, 43200]; // 分钟
 const STAGE_LABEL = ['5 分钟', '30 分钟', '12 小时', '1 天', '2 天', '4 天', '7 天', '15 天', '30 天'];
 const KEY = 'medVocab.v1';
-const BUILD = 'v34 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
+const BUILD = 'v35 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
 
 const KIND_LABEL = { word: '单词' };
 const KIND_SPEAK = { word: 'en-GB' };
@@ -28,7 +30,11 @@ function defaultState() {
     fav: {},        // en -> 收藏时间戳
     stats: {},      // 'YYYY-MM-DD' -> {learn, review, ok, fail}
     // size: 每轮学习数量，9999 = 不限；reviewMode: auto / instant / manual
-    settings: { size: 9999, autoSpeak: true, sizeExplicit: false, reviewMode: 'auto' },
+    // dayLearn / dayReview: 每日新学、每日复习上限，9999 = 不限
+    settings: {
+      size: 9999, autoSpeak: true, sizeExplicit: false, reviewMode: 'auto',
+      dayLearn: 20, dayReview: 100,
+    },
   };
 }
 
@@ -36,10 +42,15 @@ function loadState() {
   try {
     const raw = localStorage.getItem(KEY);
     S = raw ? Object.assign(defaultState(), JSON.parse(raw)) : defaultState();
-    S.settings = Object.assign({ size: 9999, autoSpeak: true, sizeExplicit: false, reviewMode: 'auto' }, S.settings || {});
+    S.settings = Object.assign({
+      size: 9999, autoSpeak: true, sizeExplicit: false, reviewMode: 'auto',
+      dayLearn: 20, dayReview: 100,
+    }, S.settings || {});
     S.fav = S.fav || {};                                    // 旧存档没有收藏时补上
     S.gone = S.gone || {};                                  // 旧存档没有删除记录时补上
     if (!S.settings.sizeExplicit) S.settings.size = 9999;   // 老数据统一升级为“不限”
+    S.settings.dayLearn = Number(S.settings.dayLearn) > 0 ? Number(S.settings.dayLearn) : 20;
+    S.settings.dayReview = Number(S.settings.dayReview) > 0 ? Number(S.settings.dayReview) : 100;
   } catch (e) {
     S = defaultState();
   }
@@ -191,6 +202,16 @@ function newQueue(limit) {
 /* 可用于学习的词条（扣除已删除的） */
 const liveItems = () => ITEMS.filter(i => !isGone(i.key));
 
+/* ---------------- 每日限额（每日新学 / 每日复习） ---------------- */
+const dayCap = (v, dflt) => { const n = Math.floor(Number(v)); return n > 0 ? n : dflt; };
+const dayLearnCap = () => dayCap(S.settings.dayLearn, 20);
+const dayReviewCap = () => dayCap(S.settings.dayReview, 100);
+const dayLearnUsed = () => (S.stats[todayKey()] ? S.stats[todayKey()].learn || 0 : 0);
+const dayReviewUsed = () => (S.stats[todayKey()] ? S.stats[todayKey()].review || 0 : 0);
+const dayLearnLeft = () => Math.max(0, dayLearnCap() - dayLearnUsed());
+const dayReviewLeft = () => Math.max(0, dayReviewCap() - dayReviewUsed());
+const capLabel = (cap, unit) => (cap >= 9999 ? '不限' : cap + ' ' + unit);
+
 function addBook(en) {
   const now = Date.now();
   S.book[en] = S.book[en] || { stage: 0, ok: 0, fail: 0, added: now, mastered: false };
@@ -226,9 +247,19 @@ function failReview(en) {
 /* ---------------- 学习 / 复习会话 ---------------- */
 function startStudy(mode) {
   let queue;
-  if (mode === 'learn') queue = newQueue(Number(S.settings.size) || 20);
-  else if (mode === 'review') queue = dueList();
-  else queue = Object.keys(S.book).filter(en => !S.book[en].mastered);
+  if (mode === 'learn') {
+    const left = dayLearnLeft();
+    if (left <= 0) { toast('今日新学已达上限（' + dayLearnCap() + ' 个），明天再学', 2400); return; }
+    queue = newQueue(Math.min(left, Number(S.settings.size) || 20));
+  } else if (mode === 'review') {
+    const left = dayReviewLeft();
+    if (left <= 0) { toast('今日复习已达上限（' + dayReviewCap() + ' 次），明天再来', 2400); return; }
+    queue = dueList().slice(0, left);
+  } else {
+    const left = dayReviewLeft();
+    if (left <= 0) { toast('今日复习已达上限（' + dayReviewCap() + ' 次），明天再来', 2400); return; }
+    queue = Object.keys(S.book).filter(en => !S.book[en].mastered).slice(0, left);
+  }
 
   if (!queue.length) {
     toast(mode === 'review' ? '暂时没有到期的生词，可以学点新词' : '没有更多新词了');
@@ -252,10 +283,12 @@ function renderStudy() {
     const n = session ? session.queue.length : 0;
     const td2 = S.stats[todayKey()] || { learn: 0, review: 0 };
     const restNew = newQueue(9999).length;
+    const canLearnMore = Math.min(dayLearnLeft(), restNew);
     $('emptyTitle').textContent = session && session.mode === 'learn' ? '本轮新词学完了 🎉' : '本轮复习完成 🎉';
-    $('emptyText').textContent = `本轮 ${n} 个 · 今日新学 ${td2.learn} 个`
-      + (restNew ? ` · 剩余新词 ${restNew} 个` : ' · 全部学完');
-    $('btnEmptyAction').textContent = (session && session.mode === 'learn' && restNew) ? '继续学新词' : '返回今日';
+    $('emptyText').textContent = `本轮 ${n} 个 · 今日新学 ${td2.learn}/${capLabel(dayLearnCap(), '个')}`
+      + (canLearnMore ? ` · 今日还能学 ${canLearnMore} 个`
+        : (restNew ? ' · 今日新学已达上限' : ' · 全部学完'));
+    $('btnEmptyAction').textContent = (session && session.mode === 'learn' && canLearnMore) ? '继续学新词' : '返回今日';
     $('studyBar').style.width = '100%';
     $('studyCounter').textContent = `${n} / ${n}`;
     return;
@@ -522,11 +555,14 @@ function doDelete() {
 /* ---------------- 首页 ---------------- */
 function renderHome() {
   const due = dueList().length;
-  $('homeDue').textContent = due;
+  const dueToday = Math.min(due, dayReviewLeft());
+  const restAll = newQueue(9999).length;
+  const restToday = Math.min(restAll, dayLearnLeft());
+  $('homeDue').textContent = dueToday;
   const bookN = validKeys(S.book).length;
   $('homeBook').textContent = bookN;
   $('homeLearned').textContent = learnedCount() + ' / ' + liveItems().length;
-  $('homeStreak').textContent = streak();
+  $('homeStreak').textContent = checkinDays();
   $('bookPill').textContent = bookN;
 
   const pct = Math.round(learnedCount() / Math.max(1, liveItems().length) * 100);
@@ -535,33 +571,26 @@ function renderHome() {
   if (bar) bar.style.width = pct + '%';
 
   const td = S.stats[todayKey()] || { learn: 0, review: 0 };
-  $('todayLine').textContent = (td.learn || td.review)
-    ? `今日：新学 ${td.learn} · 复习 ${td.review} 次`
-    : '';
+  $('todayLine').textContent = `今日：新学 ${td.learn || 0}/${capLabel(dayLearnCap(), '个')}`
+    + ` · 复习 ${td.review || 0}/${capLabel(dayReviewCap(), '次')}`;
 
-  const rest = newQueue(9999).length;
-  $('btnStartReview').textContent = due ? `开始复习（${due}）` : '开始复习';
-  $('btnStartReview').disabled = due === 0;
-  $('btnStartLearn').textContent = rest ? `开始学习（不限个数，剩 ${rest}）` : '全部学完';
+  $('btnStartReview').textContent = dueToday ? `开始复习（${dueToday}）` : (due ? '今日复习已达上限' : '开始复习');
+  $('btnStartReview').disabled = dueToday === 0;
+  $('btnStartLearn').textContent = restToday
+    ? `开始学习（今日还剩 ${restToday} 个）`
+    : (restAll ? '今日新学已达上限' : '全部学完');
 
   // 兼容被浏览器缓存的旧页面：若还存在词频分布模块就隐藏掉
   const freqPanel = $('freqBar');
   if (freqPanel && freqPanel.parentElement) freqPanel.parentElement.remove();
 }
 
-function streak() {
-  const days = Object.keys(S.stats).filter(d => (S.stats[d].learn + S.stats[d].review) > 0).sort();
-  if (!days.length) return 0;
-  let n = 0;
-  const d = new Date();
-  for (;;) {
-    const k = d.toISOString().slice(0, 10);
-    if (days.includes(k)) { n++; d.setDate(d.getDate() - 1); }
-    else if (n === 0 && k === todayKey()) { d.setDate(d.getDate() - 1); } // 今天还没学，看昨天
-    else break;
-    if (n > 999) break;
-  }
-  return n;
+/* 累计打卡天数：有学习或复习记录的天数总和（不要求连续，断几天也不会清零） */
+function checkinDays() {
+  return Object.keys(S.stats).filter(d => {
+    const v = S.stats[d] || {};
+    return ((v.learn || 0) + (v.review || 0)) > 0;
+  }).length;
 }
 
 /* ---------------- 生词本 ---------------- */
@@ -1029,7 +1058,8 @@ function bind() {
   $('btnPrev').onclick = () => goPrev();
   $('btnPrev2').onclick = () => goPrev();
   $('btnEmptyAction').onclick = () => {
-    const again = session && session.mode === 'learn' && newQueue(9999).length;
+    const again = session && session.mode === 'learn'
+      && Math.min(dayLearnLeft(), newQueue(9999).length);
     session = null;
     if (again) startStudy('learn'); else switchView('home');
   };
@@ -1086,6 +1116,20 @@ function bind() {
     S.settings.sizeExplicit = true;
     save();
     toast(S.settings.size >= 9999 ? '已设为不限：一直学到你自己停下来' : '每轮学习 ' + S.settings.size + ' 个新词');
+    renderHome();
+  });
+
+  $('dayLearn').addEventListener('change', e => {
+    S.settings.dayLearn = Number(e.target.value);
+    save();
+    toast(S.settings.dayLearn >= 9999 ? '每日新学：不限' : '每日最多学 ' + S.settings.dayLearn + ' 个新词');
+    renderHome();
+  });
+
+  $('dayReview').addEventListener('change', e => {
+    S.settings.dayReview = Number(e.target.value);
+    save();
+    toast(S.settings.dayReview >= 9999 ? '每日复习：不限' : '每日最多复习 ' + S.settings.dayReview + ' 次');
     renderHome();
   });
 
@@ -1193,6 +1237,8 @@ function bind() {
 function renderAll2() {
   renderHome(); renderBook(); refreshLists(); renderStats();
   $('sessionSize').value = String(S.settings.size);
+  $('dayLearn').value = String(dayLearnCap());
+  $('dayReview').value = String(dayReviewCap());
   $('autoSpeak').checked = !!S.settings.autoSpeak;
   $('reviewMode').value = S.settings.reviewMode || 'auto';
   const bi = $('buildInfo');
