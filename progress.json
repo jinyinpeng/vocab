@@ -1,42 +1,37 @@
 {
  "known": {
-  "drug": 1790013030945
+  "drug": 1790013173020,
+  "therapy": 1790013174880,
+  "diet": 1790013176718,
+  "diabetes mellitus": 1790013178558,
+  "fats": 1790013180411,
+  "muscle": 1790013182256,
+  "obesity": 1790013184094,
+  "proteins": 1790013185944,
+  "gene": 1790013187784,
+  "statin": 1790013189634
  },
- "book": {
-  "therapy": {
-   "stage": 2,
-   "ok": 2,
-   "fail": 0,
-   "added": 1790012958283,
-   "mastered": false,
-   "due": 1790056158283
-  }
- },
+ "book": {},
  "gone": {},
- "fav": {
-  "diet": 1790012958283
- },
+ "fav": {},
  "stats": {
-  "2026-09-22": {
-   "learn": 20,
-   "review": 100,
-   "ok": 18,
-   "fail": 2
+  "2026-09-21": {
+   "learn": 10,
+   "review": 0,
+   "ok": 0,
+   "fail": 0
   }
  },
  "checkins": {
-  "2026-09-21": 1790012958283,
-  "2026-09-22": 1790012958283
+  "2026-09-21": 1790013189635
  },
- "sync": {
-  "down": 1790013030945
- },
+ "sync": {},
  "settings": {
   "size": 9999,
   "autoSpeak": true,
   "sizeExplicit": false,
   "reviewMode": "auto",
-  "dayLearn": 20,
+  "dayLearn": 10,
   "dayReview": 100
  }
 }
