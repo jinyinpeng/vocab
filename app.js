@@ -1,5 +1,5 @@
 /* 医学术语背单词 · 单页应用
-   数据：terms.json（455 条，按对话词频排序）
+   数据：terms.json（476 条，按对话词频排序）
    存储：localStorage
    复习：艾宾浩斯间隔 5min → 30min → 12h → 1d → 2d → 4d → 7d → 15d → 30d（全部通过=已掌握）
 */
@@ -7,7 +7,7 @@
 const INTERVALS = [5, 30, 720, 1440, 2880, 5760, 10080, 20160, 43200]; // 分钟
 const STAGE_LABEL = ['5 分钟', '30 分钟', '12 小时', '1 天', '2 天', '4 天', '7 天', '15 天', '30 天'];
 const KEY = 'medVocab.v1';
-const BUILD = 'v31 · 2026-09-20';   // 每次更新代码时改这里，用来判断“是否最新版本”
+const BUILD = 'v32 · 2026-09-20';   // 每次更新代码时改这里，用来判断“是否最新版本”
 
 const KIND_LABEL = { word: '单词' };
 const KIND_SPEAK = { word: 'en-GB' };
@@ -665,6 +665,7 @@ function renderKind(kind) {
   const cfg = LISTS[kind];
   const list = $(cfg.listId);
   if (!list) return;
+  if (kind === 'word' && $('allCount')) $('allCount').textContent = ITEMS.length + ' 条';   // 条数自动跟着词库走
   const q = cfg.search.trim().toLowerCase();
   const items = liveItems().filter(i => i.kind === kind).filter(i => {
     if (q && !((i.front + ' ' + i.back + ' ' + (i.ipa || '')).toLowerCase().includes(q))) return false;
@@ -680,7 +681,7 @@ function renderKind(kind) {
     list.innerHTML = `<p class="muted small">${cfg.empty}</p>`;
     return;
   }
-  const shown = items.slice(0, 300);
+  const shown = items.slice(0, 1000);   // 词库 476 条，整表都能翻到底
   if (items.length > 300) {
     const p = document.createElement('p');
     p.className = 'muted small';
