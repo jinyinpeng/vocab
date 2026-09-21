@@ -220,6 +220,7 @@ html[data-theme="dark"] .btn.primary { color: var(--primary-ink); }
 .btn.ghost { background: var(--surface-2); border-color: transparent; color: var(--text-2); }
 .btn.big { flex: 1 1 150px; padding: 14px var(--sp-4); font-size: 15.5px; }
 .btn[disabled] { opacity: .45; cursor: not-allowed; box-shadow: none; }
+a.btn { text-decoration: none; }   /* 「去生成令牌」用的是链接，去掉下划线 */
 
 kbd {
   font: 11px/1.4 ui-monospace, monospace; padding: 1px 5px; margin-left: var(--sp-1);
