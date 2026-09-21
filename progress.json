@@ -1,0 +1,20 @@
+{
+ "known": {
+  "drug": 1790014006938
+ },
+ "book": {},
+ "gone": {},
+ "fav": {},
+ "stats": {},
+ "checkins": {},
+ "sync": {},
+ "settings": {
+  "size": 9999,
+  "autoSpeak": true,
+  "sizeExplicit": false,
+  "reviewMode": "auto",
+  "dayLearn": 70,
+  "dayReview": 100,
+  "dayLearnV2": true
+ }
+}
