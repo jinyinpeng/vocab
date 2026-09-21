@@ -281,32 +281,13 @@
 
         <div class="group">
           <h3>进度备份</h3>
+          <p class="muted small">备份会直接存进手机的「文件」；换手机或重装时，点「一键恢复」从「文件」里选那份备份即可。</p>
           <div class="btn-row">
-            <button class="btn" id="btnExport">导出为文件</button>
-            <button class="btn" id="btnImport">从文件导入</button>
-            <button class="btn" id="btnWechat">从微信导入</button>
+            <button class="btn primary" id="btnExport">一键备份</button>
+            <button class="btn" id="btnImport">一键恢复</button>
           </div>
-          <div id="wechatWrap" class="hidden">
-            <ol class="steps">
-              <li><b>打开微信</b>，进入那个聊天（自己给自己发的也行）
-                <button class="mini" id="btnOpenWeChat">打开微信</button>
-              </li>
-              <li>点开那个 <b>medvocab-backup…json</b> 文件 → 右上角「…」→ <b>用其他应用打开 / 保存到手机</b>（iPhone 选「存储到"文件"」）</li>
-              <li>回到本页面，点下面按钮，在系统文件列表里选刚才那个文件
-                <button class="btn" id="btnPickFile">选择文件并导入</button>
-              </li>
-            </ol>
-            <p class="muted small" id="wechatInfo"></p>
-            <details class="details">
-              <summary>粘贴文本导入</summary>
-              <textarea id="pasteBox" class="search" rows="4" placeholder="长按这里粘贴微信里复制的文本…"></textarea>
-              <div class="btn-row">
-                <button class="btn" id="btnDoImport">确认导入</button>
-                <span class="muted small" id="pasteInfo"></span>
-              </div>
-            </details>
-          </div>
-          <input type="file" id="fileInput" class="hidden" accept=".json,.txt,application/json,text/plain">
+          <input type="file" id="fileInput" class="hidden" accept=".json,application/json,text/plain">
+          <p class="muted small" id="backupInfo"></p>
         </div>
 
         <div class="group danger-zone">
@@ -333,6 +314,6 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="app.js?v=46"></script>
+<script src="app.js?v=47"></script>
 </body>
 </html>
