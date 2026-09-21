@@ -9,7 +9,7 @@
 const INTERVALS = [5, 30, 720, 1440, 2880, 5760, 10080, 20160, 43200]; // 分钟
 const STAGE_LABEL = ['5 分钟', '30 分钟', '12 小时', '1 天', '2 天', '4 天', '7 天', '15 天', '30 天'];
 const KEY = 'medVocab.v1';
-const BUILD = 'v51 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
+const BUILD = 'v52 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
 
 const KIND_LABEL = { word: '单词' };
 const KIND_SPEAK = { word: 'en-GB' };
@@ -1283,12 +1283,15 @@ function bind() {
     const canShareFile = !!(file && navigator.canShare && navigator.canShare({ files: [file] }));
 
     if (canShareFile) {
-      toast('在弹出的面板里选「存储到"文件"」', 3600);
+      // 系统面板一弹出来就会盖住整个页面，所以这里的提示要等面板关掉之后再弹
       navigator.share({ files: [file], title: name }).then(() => {
         afterBackup();
-        toast('备份已存到手机「文件」里', 3000);
+        toast('已存到手机「文件」里 ✓', 3000);
       }).catch(err => {
-        if (err && err.name === 'AbortError') return;   // 用户自己取消了，就什么都不做
+        if (err && err.name === 'AbortError') {
+          toast('已取消。要备份就再点一次「一键备份」，在面板里选「存储到"文件"」', 4200);
+          return;
+        }
         downloadFile(text, name);                       // 分享失败时退回下载
         afterBackup();
         toast('备份已下载：' + name, 3600);
