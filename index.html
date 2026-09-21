@@ -281,13 +281,13 @@
 
         <div class="group">
           <h3>进度备份</h3>
-          <p class="muted small">App 每天会自动在本机留一份备份，点「一键恢复」直接用最新那份，不弹任何窗口；「一键备份」是把进度另外存一份到手机「文件」里，换手机/重装时用得上。</p>
+          <p class="muted small">手机上点「一键备份」会弹出系统面板 → 在里面选「<b>存储到"文件"</b>」；电脑上直接下载。都不会跳走页面。</p>
           <div class="btn-row">
             <button class="btn primary" id="btnExport">一键备份</button>
             <button class="btn" id="btnImport">一键恢复</button>
           </div>
           <input type="file" id="fileInput" class="hidden" accept=".json,application/json,text/plain">
-          <p class="muted small">想挑更早的备份：<button class="mini" id="btnPickFile">从「文件」里选一份</button></p>
+          <p class="muted small">「一键恢复」直接用 App 自己每天存的备份，不弹窗口；想挑更早的文件备份：<button class="mini" id="btnPickFile">从「文件」里选一份</button></p>
           <p class="muted small" id="backupInfo"></p>
         </div>
 
@@ -315,6 +315,6 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="app.js?v=51"></script>
+<script src="app.js?v=52"></script>
 </body>
 </html>
