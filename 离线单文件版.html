@@ -882,33 +882,6 @@ html[data-theme="dark"] .toast { background: #2b3550; }
           <input type="file" id="fileInput" class="hidden" accept=".json,.txt,application/json,text/plain">
         </div>
 
-        <div class="group">
-          <h3>云端同步</h3>
-          <p class="muted small">每天「学习 + 复习」都完成后算今日打卡完成，会自动上传一次；也可以随时手动保存或恢复。</p>
-          <p class="muted small">也可以让电脑端生成一个「一键链接」发到手机，点开就自动配好（不用手动复制令牌）。</p>
-          <div class="btn-row">
-            <button class="btn primary" id="btnCloudSave">保存到云端</button>
-            <button class="btn" id="btnCloudLoad">从云端恢复</button>
-          </div>
-          <details class="details" id="cloudTokenWrap">
-            <summary>填写同步令牌（一台设备只需一次）</summary>
-            <p class="muted small">存到自己的 GitHub 仓库里。先点下面按钮生成令牌（勾选 public_repo 即可），复制后粘到框里保存：</p>
-            <p class="muted small">令牌可以直接粘贴，也可以把电脑发来的<b>整条「一键链接」</b>粘进来（会自动取里面的令牌）。注意：一键链接必须在<b>打开这个 App 的同一个浏览器/入口</b>里点，微信里点开的链接和 Safari 不通用。</p>
-            <div class="btn-row">
-              <a class="btn" id="btnTokenLink" target="_blank" rel="noopener"
-                 href="https://github.com/settings/tokens/new?scopes=public_repo&amp;description=medvocab-cloud-sync">去生成令牌</a>
-            </div>
-            <input id="cloudToken" class="search" type="password" autocomplete="off"
-                   placeholder="粘贴令牌，或把整条一键链接粘进来">
-            <div class="btn-row">
-              <button class="btn" id="btnTokenSave">保存令牌</button>
-              <button class="btn danger" id="btnTokenClear">清除令牌</button>
-              <span class="muted small" id="tokenInfo"></span>
-            </div>
-          </details>
-          <p class="muted small" id="cloudInfo"></p>
-        </div>
-
         <div class="group danger-zone">
           <h3>维护</h3>
           <div class="btn-row">
@@ -6083,7 +6056,7 @@ const OFFLINE_TERMS = [
 const INTERVALS = [5, 30, 720, 1440, 2880, 5760, 10080, 20160, 43200]; // 分钟
 const STAGE_LABEL = ['5 分钟', '30 分钟', '12 小时', '1 天', '2 天', '4 天', '7 天', '15 天', '30 天'];
 const KEY = 'medVocab.v1';
-const BUILD = 'v45 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
+const BUILD = 'v46 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
 
 const KIND_LABEL = { word: '单词' };
 const KIND_SPEAK = { word: 'en-GB' };
@@ -6104,7 +6077,6 @@ function defaultState() {
     fav: {},        // en -> 收藏时间戳
     stats: {},      // 'YYYY-MM-DD' -> {learn, review, ok, fail}
     checkins: {},   // 'YYYY-MM-DD' -> 打卡完成时间（当天学习 + 复习都完成）
-    sync: {},       // {up: 上次上传云端时间, down: 上次从云端恢复时间}
     // size: 每轮学习数量，9999 = 不限；reviewMode: auto / instant / manual
     // dayLearn / dayReview: 每日新学、每日复习上限，9999 = 不限
     settings: {
@@ -6125,7 +6097,7 @@ function loadState() {
     S.fav = S.fav || {};                                    // 旧存档没有收藏时补上
     S.gone = S.gone || {};                                  // 旧存档没有删除记录时补上
     S.checkins = S.checkins || {};
-    S.sync = S.sync || {};
+    delete S.sync;                                          // 云端同步已下线：清掉旧存档里的同步状态
     if (!S.settings.sizeExplicit) S.settings.size = 9999;   // 老数据统一升级为“不限”
     S.settings.dayLearn = Number(S.settings.dayLearn) > 0 ? Number(S.settings.dayLearn) : 70;
     S.settings.dayReview = Number(S.settings.dayReview) > 0 ? Number(S.settings.dayReview) : 100;
@@ -6140,6 +6112,8 @@ function loadState() {
       const v = S.stats[d] || {};
       if (((v.learn || 0) + (v.review || 0)) > 0 && !S.checkins[d]) S.checkins[d] = 1;
     });
+    // 云同步功能已下线：把之前存在本机的同步令牌一并清掉，不留残余
+    try { localStorage.removeItem(KEY + '.gh-token'); } catch (e) { /* 隐私模式等 */ }
   } catch (e) {
     S = defaultState();
   }
@@ -6360,12 +6334,7 @@ function maybeCheckin() {
   S.checkins[k] = Date.now();
   save();
   renderHome();
-  renderSyncInfo();
-  toast('今日打卡完成 🎉 正在上传到云端…', 2200);
-  cloudSave(true).then(ok => {
-    toast(ok ? '今日打卡完成 🎉 进度已同步到云端'
-      : '今日打卡完成 🎉 云端没传上去，稍后可手动「保存到云端」', 3000);
-  });
+  toast('今日打卡完成 🎉 连续坚持中，明天见', 3000);
   return true;
 }
 
@@ -6936,7 +6905,6 @@ function unpackState(data) {
     Object.keys(data.fav || {}).forEach(x => { if (byKey[x]) out.fav[x] = data.fav[x] || now; });
     Object.keys(data.gone || {}).forEach(x => { if (byKey[x]) out.gone[x] = data.gone[x] || now; });
     out.checkins = Object.assign({}, data.checkins || {});
-    out.sync = Object.assign({}, data.sync || {});
     return out;
   }
   (data.k || []).forEach(i => { const key = ITEMS[i] && ITEMS[i].key; if (key) out.known[key] = now; });
@@ -6993,152 +6961,6 @@ async function parseShareText(input) {
   const s = txt.indexOf('{'), e = txt.lastIndexOf('}');
   if (s >= 0 && e > s) return JSON.parse(txt.slice(s, e + 1));
   throw new Error('没找到可导入的内容，请把整段文字都粘进来');
-}
-
-/* ---------------- 云端同步（存在 GitHub 仓库里的 progress.json） ----------------
-   读：同源读 progress.json，不需要令牌
-   写：GitHub Contents API，需要一次性填一个令牌（只存在本机，不会跟着存档上传/导出）
-   打卡完成后会自动上传一次；也可以在「进度备份」里手动保存 / 恢复
-*/
-const CLOUD = {
-  api: 'https://api.github.com/repos/jinyinpeng/vocab/contents/progress.json',
-  // 用绝对地址：在线版和「离线单文件版」都能读到同一份云端进度
-  url: 'https://jinyinpeng.github.io/vocab/progress.json',
-  tokenKey: KEY + '.gh-token',
-};
-
-function getToken() { try { return localStorage.getItem(CLOUD.tokenKey) || ''; } catch (e) { return ''; } }
-function setToken(t) {
-  try {
-    if (t) localStorage.setItem(CLOUD.tokenKey, t);
-    else localStorage.removeItem(CLOUD.tokenKey);
-  } catch (e) { /* 隐私模式等 */ }
-}
-
-/* UTF-8 安全的 base64（GitHub 接口要求） */
-function b64encodeUtf8(str) {
-  const bytes = new TextEncoder().encode(str);
-  let bin = '';
-  for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
-  return btoa(bin);
-}
-
-function fmtTime(ts) {
-  const d = new Date(ts);
-  const p = n => String(n).padStart(2, '0');
-  return p(d.getMonth() + 1) + '-' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
-}
-
-function renderSyncInfo() {
-  const el = $('cloudInfo');
-  if (!el) return;
-  const s = S.sync || {};
-  const parts = [getToken() ? '令牌已保存 ✓' : '还没填令牌（保存到云端需要）'];
-  if (s.up) parts.push('上次上传 ' + fmtTime(s.up));
-  if (s.down) parts.push('上次恢复 ' + fmtTime(s.down));
-  el.textContent = parts.join(' · ');
-  const ti = $('tokenInfo');
-  if (ti) ti.textContent = getToken() ? '已保存（只存在这台设备上）' : '';
-  const box = $('cloudToken');
-  if (box) box.placeholder = getToken() ? '已保存令牌，重新粘贴可替换' : '粘贴令牌，或把整条一键链接粘进来';
-}
-
-async function cloudSha(token) {
-  const res = await fetch(CLOUD.api + '?t=' + Date.now(), {
-    headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json' },
-    cache: 'no-store',
-  });
-  if (!res.ok) return null;                       // 404 = 云端还没有这个文件
-  return (await res.json()).sha || null;
-}
-
-async function cloudSave(silent) {
-  const token = getToken();
-  if (!token) {
-    if (!silent) {
-      // 把「填写同步令牌」那一块自动展开并聚焦，省得用户找不到
-      const wrap = $('cloudTokenWrap');
-      if (wrap) {
-        wrap.open = true;
-        try { wrap.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) { /* 忽略 */ }
-      }
-      const box = $('cloudToken');
-      if (box) setTimeout(() => { try { box.focus(); } catch (e) { /* 忽略 */ } }, 300);
-      toast('这台设备还没填令牌：把令牌（或整条一键链接）粘到下面框里保存', 4000);
-    }
-    return false;
-  }
-  const put = sha => fetch(CLOUD.api, {
-    method: 'PUT',
-    headers: {
-      Authorization: 'Bearer ' + token,
-      Accept: 'application/vnd.github+json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(Object.assign({
-      message: '云备份 ' + new Date().toISOString().slice(0, 16).replace('T', ' '),
-      content: b64encodeUtf8(JSON.stringify(S, null, 1)),
-      branch: 'main',
-    }, sha ? { sha } : {})),
-  });
-  try {
-    let res = await put(await cloudSha(token));
-    if (res.status === 409 || res.status === 422) res = await put(await cloudSha(token));   // 云端刚被改过：重取 sha 再传
-    if (!res.ok) {
-      const hint = res.status === 401 ? '（令牌无效或已过期）'
-        : res.status === 403 ? '（令牌权限不够，需要 public_repo 权限）'
-          : res.status === 404 ? '（仓库或权限不对）' : '';
-      throw new Error('HTTP ' + res.status + hint);
-    }
-    S.sync = Object.assign({}, S.sync, { up: Date.now() });
-    save();
-    renderSyncInfo();
-    if (!silent) toast('已保存到云端 ✓');
-    return true;
-  } catch (e) {
-    if (!silent) toast('保存失败：' + ((e && e.message) || e), 3200);
-    return false;
-  }
-}
-
-/* 一键配置：把令牌放在 #tok=… 里用手机点开，就自动存好并抹掉地址栏里的令牌
-   （# 后面的内容不会发给服务器，只在本地传递） */
-function applyTokenFromUrl() {
-  const m = (location.hash || '').match(/tok=([A-Za-z0-9_\-]+)/);
-  if (!m) return false;
-  setToken(m[1]);
-  try { history.replaceState(null, '', location.pathname + location.search); }
-  catch (e) { location.hash = ''; }
-  renderSyncInfo();
-  toast('云端同步已配好 ✓ 打卡完成后会自动上传', 3600);
-  // 本机已经有进度就顺手备份一次；空进度不会覆盖云端
-  if (learnedCount() + checkinDays() > 0) setTimeout(() => cloudSave(true), 1500);
-  return true;
-}
-
-async function cloudLoad() {
-  try {
-    const res = await fetch(CLOUD.url + '?t=' + Date.now(), { cache: 'no-store' });
-    if (!res.ok) {
-      throw new Error(res.status === 404
-        ? '云端还没有备份（先在常用设备点一次「保存到云端」）' : 'HTTP ' + res.status);
-    }
-    const data = await res.json();
-    const keepUp = (S.sync || {}).up;
-    S = unpackState(data);
-    if (!S.settings.sizeExplicit) S.settings.size = 9999;
-    S.settings.dayLearn = Number(S.settings.dayLearn) > 0 ? Number(S.settings.dayLearn) : 70;
-    S.settings.dayReview = Number(S.settings.dayReview) > 0 ? Number(S.settings.dayReview) : 100;
-    S.sync = Object.assign({}, S.sync, { up: keepUp || S.sync.up, down: Date.now() });
-    save();
-    session = null;
-    renderAll2();
-    toast('已从云端恢复：已学 ' + learnedCount() + ' / ' + liveItems().length, 2800);
-    return true;
-  } catch (e) {
-    toast('恢复失败：' + ((e && e.message) || e), 3200);
-    return false;
-  }
 }
 
 /* ---------------- 下拉更新 / 检查更新 ---------------- */
@@ -7431,29 +7253,6 @@ function bind() {
     }
   };
 
-  $('btnCloudSave').onclick = () => cloudSave(false);
-  $('btnCloudLoad').onclick = () => {
-    if (!confirm('从云端恢复会用云端的进度覆盖本机（进度、生词本、收藏、设置），继续？')) return;
-    cloudLoad();
-  };
-  $('btnTokenSave').onclick = () => {
-    const raw = ($('cloudToken').value || '').trim();
-    // 允许直接粘贴令牌，也允许把整条「一键链接」粘进来（自动从里面取令牌）
-    const hit = raw.match(/tok=([A-Za-z0-9_\-]+)/);
-    const v = hit ? hit[1] : raw;
-    if (!v) { toast('请先粘贴令牌，或把那条一键链接整个粘进来', 3000); return; }
-    if (!/^(gh[pousr]_|github_pat_)/.test(v)) { toast('这看起来不是 GitHub 令牌（应以 ghp_ / gho_ 开头）', 3000); return; }
-    setToken(v);
-    $('cloudToken').value = '';
-    renderSyncInfo();
-    toast('令牌已保存，现在可以「保存到云端」了');
-  };
-  $('btnTokenClear').onclick = () => {
-    setToken('');
-    renderSyncInfo();
-    toast('已清除令牌', 1400);
-  };
-
   $('btnCheckUpdate').onclick = () => checkUpdate();
 
   $('btnWechat').onclick = () => {
@@ -7531,7 +7330,6 @@ function renderAll2() {
   $('dayReview').value = String(dayReviewCap());
   $('autoSpeak').checked = !!S.settings.autoSpeak;
   $('reviewMode').value = S.settings.reviewMode || 'auto';
-  renderSyncInfo();
   const bi = $('buildInfo');
   if (bi) bi.textContent = '当前版本 ' + BUILD;
 }
@@ -7550,7 +7348,7 @@ function initOffline() {
   try {
     // 注意：sw.js 每次发布新版本时，把下面的 ?v= 数字 +1
     //（CDN/代理会缓存同路径文件，加版本号才能让浏览器拿到新的 Service Worker）
-    navigator.serviceWorker.register('sw.js?v=27', { updateViaCache: 'none' })
+    navigator.serviceWorker.register('sw.js?v=28', { updateViaCache: 'none' })
       .then(() => navigator.serviceWorker.ready)
       .then(reg => {
         const bi = $('buildInfo');
@@ -7581,9 +7379,6 @@ async function init() {
     return;
   }
   buildItems();
-  // 支持「一键链接」配置云端令牌：App 已经开着时点链接不会重新加载，所以也监听 hash 变化
-  applyTokenFromUrl();
-  window.addEventListener('hashchange', applyTokenFromUrl);
 
   bind();
   initPullToRefresh();
