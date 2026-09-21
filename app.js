@@ -9,7 +9,7 @@
 const INTERVALS = [5, 30, 720, 1440, 2880, 5760, 10080, 20160, 43200]; // 分钟
 const STAGE_LABEL = ['5 分钟', '30 分钟', '12 小时', '1 天', '2 天', '4 天', '7 天', '15 天', '30 天'];
 const KEY = 'medVocab.v1';
-const BUILD = 'v44 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
+const BUILD = 'v45 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
 
 const KIND_LABEL = { word: '单词' };
 const KIND_SPEAK = { word: 'en-GB' };
@@ -966,7 +966,7 @@ function renderSyncInfo() {
   const ti = $('tokenInfo');
   if (ti) ti.textContent = getToken() ? '已保存（只存在这台设备上）' : '';
   const box = $('cloudToken');
-  if (box) box.placeholder = getToken() ? '已保存令牌，重新粘贴可替换' : '粘贴 GitHub 令牌（ghp_…）';
+  if (box) box.placeholder = getToken() ? '已保存令牌，重新粘贴可替换' : '粘贴令牌，或把整条一键链接粘进来';
 }
 
 async function cloudSha(token) {
