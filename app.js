@@ -9,7 +9,7 @@
 const INTERVALS = [5, 30, 720, 1440, 2880, 5760, 10080, 20160, 43200]; // 分钟
 const STAGE_LABEL = ['5 分钟', '30 分钟', '12 小时', '1 天', '2 天', '4 天', '7 天', '15 天', '30 天'];
 const KEY = 'medVocab.v1';
-const BUILD = 'v49 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
+const BUILD = 'v50 · 2026-09-22';   // 每次更新代码时改这里，用来判断“是否最新版本”
 
 const KIND_LABEL = { word: '单词' };
 const KIND_SPEAK = { word: 'en-GB' };
@@ -286,6 +286,7 @@ function maybeCheckin() {
   if (!dailyDone()) return false;
   S.checkins[k] = Date.now();
   save();
+  pushSnap();                       // 打卡完成顺手留一份本机备份
   renderHome();
   toast('今日打卡完成 🎉 连续坚持中，明天见', 3000);
   return true;
@@ -872,9 +873,46 @@ function renderBackupInfo() {
   const el = $('backupInfo');
   if (!el) return;
   const parts = ['已学 ' + learnedCount() + ' / ' + liveItems().length];
-  if (S.lastBackupAt) parts.push('上次备份 ' + fmtTime(S.lastBackupAt));
+  const snaps = listSnaps();
+  if (snaps.length) parts.push('本机自动备份 ' + snapCount() + ' 份（最新 ' + fmtTime(snaps[0].t) + '）');
+  if (S.lastBackupAt) parts.push('上次导出 ' + fmtTime(S.lastBackupAt));
   if (S.lastRestoreAt) parts.push('上次恢复 ' + fmtTime(S.lastRestoreAt));
   el.textContent = parts.join(' · ');
+}
+
+/* ---------------- 本机自动备份（「一键恢复」直接用这份，不弹任何窗口） ----------------
+   浏览器不允许网页去翻手机的「文件」，所以进度另存一份在本机：
+   每天第一次打开 App、打卡完成、以及手动备份时各留一份，最多留 5 份。 */
+const SNAP_KEY = KEY + '.snaps';
+const SNAP_MAX = 5;
+
+function listSnaps() {
+  try {
+    const arr = JSON.parse(localStorage.getItem(SNAP_KEY) || '[]');
+    return Array.isArray(arr) ? arr.filter(x => x && x.t && x.d) : [];
+  } catch (e) { return []; }
+}
+const snapCount = () => listSnaps().length;
+
+/* 把当前进度存成一份本机备份（和最新一份内容一样就跳过） */
+function pushSnap() {
+  try {
+    const arr = listSnaps();
+    const d = JSON.stringify(S);
+    if (arr.length && arr[0].d === d) return false;
+    arr.unshift({ t: Date.now(), d });
+    localStorage.setItem(SNAP_KEY, JSON.stringify(arr.slice(0, SNAP_MAX)));
+    return true;
+  } catch (e) { return false; }   // 空间不足等，忽略
+}
+
+/* 每天最多自动留一份（没学过任何东西就不留，免得塞满空白存档） */
+function autoDailySnap() {
+  const day = 24 * 3600 * 1000;
+  const snaps = listSnaps();
+  if (snaps.length && (Date.now() - snaps[0].t) < day) return;
+  if ((learnedCount() + checkinDays()) === 0) return;
+  if (pushSnap()) renderBackupInfo();
 }
 
 const backupFileName = () => 'medvocab-backup-' + todayKey() + '.json';
@@ -883,6 +921,7 @@ const backupFileName = () => 'medvocab-backup-' + todayKey() + '.json';
 function afterBackup() {
   S.lastBackupAt = Date.now();
   save();
+  pushSnap();                     // 同时在本机留一份，「一键恢复」就不用弹窗口了
   renderBackupInfo();
 }
 
@@ -1223,8 +1262,30 @@ function bind() {
     toast('备份已存到「文件」里：' + name, 4000);
   };
 
-  /* 一键恢复：直接打开手机的「文件」，选那份备份，选中就自动恢复 */
+  /* 一键恢复：直接用本机自动备份里最新的一份，不弹任何窗口
+     （浏览器不让网页翻手机的「文件」，所以本机备份才是真正"一键"的那份） */
   $('btnImport').onclick = () => {
+    const snaps = listSnaps();
+    if (!snaps.length) {                       // 本机还没留下过备份，只能去「文件」里挑
+      toast('本机还没有自动备份，去「文件」里选一份吧', 3200);
+      $('btnPickFile').click();
+      return;
+    }
+    const latest = snaps[0];
+    // 本机已经有进度时才确认一句，避免手滑覆盖（新机恢复直接过）
+    if ((learnedCount() + checkinDays()) > 0
+      && !confirm('用本机自动备份（' + fmtTime(latest.t) + '）恢复？现在的进度会被覆盖')) return;
+    pushSnap();                                // 恢复前先把当前进度也留一份
+    applyImported(parseBackupText(latest.d), null);
+    pushSnap();
+    S.lastRestoreAt = Date.now();
+    save();
+    renderBackupInfo();
+    toast('已用本机自动备份恢复（' + fmtTime(latest.t) + '）', 3400);
+  };
+
+  /* 想挑更早的备份时，才去打开手机的「文件」 */
+  $('btnPickFile').onclick = () => {
     const inp = $('fileInput');
     inp.value = '';       // 允许重复选同一个文件
     inp.click();
@@ -1253,8 +1314,9 @@ function bind() {
   };
   $('btnReset').onclick = () => {
     if (!confirm('确定清空全部学习进度？此操作不可撤销。')) return;
+    pushSnap();                       // 清空前先留一份，万一是手滑还能用「一键恢复」找回来
     S = defaultState(); save(); session = null; renderAll2();
-    toast('已清空，重新开始');
+    toast('已清空，重新开始（可用「一键恢复」找回）', 3200);
   };
 
   document.addEventListener('keydown', e => {
@@ -1334,6 +1396,7 @@ async function init() {
 
   bind();
   initPullToRefresh();
+  autoDailySnap();      // 每天自动留一份本机备份，供「一键恢复」直接用
   renderAll2();
   initOffline();
   setTimeout(watchServer, 1600);
