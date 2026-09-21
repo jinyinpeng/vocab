@@ -3806,5 +3806,229 @@
   "zh": "代谢综合征",
   "ipa": "/ˌmetəˈbɒlɪk ˈsɪndrəʊm/",
   "ex": "Metabolic syndrome increases the risk of fatty liver disease."
+ },
+ {
+  "id": 477,
+  "rank": 477,
+  "en": "body weight measurement",
+  "zh": "体重测量",
+  "ipa": "/ˈbɒdi weɪt ˈmeʒəmənt/",
+  "ex": "Body weight measurement was recorded at each visit."
+ },
+ {
+  "id": 478,
+  "rank": 478,
+  "en": "anemia",
+  "zh": "贫血",
+  "ipa": "/əˈniːmiə/",
+  "ex": "Mild anemia was found on the blood test."
+ },
+ {
+  "id": 479,
+  "rank": 479,
+  "en": "physical examination",
+  "zh": "体格检查",
+  "ipa": "/ˈfɪzɪkl ɪɡˌzæmɪˈneɪʃn/",
+  "ex": "Physical examination showed no abdominal tenderness."
+ },
+ {
+  "id": 480,
+  "rank": 480,
+  "en": "brisk walking",
+  "zh": "快走",
+  "ipa": "/brɪsk ˈwɔːkɪŋ/",
+  "ex": "Brisk walking for 30 minutes a day was recommended."
+ },
+ {
+  "id": 481,
+  "rank": 481,
+  "en": "strength training",
+  "zh": "力量训练",
+  "ipa": "/streŋθ ˈtreɪnɪŋ/",
+  "ex": "Strength training twice a week prevents muscle loss."
+ },
+ {
+  "id": 482,
+  "rank": 482,
+  "en": "pregnancy",
+  "zh": "妊娠",
+  "ipa": "/ˈpreɡnənsi/",
+  "ex": "Weight-loss drugs must be stopped before pregnancy."
+ },
+ {
+  "id": 483,
+  "rank": 483,
+  "en": "adverse drug reaction",
+  "zh": "药物不良反应",
+  "ipa": "/ˈædvɜːs drʌɡ riˈækʃn/",
+  "ex": "Nausea is the most common adverse drug reaction."
+ },
+ {
+  "id": 484,
+  "rank": 484,
+  "en": "prescription",
+  "zh": "处方",
+  "ipa": "/prɪˈskrɪpʃn/",
+  "ex": "The prescription was renewed for three months."
+ },
+ {
+  "id": 485,
+  "rank": 485,
+  "en": "portion size",
+  "zh": "每份分量",
+  "ipa": "/ˈpɔːʃn saɪz/",
+  "ex": "Reducing portion size lowers calorie intake."
+ },
+ {
+  "id": 486,
+  "rank": 486,
+  "en": "semaglutide",
+  "zh": "司美格鲁肽",
+  "ipa": "/ˌseməˈɡluːtaɪd/",
+  "ex": "Semaglutide is given as a weekly subcutaneous injection."
+ },
+ {
+  "id": 487,
+  "rank": 487,
+  "en": "dialysis",
+  "zh": "透析",
+  "ipa": "/daɪˈæləsɪs/",
+  "ex": "The drug can be used in patients on dialysis."
+ },
+ {
+  "id": 488,
+  "rank": 488,
+  "en": "vitamin D deficiency",
+  "zh": "维生素D缺乏",
+  "ipa": "/ˈvɪtəmɪn diː dɪˈfɪʃnsi/",
+  "ex": "Vitamin D deficiency was corrected with supplements."
+ },
+ {
+  "id": 489,
+  "rank": 489,
+  "en": "vomiting",
+  "zh": "呕吐",
+  "ipa": "/ˈvɒmɪtɪŋ/",
+  "ex": "Persistent vomiting requires drug withdrawal."
+ },
+ {
+  "id": 490,
+  "rank": 490,
+  "en": "carbohydrate",
+  "zh": "碳水化合物",
+  "ipa": "/ˌkɑːbəʊˈhaɪdreɪt/",
+  "ex": "Refined carbohydrates were reduced in her diet."
+ },
+ {
+  "id": 491,
+  "rank": 491,
+  "en": "sodium intake",
+  "zh": "钠摄入量",
+  "ipa": "/ˈsəʊdiəm ˈɪnteɪk/",
+  "ex": "Reducing sodium intake lowers blood pressure."
+ },
+ {
+  "id": 492,
+  "rank": 492,
+  "en": "albumin",
+  "zh": "白蛋白",
+  "ipa": "/ælˈbjuːmɪn/",
+  "ex": "Low albumin suggests malnutrition."
+ },
+ {
+  "id": 493,
+  "rank": 493,
+  "en": "discontinuation",
+  "zh": "停药",
+  "ipa": "/ˌdɪskənˌtɪnjuˈeɪʃn/",
+  "ex": "Discontinuation of the drug led to rapid weight regain."
+ },
+ {
+  "id": 494,
+  "rank": 494,
+  "en": "smoking cessation",
+  "zh": "戒烟",
+  "ipa": "/ˈsməʊkɪŋ seˈseɪʃn/",
+  "ex": "Smoking cessation reduces cardiovascular risk."
+ },
+ {
+  "id": 495,
+  "rank": 495,
+  "en": "diagnosis",
+  "zh": "诊断",
+  "ipa": "/ˌdaɪəɡˈnəʊsɪs/",
+  "ex": "The diagnosis was confirmed by blood tests."
+ },
+ {
+  "id": 496,
+  "rank": 496,
+  "en": "hip circumference",
+  "zh": "臀围",
+  "ipa": "/hɪp səˈkʌmfərəns/",
+  "ex": "Hip circumference was measured at the widest point."
+ },
+ {
+  "id": 497,
+  "rank": 497,
+  "en": "bioelectrical impedance analysis",
+  "zh": "生物电阻抗分析",
+  "ipa": "/ˌbaɪəʊɪˌlektrɪkl ɪmˈpiːdəns əˈnæləsɪs/",
+  "ex": "Bioelectrical impedance analysis estimated her fat mass."
+ },
+ {
+  "id": 498,
+  "rank": 498,
+  "en": "food craving",
+  "zh": "食物渴求",
+  "ipa": "/fuːd ˈkreɪvɪŋ/",
+  "ex": "Food cravings decreased during therapy."
+ },
+ {
+  "id": 499,
+  "rank": 499,
+  "en": "prediabetes",
+  "zh": "糖尿病前期",
+  "ipa": "/ˌpriːdaɪəˈbiːtiːz/",
+  "ex": "Prediabetes can be reversed with weight loss."
+ },
+ {
+  "id": 500,
+  "rank": 500,
+  "en": "serum creatinine",
+  "zh": "血清肌酐",
+  "ipa": "/ˈsɪərəm kriˈætəniːn/",
+  "ex": "Serum creatinine was normal before starting the drug."
+ },
+ {
+  "id": 501,
+  "rank": 501,
+  "en": "food diary",
+  "zh": "饮食日记",
+  "ipa": "/fuːd ˈdaɪəri/",
+  "ex": "She kept a food diary for one week."
+ },
+ {
+  "id": 502,
+  "rank": 502,
+  "en": "ultrasound",
+  "zh": "超声检查",
+  "ipa": "/ˈʌltrəsaʊnd/",
+  "ex": "Abdominal ultrasound showed a normal liver."
+ },
+ {
+  "id": 503,
+  "rank": 503,
+  "en": "electrocardiogram",
+  "zh": "心电图",
+  "ipa": "/ɪˌlektrəʊˈkɑːdiəɡræm/",
+  "ex": "The electrocardiogram was normal."
+ },
+ {
+  "id": 504,
+  "rank": 504,
+  "en": "iron supplement",
+  "zh": "铁剂",
+  "ipa": "/ˈaɪən ˈsʌplɪmənt/",
+  "ex": "An iron supplement corrected her anemia."
  }
 ]
