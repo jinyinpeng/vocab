@@ -6022,5 +6022,269 @@
   "zh": "医学报告",
   "ipa": "/ˈmedɪkl rɪˈpɔːt/",
   "ex": "The medical report was forwarded to the general practitioner so that the tests could be prescribed."
+ },
+ {
+  "id": 754,
+  "rank": 754,
+  "en": "ectopic fat",
+  "zh": "异位脂肪（沉积在非脂肪组织的脂肪）",
+  "ipa": "/ekˈtɒpɪk fæt/",
+  "ex": "Ectopic fat around the liver and heart drives low-grade inflammation."
+ },
+ {
+  "id": 755,
+  "rank": 755,
+  "en": "low-grade inflammation",
+  "zh": "低度炎症",
+  "ipa": "/ˌləʊ ɡreɪd ˌɪnfləˈmeɪʃn/",
+  "ex": "Excess adipose tissue causes a state of low-grade inflammation."
+ },
+ {
+  "id": 756,
+  "rank": 756,
+  "en": "creatine kinase",
+  "zh": "肌酸激酶（CK/CPK）",
+  "ipa": "/ˈkriːətiːn ˈkaɪneɪz/",
+  "ex": "Creatine kinase was measured to rule out muscle damage."
+ },
+ {
+  "id": 757,
+  "rank": 757,
+  "en": "radiculopathy",
+  "zh": "神经根病",
+  "ipa": "/rəˌdɪkjʊˈlɒpəθi/",
+  "ex": "Lumbar radiculopathy can cause electric-shock pain down the leg."
+ },
+ {
+  "id": 758,
+  "rank": 758,
+  "en": "neuropathic pain",
+  "zh": "神经病理性疼痛",
+  "ipa": "/ˌnjʊərəˈpæθɪk peɪn/",
+  "ex": "Neuropathic pain is treated with drugs such as pregabalin."
+ },
+ {
+  "id": 759,
+  "rank": 759,
+  "en": "pregabalin (Lyrica)",
+  "zh": "普瑞巴林",
+  "ipa": "/prɪˈɡæbəlɪn/",
+  "ex": "Pregabalin was tried for her electric-shock leg pain."
+ },
+ {
+  "id": 760,
+  "rank": 760,
+  "en": "bisphosphonate",
+  "zh": "双膦酸盐类药",
+  "ipa": "/bɪsˈfɒsfəneɪt/",
+  "ex": "Bisphosphonates are used to treat postmenopausal osteoporosis."
+ },
+ {
+  "id": 761,
+  "rank": 761,
+  "en": "alendronic acid",
+  "zh": "阿仑膦酸",
+  "ipa": "/ˌælənˈdrɒnɪk ˈæsɪd/",
+  "ex": "She takes alendronic acid for osteoporosis."
+ },
+ {
+  "id": 762,
+  "rank": 762,
+  "en": "antiplatelet therapy",
+  "zh": "抗血小板治疗",
+  "ipa": "/ˌæntiˈpleɪtlət ˈθerəpi/",
+  "ex": "Antiplatelet therapy increases the risk of gastrointestinal bleeding."
+ },
+ {
+  "id": 763,
+  "rank": 763,
+  "en": "FIB-4 index",
+  "zh": "FIB-4 指数（肝纤维化无创评分）",
+  "ipa": "/fɪb fɔː ˈɪndeks/",
+  "ex": "The FIB-4 index uses age, transaminases and platelet count."
+ },
+ {
+  "id": 764,
+  "rank": 764,
+  "en": "platelet count",
+  "zh": "血小板计数",
+  "ipa": "/ˈpleɪtlət kaʊnt/",
+  "ex": "A platelet count of 67 is a favourable finding."
+ },
+ {
+  "id": 765,
+  "rank": 765,
+  "en": "metabolic cirrhosis",
+  "zh": "代谢性肝硬化",
+  "ipa": "/ˌmetəˈbɒlɪk səˈrəʊsɪs/",
+  "ex": "Metabolic cirrhosis may develop in untreated fatty liver disease."
+ },
+ {
+  "id": 766,
+  "rank": 766,
+  "en": "cholelithiasis",
+  "zh": "胆石症",
+  "ipa": "/ˌkɒlɪlɪˈθaɪəsɪs/",
+  "ex": "Rapid weight loss can favour cholelithiasis."
+ },
+ {
+  "id": 767,
+  "rank": 767,
+  "en": "recurrent pancreatitis",
+  "zh": "复发性胰腺炎",
+  "ipa": "/rɪˈkʌrənt ˌpæŋkriəˈtaɪtɪs/",
+  "ex": "Recurrent pancreatitis is a contraindication to these drugs."
+ },
+ {
+  "id": 768,
+  "rank": 768,
+  "en": "coronary stenosis",
+  "zh": "冠状动脉狭窄",
+  "ipa": "/ˈkɒrənri stəˈnəʊsɪs/",
+  "ex": "A 30% coronary stenosis was found on angiography."
+ },
+ {
+  "id": 769,
+  "rank": 769,
+  "en": "left anterior descending artery (LAD)",
+  "zh": "左前降支（冠状动脉）",
+  "ipa": "/left ænˈtɪəriə dɪˈsendɪŋ ˈɑːtəri/",
+  "ex": "The stenosis involved the left anterior descending artery."
+ },
+ {
+  "id": 770,
+  "rank": 770,
+  "en": "circumflex artery",
+  "zh": "冠状动脉回旋支",
+  "ipa": "/ˈsɜːkəmfleks ˈɑːtəri/",
+  "ex": "Disease of the circumflex artery was also described."
+ },
+ {
+  "id": 771,
+  "rank": 771,
+  "en": "extrasystole",
+  "zh": "期前收缩（早搏）",
+  "ipa": "/ˌekstrəˈsɪstəli/",
+  "ex": "She has had extrasystoles for a year without worsening."
+ },
+ {
+  "id": 772,
+  "rank": 772,
+  "en": "coronary CT angiography",
+  "zh": "冠状动脉 CT 血管成像",
+  "ipa": "/ˈkɒrənri ˌsiː ˈtiː ændʒiˈɒɡrəfi/",
+  "ex": "Coronary CT angiography showed a non-obstructive plaque."
+ },
+ {
+  "id": 773,
+  "rank": 773,
+  "en": "metoprolol",
+  "zh": "美托洛尔（β 受体阻滞剂）",
+  "ipa": "/meˈtəʊprəlɒl/",
+  "ex": "Metoprolol was given at the lowest dose."
+ },
+ {
+  "id": 774,
+  "rank": 774,
+  "en": "prostate cancer",
+  "zh": "前列腺癌",
+  "ipa": "/ˈprɒsteɪt ˈkænsə/",
+  "ex": "His father had a history of prostate cancer."
+ },
+ {
+  "id": 775,
+  "rank": 775,
+  "en": "low-protein diet",
+  "zh": "低蛋白饮食",
+  "ipa": "/ˌləʊ ˈprəʊtiːn ˈdaɪət/",
+  "ex": "A low-protein diet may be needed in advanced kidney failure."
+ },
+ {
+  "id": 776,
+  "rank": 776,
+  "en": "anorexia nervosa",
+  "zh": "神经性厌食症",
+  "ipa": "/ˌænəˈreksiə nɜːˈvəʊsə/",
+  "ex": "She had a previous diagnosis of anorexia nervosa."
+ },
+ {
+  "id": 777,
+  "rank": 777,
+  "en": "comorbidity",
+  "zh": "合并症",
+  "ipa": "/ˌkəʊmɔːˈbɪdəti/",
+  "ex": "Drug therapy requires at least one weight-related comorbidity."
+ },
+ {
+  "id": 778,
+  "rank": 778,
+  "en": "vaginal ring",
+  "zh": "阴道环（避孕）",
+  "ipa": "/vəˈdʒaɪnl rɪŋ/",
+  "ex": "She had used a contraceptive vaginal ring for several years."
+ },
+ {
+  "id": 779,
+  "rank": 779,
+  "en": "alcohol unit",
+  "zh": "酒精单位（1 单位约 8 g 纯酒精）",
+  "ipa": "/ˈælkəhɒl ˈjuːnɪt/",
+  "ex": "The recommended limit is 14 alcohol units a week for women."
+ },
+ {
+  "id": 780,
+  "rank": 780,
+  "en": "Hashimoto thyroiditis",
+  "zh": "桥本甲状腺炎",
+  "ipa": "/hæʃɪˈməʊtəʊ ˌθaɪrɔɪˈdaɪtɪs/",
+  "ex": "Hashimoto thyroiditis is the commonest cause of hypothyroidism."
+ },
+ {
+  "id": 781,
+  "rank": 781,
+  "en": "optic neuritis",
+  "zh": "视神经炎",
+  "ipa": "/ˈɒptɪk njʊəˈraɪtɪs/",
+  "ex": "Very rare cases of optic neuritis have been reported with these drugs."
+ },
+ {
+  "id": 782,
+  "rank": 782,
+  "en": "cortisol",
+  "zh": "皮质醇（应激激素）",
+  "ipa": "/ˈkɔːtɪsɒl/",
+  "ex": "Excess cortisol causes weight gain, but stress alone does not."
+ },
+ {
+  "id": 783,
+  "rank": 783,
+  "en": "malabsorption",
+  "zh": "吸收不良",
+  "ipa": "/ˌmæləbˈsɔːpʃn/",
+  "ex": "Malabsorption of iron and vitamin B12 can follow gastric surgery."
+ },
+ {
+  "id": 784,
+  "rank": 784,
+  "en": "childhood obesity",
+  "zh": "儿童肥胖",
+  "ipa": "/ˈtʃaɪldhʊd əʊˈbiːsəti/",
+  "ex": "Childhood obesity has become a major public health problem."
+ },
+ {
+  "id": 785,
+  "rank": 785,
+  "en": "insulin therapy",
+  "zh": "胰岛素治疗",
+  "ipa": "/ˈɪnsjʊlɪn ˈθerəpi/",
+  "ex": "Insulin therapy was needed while her glucose was uncontrolled."
+ },
+ {
+  "id": 786,
+  "rank": 786,
+  "en": "vitamin D supplementation",
+  "zh": "维生素 D 补充",
+  "ipa": "/ˈvɪtəmɪn diː ˌsʌplɪmenˈteɪʃn/",
+  "ex": "Vitamin D supplementation was prescribed once a month."
  }
 ]
