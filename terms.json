@@ -5134,5 +5134,181 @@
   "zh": "荧光素眼底血管造影",
   "ipa": "/ˈflʊərəsiːn ˌændʒiˈɒɡrəfi/",
   "ex": "Fluorescein angiography excluded active retinal neovascularisation."
+ },
+ {
+  "id": 643,
+  "rank": 643,
+  "en": "gastric bypass",
+  "zh": "胃旁路手术",
+  "ipa": "/ˈɡæstrɪk ˈbaɪpæs/",
+  "ex": "After gastric bypass the stomach is much smaller, so food passes faster."
+ },
+ {
+  "id": 644,
+  "rank": 644,
+  "en": "dumping syndrome",
+  "zh": "倾倒综合征",
+  "ipa": "/ˈdʌmpɪŋ ˈsɪndrəʊm/",
+  "ex": "Dumping syndrome causes sweating and tremor after a sugary meal."
+ },
+ {
+  "id": 645,
+  "rank": 645,
+  "en": "reactive hypoglycemia",
+  "zh": "反应性低血糖",
+  "ipa": "/riˈæktɪv ˌhaɪpəʊɡlaɪˈsiːmiə/",
+  "ex": "Reactive hypoglycemia usually appears about two hours after eating."
+ },
+ {
+  "id": 646,
+  "rank": 646,
+  "en": "glucometer",
+  "zh": "血糖仪",
+  "ipa": "/ɡluːˈkɒmɪtə/",
+  "ex": "She measured her fasting glucose at home with a glucometer."
+ },
+ {
+  "id": 647,
+  "rank": 647,
+  "en": "simple sugars",
+  "zh": "简单糖（单糖、双糖）",
+  "ipa": "/ˈsɪmpl ˈʃʊɡəz/",
+  "ex": "Simple sugars are absorbed very quickly after bariatric surgery."
+ },
+ {
+  "id": 648,
+  "rank": 648,
+  "en": "refined carbohydrates",
+  "zh": "精制碳水化合物",
+  "ipa": "/rɪˈfaɪnd ˌkɑːbəʊˈhaɪdreɪts/",
+  "ex": "Refined carbohydrates raise blood glucose faster than whole grains."
+ },
+ {
+  "id": 649,
+  "rank": 649,
+  "en": "ferritin",
+  "zh": "铁蛋白",
+  "ipa": "/ˈferɪtɪn/",
+  "ex": "Ferritin was low, so an oral iron supplement was prescribed."
+ },
+ {
+  "id": 650,
+  "rank": 650,
+  "en": "coronary plaque",
+  "zh": "冠状动脉斑块",
+  "ipa": "/ˈkɒrənri plæk/",
+  "ex": "Coronary plaque was found during the cardiological work-up."
+ },
+ {
+  "id": 651,
+  "rank": 651,
+  "en": "esophageal varices",
+  "zh": "食管静脉曲张",
+  "ipa": "/iːˌsɒfəˈdʒiːəl ˈværɪsiːz/",
+  "ex": "Esophageal varices must be excluded in advanced chronic liver disease."
+ },
+ {
+  "id": 652,
+  "rank": 652,
+  "en": "non-alcoholic fatty liver disease",
+  "zh": "非酒精性脂肪性肝病",
+  "ipa": "/ˌnɒn ælkəˈhɒlɪk ˈfæti ˈlɪvə dɪˈziːz/",
+  "ex": "Non-alcoholic fatty liver disease is common in patients with obesity."
+ },
+ {
+  "id": 653,
+  "rank": 653,
+  "en": "colitis",
+  "zh": "结肠炎",
+  "ipa": "/kəˈlaɪtɪs/",
+  "ex": "He had a history of chronic inflammatory colitis."
+ },
+ {
+  "id": 654,
+  "rank": 654,
+  "en": "intestinal transit",
+  "zh": "肠道转运",
+  "ipa": "/ɪnˈtestɪnl ˈtrænzɪt/",
+  "ex": "This therapy slows intestinal transit and improves satiety."
+ },
+ {
+  "id": 655,
+  "rank": 655,
+  "en": "FODMAP diet",
+  "zh": "低 FODMAP 饮食",
+  "ipa": "/ˈfɒdmæp ˌdaɪət/",
+  "ex": "A FODMAP diet had helped her abdominal bloating in the past."
+ },
+ {
+  "id": 656,
+  "rank": 656,
+  "en": "common femoral artery",
+  "zh": "股总动脉",
+  "ipa": "/ˈkɒmən ˈfemərəl ˈɑːtəri/",
+  "ex": "A small plaque was seen in the common femoral artery."
+ },
+ {
+  "id": 657,
+  "rank": 657,
+  "en": "dual agonist",
+  "zh": "双靶点激动剂",
+  "ipa": "/ˈdjuːəl ˈæɡənɪst/",
+  "ex": "Tirzepatide is a dual agonist acting on GLP-1 and GIP."
+ },
+ {
+  "id": 658,
+  "rank": 658,
+  "en": "fasting insulin",
+  "zh": "空腹胰岛素",
+  "ipa": "/ˈfɑːstɪŋ ˈɪnsjʊlɪn/",
+  "ex": "Fasting insulin is useful when insulin resistance is suspected."
+ },
+ {
+  "id": 659,
+  "rank": 659,
+  "en": "insulin antibodies",
+  "zh": "胰岛素抗体",
+  "ipa": "/ˈɪnsjʊlɪn ˈæntɪbɒdiz/",
+  "ex": "Insulin antibodies are measured when type 1 diabetes is suspected."
+ },
+ {
+  "id": 660,
+  "rank": 660,
+  "en": "whey protein",
+  "zh": "乳清蛋白",
+  "ipa": "/ˈweɪ ˈprəʊtiːn/",
+  "ex": "Whey protein is often used to reach the protein target after surgery."
+ },
+ {
+  "id": 661,
+  "rank": 661,
+  "en": "CT scan",
+  "zh": "CT 扫描（计算机断层扫描）",
+  "ipa": "/ˌsiː ˈtiː skæn/",
+  "ex": "A CT scan showed a slightly dilated ureter."
+ },
+ {
+  "id": 662,
+  "rank": 662,
+  "en": "moderate-intensity exercise",
+  "zh": "中等强度运动",
+  "ipa": "/ˌmɒdərət ɪnˈtensəti ˈeksəsaɪz/",
+  "ex": "At least 150 minutes of moderate-intensity exercise a week is recommended."
+ },
+ {
+  "id": 663,
+  "rank": 663,
+  "en": "tremor",
+  "zh": "震颤",
+  "ipa": "/ˈtremə/",
+  "ex": "The hypoglycemic episodes began with tremor and sweating."
+ },
+ {
+  "id": 664,
+  "rank": 664,
+  "en": "sweating",
+  "zh": "出汗、多汗",
+  "ipa": "/ˈswetɪŋ/",
+  "ex": "Sweating with tremor suggested a low blood glucose level."
  }
 ]
