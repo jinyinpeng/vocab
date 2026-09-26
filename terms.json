@@ -5310,5 +5310,717 @@
   "zh": "出汗、多汗",
   "ipa": "/ˈswetɪŋ/",
   "ex": "Sweating with tremor suggested a low blood glucose level."
+ },
+ {
+  "id": 665,
+  "rank": 665,
+  "en": "systolic blood pressure",
+  "zh": "收缩压",
+  "ipa": "/sɪˈstɒlɪk blʌd ˈpreʃə/",
+  "ex": "A single systolic blood pressure of 149 mmHg does not establish a diagnosis of hypertension."
+ },
+ {
+  "id": 666,
+  "rank": 666,
+  "en": "secondary hypertension",
+  "zh": "继发性高血压",
+  "ipa": "/ˈsekəndri ˌhaɪpəˈtenʃn/",
+  "ex": "Secondary hypertension related to excess body weight often improves markedly after weight loss."
+ },
+ {
+  "id": 667,
+  "rank": 667,
+  "en": "coronary artery disease",
+  "zh": "冠状动脉疾病",
+  "ipa": "/ˈkɒrənri ˈɑːtəri dɪˈziːz/",
+  "ex": "Coronary artery disease was confirmed by the presence of coronary plaques."
+ },
+ {
+  "id": 668,
+  "rank": 668,
+  "en": "acute coronary syndrome",
+  "zh": "急性冠脉综合征",
+  "ipa": "/əˈkjuːt ˈkɒrənri ˈsɪndrəʊm/",
+  "ex": "He presented with chest oppression suggestive of an acute coronary syndrome."
+ },
+ {
+  "id": 669,
+  "rank": 669,
+  "en": "carotid endarterectomy",
+  "zh": "颈动脉内膜剥脱术",
+  "ipa": "/kəˈrɒtɪd ˌendɑːtəˈrektəmi/",
+  "ex": "Carotid endarterectomy was complicated by an intraoperative stroke."
+ },
+ {
+  "id": 670,
+  "rank": 670,
+  "en": "bronchial asthma",
+  "zh": "支气管哮喘",
+  "ipa": "/ˈbrɒŋkiəl ˈæsmə/",
+  "ex": "The patient has a long-standing history of bronchial asthma treated with inhaled corticosteroids."
+ },
+ {
+  "id": 671,
+  "rank": 671,
+  "en": "nasal turbinate hypertrophy",
+  "zh": "鼻甲肥大",
+  "ipa": "/ˈneɪzl ˈtɜːbɪnət haɪˈpɜːtrəfi/",
+  "ex": "Nasal turbinate hypertrophy contributes to snoring and poor sleep quality."
+ },
+ {
+  "id": 672,
+  "rank": 672,
+  "en": "insomnia",
+  "zh": "失眠",
+  "ipa": "/ɪnˈsɒmniə/",
+  "ex": "Chronic insomnia was addressed with sleep hygiene measures before prescribing a hypnotic."
+ },
+ {
+  "id": 673,
+  "rank": 673,
+  "en": "lung cancer",
+  "zh": "肺癌",
+  "ipa": "/lʌŋ ˈkænsə/",
+  "ex": "A chest X-ray and CT scan confirmed lung cancer."
+ },
+ {
+  "id": 674,
+  "rank": 674,
+  "en": "uterine cancer",
+  "zh": "子宫癌",
+  "ipa": "/ˈjuːtəraɪn ˈkænsə/",
+  "ex": "Postmenopausal bleeding should always raise suspicion of uterine cancer."
+ },
+ {
+  "id": 675,
+  "rank": 675,
+  "en": "bladder cancer",
+  "zh": "膀胱癌",
+  "ipa": "/ˈblædə ˈkænsə/",
+  "ex": "He is receiving chemotherapy for bladder cancer."
+ },
+ {
+  "id": 676,
+  "rank": 676,
+  "en": "urothelial carcinoma",
+  "zh": "尿路上皮癌",
+  "ipa": "/ˌjʊərəʊˈθiːliəl ˌkɑːsɪˈnəʊmə/",
+  "ex": "Urothelial carcinoma of the bladder was diagnosed in 2023."
+ },
+ {
+  "id": 677,
+  "rank": 677,
+  "en": "chemotherapy",
+  "zh": "化疗",
+  "ipa": "/ˌkiːməʊˈθerəpi/",
+  "ex": "She completed six cycles of adjuvant chemotherapy after surgery."
+ },
+ {
+  "id": 678,
+  "rank": 678,
+  "en": "radiotherapy",
+  "zh": "放射治疗",
+  "ipa": "/ˌreɪdiəʊˈθerəpi/",
+  "ex": "The patient underwent radiotherapy to the left breast."
+ },
+ {
+  "id": 679,
+  "rank": 679,
+  "en": "hormone therapy",
+  "zh": "激素治疗",
+  "ipa": "/ˈhɔːməʊn ˈθerəpi/",
+  "ex": "Adjuvant hormone therapy was continued for five years after surgery."
+ },
+ {
+  "id": 680,
+  "rank": 680,
+  "en": "neoadjuvant therapy",
+  "zh": "新辅助治疗",
+  "ipa": "/ˌniːəʊˈædʒʊvənt ˈθerəpi/",
+  "ex": "He completed six cycles of neoadjuvant therapy before surgery."
+ },
+ {
+  "id": 681,
+  "rank": 681,
+  "en": "pembrolizumab",
+  "zh": "帕博利珠单抗",
+  "ipa": "/ˌpembrəˈlɪzjʊmæb/",
+  "ex": "Pembrolizumab was combined with enfortumab vedotin."
+ },
+ {
+  "id": 682,
+  "rank": 682,
+  "en": "enfortumab vedotin",
+  "zh": "维恩妥尤单抗",
+  "ipa": "/ˌenfɔːˈtjuːmæb vəˈdəʊtɪn/",
+  "ex": "Hyperglycemia is a recognized adverse effect of enfortumab vedotin."
+ },
+ {
+  "id": 683,
+  "rank": 683,
+  "en": "cystectomy",
+  "zh": "膀胱切除术",
+  "ipa": "/sɪˈstektəmi/",
+  "ex": "Radical cystectomy may be avoided if the response to therapy is good."
+ },
+ {
+  "id": 684,
+  "rank": 684,
+  "en": "transurethral resection of bladder tumor (TURBT)",
+  "zh": "经尿道膀胱肿瘤电切术",
+  "ipa": "/ˌtrænzjʊəˈriːθrəl rɪˈsekʃn əv ˈblædə ˈtjuːmə/",
+  "ex": "A control TURBT showed no evidence of residual tumor."
+ },
+ {
+  "id": 685,
+  "rank": 685,
+  "en": "clear surgical margins",
+  "zh": "手术切缘阴性",
+  "ipa": "/klɪə ˈsɜːdʒɪkl ˈmɑːdʒɪnz/",
+  "ex": "The pathology report confirmed clear surgical margins, so no further resection was needed."
+ },
+ {
+  "id": 686,
+  "rank": 686,
+  "en": "reoperation",
+  "zh": "再次手术",
+  "ipa": "/ˌriːɒpəˈreɪʃn/",
+  "ex": "A reoperation was performed because the margins were not considered clean."
+ },
+ {
+  "id": 687,
+  "rank": 687,
+  "en": "surgical scar",
+  "zh": "手术瘢痕",
+  "ipa": "/ˈsɜːdʒɪkl ˈskɑː/",
+  "ex": "The surgical scar healed completely without signs of infection."
+ },
+ {
+  "id": 688,
+  "rank": 688,
+  "en": "necrosis",
+  "zh": "坏死",
+  "ipa": "/neˈkrəʊsɪs/",
+  "ex": "The ultrasound showed a small area of necrosis at the surgical site."
+ },
+ {
+  "id": 689,
+  "rank": 689,
+  "en": "histology",
+  "zh": "组织学检查",
+  "ipa": "/hɪˈstɒlədʒi/",
+  "ex": "The histology was negative for malignancy."
+ },
+ {
+  "id": 690,
+  "rank": 690,
+  "en": "disease progression",
+  "zh": "疾病进展",
+  "ipa": "/dɪˈziːz prəˈɡreʃn/",
+  "ex": "Chemotherapy was resumed because of local disease progression."
+ },
+ {
+  "id": 691,
+  "rank": 691,
+  "en": "hospitalization",
+  "zh": "住院",
+  "ipa": "/ˌhɒspɪtəlaɪˈzeɪʃn/",
+  "ex": "Hospitalization was required for metabolic assessment and glycemia control."
+ },
+ {
+  "id": 692,
+  "rank": 692,
+  "en": "hospital discharge",
+  "zh": "出院",
+  "ipa": "/ˈhɒspɪtl dɪsˈtʃɑːdʒ/",
+  "ex": "At hospital discharge, the therapy was continued at a lower dose."
+ },
+ {
+  "id": 693,
+  "rank": 693,
+  "en": "magnetic resonance imaging (MRI)",
+  "zh": "磁共振成像",
+  "ipa": "/mæɡˈnetɪk ˈrezənəns ˈɪmɪdʒɪŋ/",
+  "ex": "MRI showed local progression of the tumor."
+ },
+ {
+  "id": 694,
+  "rank": 694,
+  "en": "urinary tract ultrasound",
+  "zh": "泌尿系统超声",
+  "ipa": "/ˈjʊərɪnəri trækt ˈʌltrəsaʊnd/",
+  "ex": "A urinary tract ultrasound was performed to exclude structural abnormalities."
+ },
+ {
+  "id": 695,
+  "rank": 695,
+  "en": "biopsy",
+  "zh": "活检",
+  "ipa": "/ˈbaɪɒpsi/",
+  "ex": "The liver biopsy showed steatosis without significant fibrosis."
+ },
+ {
+  "id": 696,
+  "rank": 696,
+  "en": "endoscopy",
+  "zh": "内镜检查",
+  "ipa": "/enˈdɒskəpi/",
+  "ex": "Upper endoscopy confirmed chronic gastritis with no evidence of malignancy."
+ },
+ {
+  "id": 697,
+  "rank": 697,
+  "en": "gastroenterologist",
+  "zh": "消化内科医生",
+  "ipa": "/ˌɡæstrəʊˌentəˈrɒlədʒɪst/",
+  "ex": "A gastroenterologist should review the bioptic findings before treatment is continued."
+ },
+ {
+  "id": 698,
+  "rank": 698,
+  "en": "internal medicine",
+  "zh": "内科",
+  "ipa": "/ɪnˈtɜːnl ˈmedsn/",
+  "ex": "She completed her specialist training in internal medicine."
+ },
+ {
+  "id": 699,
+  "rank": 699,
+  "en": "medical resident",
+  "zh": "住院医师",
+  "ipa": "/ˈmedɪkl ˈrezɪdənt/",
+  "ex": "A medical resident joined the consultation to observe the clinical assessment."
+ },
+ {
+  "id": 700,
+  "rank": 700,
+  "en": "psychologist",
+  "zh": "心理医生",
+  "ipa": "/saɪˈkɒlədʒɪst/",
+  "ex": "Patients with emotional eating may benefit from referral to a psychologist."
+ },
+ {
+  "id": 701,
+  "rank": 701,
+  "en": "zolpidem",
+  "zh": "唑吡坦",
+  "ipa": "/ˈzɒlpɪdem/",
+  "ex": "Zolpidem was prescribed only for short-term use because of the risk of dependence."
+ },
+ {
+  "id": 702,
+  "rank": 702,
+  "en": "tamsulosin",
+  "zh": "坦索罗辛",
+  "ipa": "/tæmˈsuːləsɪn/",
+  "ex": "Tamsulosin was discontinued as it was no longer necessary."
+ },
+ {
+  "id": 703,
+  "rank": 703,
+  "en": "nonsteroidal anti-inflammatory drug (NSAID)",
+  "zh": "非甾体抗炎药",
+  "ipa": "/ˌnɒnstəˈrɔɪdl ˌænti ɪnˈflæmətri drʌɡ/",
+  "ex": "Nonsteroidal anti-inflammatory drugs should be used cautiously in patients with renal impairment."
+ },
+ {
+  "id": 704,
+  "rank": 704,
+  "en": "generic drug",
+  "zh": "仿制药",
+  "ipa": "/dʒəˈnerɪk drʌɡ/",
+  "ex": "Generic drugs are cheaper but may differ in formulation from the originator product."
+ },
+ {
+  "id": 705,
+  "rank": 705,
+  "en": "glucagon",
+  "zh": "胰高血糖素",
+  "ipa": "/ˈɡluːkəɡɒn/",
+  "ex": "Glucagon receptor activation contributes to the metabolic effects of triple agonists."
+ },
+ {
+  "id": 706,
+  "rank": 706,
+  "en": "triple agonist",
+  "zh": "三重激动剂",
+  "ipa": "/ˈtrɪpl ˈæɡənɪst/",
+  "ex": "A triple agonist targeting GLP-1, GIP and glucagon receptors produces greater weight loss."
+ },
+ {
+  "id": 707,
+  "rank": 707,
+  "en": "anti-obesity medication",
+  "zh": "减重药物",
+  "ipa": "/ˌænti əʊˈbiːsəti ˌmedɪˈkeɪʃn/",
+  "ex": "Anti-obesity medication should always be combined with diet and physical activity."
+ },
+ {
+  "id": 708,
+  "rank": 708,
+  "en": "multiple endocrine neoplasia type 2 (MEN2)",
+  "zh": "2型多发性内分泌腺瘤病",
+  "ipa": "/ˈmʌltɪpl ˈendəkrɪn ˌniːəʊˈpleɪziə taɪp tuː/",
+  "ex": "A family history of multiple endocrine neoplasia type 2 (MEN2) is a contraindication to GLP-1 receptor agonists."
+ },
+ {
+  "id": 709,
+  "rank": 709,
+  "en": "medication dependence",
+  "zh": "药物依赖",
+  "ipa": "/ˌmedɪˈkeɪʃn dɪˈpendəns/",
+  "ex": "The patient was concerned about medication dependence and asked to stop the drug."
+ },
+ {
+  "id": 710,
+  "rank": 710,
+  "en": "long-term therapy",
+  "zh": "长期治疗",
+  "ipa": "/ˌlɒŋ tɜːm ˈθerəpi/",
+  "ex": "Obesity should be managed as a long-term therapy rather than a short course."
+ },
+ {
+  "id": 711,
+  "rank": 711,
+  "en": "therapy duration",
+  "zh": "疗程",
+  "ipa": "/ˈθerəpi djʊəˈreɪʃn/",
+  "ex": "Therapy duration must be individualized according to the clinical response."
+ },
+ {
+  "id": 712,
+  "rank": 712,
+  "en": "appetite suppression",
+  "zh": "食欲抑制",
+  "ipa": "/ˈæpɪtaɪt səˈpreʃn/",
+  "ex": "Appetite suppression is mediated by central effects on hunger and satiety."
+ },
+ {
+  "id": 713,
+  "rank": 713,
+  "en": "rapid weight loss",
+  "zh": "快速减重",
+  "ipa": "/ˈræpɪd weɪt lɒs/",
+  "ex": "Rapid weight loss predisposes to gallstone formation and biliary colic."
+ },
+ {
+  "id": 714,
+  "rank": 714,
+  "en": "loss of appetite",
+  "zh": "食欲减退",
+  "ipa": "/lɒs əv ˈæpɪtaɪt/",
+  "ex": "The patient reports loss of appetite, so adequate nutrition is essential."
+ },
+ {
+  "id": 715,
+  "rank": 715,
+  "en": "malnutrition",
+  "zh": "营养不良",
+  "ipa": "/ˌmælnjuːˈtrɪʃn/",
+  "ex": "Weight loss must be gradual so as not to induce malnutrition."
+ },
+ {
+  "id": 716,
+  "rank": 716,
+  "en": "nutritional support",
+  "zh": "营养支持",
+  "ipa": "/njuːˈtrɪʃənl səˈpɔːt/",
+  "ex": "Adequate nutritional support during chemotherapy helps preserve muscle mass."
+ },
+ {
+  "id": 717,
+  "rank": 717,
+  "en": "fiber supplement",
+  "zh": "纤维补充剂",
+  "ipa": "/ˈfaɪbə ˈsʌplɪmənt/",
+  "ex": "A fiber supplement may be added if the dietary approach proves insufficient."
+ },
+ {
+  "id": 718,
+  "rank": 718,
+  "en": "dietary adherence",
+  "zh": "饮食依从性",
+  "ipa": "/ˈdaɪətəri ədˈhɪərəns/",
+  "ex": "Dietary adherence is the strongest predictor of long-term weight maintenance."
+ },
+ {
+  "id": 719,
+  "rank": 719,
+  "en": "meal frequency",
+  "zh": "进餐频率",
+  "ipa": "/miːl ˈfriːkwənsi/",
+  "ex": "Meal frequency and portion size were explored during the dietary interview."
+ },
+ {
+  "id": 720,
+  "rank": 720,
+  "en": "night eating",
+  "zh": "夜间进食",
+  "ipa": "/naɪt ˈiːtɪŋ/",
+  "ex": "Night eating was denied, with a regular three-meal pattern reported."
+ },
+ {
+  "id": 721,
+  "rank": 721,
+  "en": "alcohol intake",
+  "zh": "酒精摄入量",
+  "ipa": "/ˈælkəhɒl ˈɪnteɪk/",
+  "ex": "Alcohol intake should be quantified as part of the metabolic assessment."
+ },
+ {
+  "id": 722,
+  "rank": 722,
+  "en": "sleep duration",
+  "zh": "睡眠时长",
+  "ipa": "/sliːp djʊəˈreɪʃn/",
+  "ex": "Short sleep duration is associated with weight gain and insulin resistance."
+ },
+ {
+  "id": 723,
+  "rank": 723,
+  "en": "water aerobics",
+  "zh": "水中健身操",
+  "ipa": "/ˈwɔːtər eəˈrəʊbɪks/",
+  "ex": "Water aerobics is well tolerated by patients with joint overload."
+ },
+ {
+  "id": 724,
+  "rank": 724,
+  "en": "yoga",
+  "zh": "瑜伽",
+  "ipa": "/ˈjəʊɡə/",
+  "ex": "Gentle yoga was recommended to improve mobility and adherence to physical activity."
+ },
+ {
+  "id": 725,
+  "rank": 725,
+  "en": "vigorous-intensity exercise",
+  "zh": "高强度运动",
+  "ipa": "/ˈvɪɡərəs ɪnˈtensəti ˈeksəsaɪz/",
+  "ex": "Adults should perform at least 150 minutes of moderate or 75 minutes of vigorous-intensity exercise weekly."
+ },
+ {
+  "id": 726,
+  "rank": 726,
+  "en": "weight-bearing joints",
+  "zh": "负重关节",
+  "ipa": "/ˈweɪt ˌbeərɪŋ dʒɔɪnts/",
+  "ex": "Excess body weight increases the mechanical load on the weight-bearing joints."
+ },
+ {
+  "id": 727,
+  "rank": 727,
+  "en": "metabolic adaptation",
+  "zh": "代谢适应",
+  "ipa": "/ˌmetəˈbɒlɪk ˌædæpˈteɪʃn/",
+  "ex": "Metabolic adaptation may explain the weight plateau observed during the maintenance phase."
+ },
+ {
+  "id": 728,
+  "rank": 728,
+  "en": "bariatric surgery",
+  "zh": "减重手术",
+  "ipa": "/ˌbæriˈætrɪk ˈsɜːdʒəri/",
+  "ex": "Bariatric surgery was discussed as an option for patients with class III obesity."
+ },
+ {
+  "id": 729,
+  "rank": 729,
+  "en": "rebound hyperglycemia",
+  "zh": "反跳性高血糖",
+  "ipa": "/rɪˈbaʊnd ˌhaɪpəɡlaɪˈsiːmiə/",
+  "ex": "After gastric bypass, food passes rapidly and may cause rebound hyperglycemia."
+ },
+ {
+  "id": 730,
+  "rank": 730,
+  "en": "iron absorption",
+  "zh": "铁吸收",
+  "ipa": "/ˈaɪən əbˈzɔːpʃn/",
+  "ex": "Gastric bypass reduces iron absorption in the proximal intestine."
+ },
+ {
+  "id": 731,
+  "rank": 731,
+  "en": "microcytosis",
+  "zh": "小细胞症",
+  "ipa": "/ˌmaɪkrəʊsaɪˈtəʊsɪs/",
+  "ex": "Microcytosis with low ferritin points to iron deficiency anemia."
+ },
+ {
+  "id": 732,
+  "rank": 732,
+  "en": "amylase",
+  "zh": "淀粉酶",
+  "ipa": "/ˈæmɪleɪz/",
+  "ex": "Amylase and lipase were both elevated on the latest blood test."
+ },
+ {
+  "id": 733,
+  "rank": 733,
+  "en": "pancreatic function",
+  "zh": "胰腺功能",
+  "ipa": "/ˌpæŋkriˈætɪk ˈfʌŋkʃn/",
+  "ex": "Pancreatic function should be monitored while these drugs are administered."
+ },
+ {
+  "id": 734,
+  "rank": 734,
+  "en": "radiating pain",
+  "zh": "放射痛",
+  "ipa": "/ˈreɪdieɪtɪŋ peɪn/",
+  "ex": "Epigastric pain radiating to the back raises suspicion of pancreatic disease."
+ },
+ {
+  "id": 735,
+  "rank": 735,
+  "en": "autoimmune disease",
+  "zh": "自身免疫性疾病",
+  "ipa": "/ˌɔːtəʊɪˈmjuːn dɪˈziːz/",
+  "ex": "Screening for autoimmune disease is part of the work-up of chronic liver abnormalities."
+ },
+ {
+  "id": 736,
+  "rank": 736,
+  "en": "autoimmune hepatitis",
+  "zh": "自身免疫性肝炎",
+  "ipa": "/ˌɔːtəʊɪˈmjuːn ˌhepəˈtaɪtɪs/",
+  "ex": "Autoimmune hepatitis should be excluded when transaminases remain persistently elevated."
+ },
+ {
+  "id": 737,
+  "rank": 737,
+  "en": "viral hepatitis",
+  "zh": "病毒性肝炎",
+  "ipa": "/ˈvaɪrəl ˌhepəˈtaɪtɪs/",
+  "ex": "Viral hepatitis screening is required before starting immunosuppressive therapy."
+ },
+ {
+  "id": 738,
+  "rank": 738,
+  "en": "alcohol-related liver disease",
+  "zh": "酒精性肝病",
+  "ipa": "/ˈælkəhɒl rɪˈleɪtɪd ˈlɪvə dɪˈziːz/",
+  "ex": "Alcohol-related liver disease remains a leading cause of cirrhosis."
+ },
+ {
+  "id": 739,
+  "rank": 739,
+  "en": "metabolic liver disease",
+  "zh": "代谢性肝病",
+  "ipa": "/ˌmetəˈbɒlɪk ˈlɪvə dɪˈziːz/",
+  "ex": "Slightly raised transaminases may point to metabolic liver disease in an overweight patient."
+ },
+ {
+  "id": 740,
+  "rank": 740,
+  "en": "liver stiffness",
+  "zh": "肝脏硬度",
+  "ipa": "/ˈlɪvə ˈstɪfnəs/",
+  "ex": "Liver stiffness measurement by transient elastography excluded significant fibrosis."
+ },
+ {
+  "id": 741,
+  "rank": 741,
+  "en": "fibrosis staging",
+  "zh": "纤维化分期",
+  "ipa": "/faɪˈbrəʊsɪs ˈsteɪdʒɪŋ/",
+  "ex": "Fibrosis staging is essential to guide the management of chronic liver disease."
+ },
+ {
+  "id": 742,
+  "rank": 742,
+  "en": "controlled attenuation parameter (CAP)",
+  "zh": "受控衰减参数（CAP）",
+  "ipa": "/kənˈtrəʊld əˌtenjuˈeɪʃn pəˈræmɪtə/",
+  "ex": "Liver fat was quantified by the controlled attenuation parameter (CAP) during the FibroScan examination."
+ },
+ {
+  "id": 743,
+  "rank": 743,
+  "en": "renal colic",
+  "zh": "肾绞痛",
+  "ipa": "/ˈriːnl ˈkɒlɪk/",
+  "ex": "Renal colic typically presents with severe loin-to-groin pain."
+ },
+ {
+  "id": 744,
+  "rank": 744,
+  "en": "kidney stones",
+  "zh": "肾结石",
+  "ipa": "/ˈkɪdni stəʊnz/",
+  "ex": "Small kidney stones may pass spontaneously with adequate hydration."
+ },
+ {
+  "id": 745,
+  "rank": 745,
+  "en": "ureter",
+  "zh": "输尿管",
+  "ipa": "/jʊəˈriːtə/",
+  "ex": "The stone was impacted in the distal ureter and required medical expulsive therapy."
+ },
+ {
+  "id": 746,
+  "rank": 746,
+  "en": "hydroureter",
+  "zh": "输尿管积水",
+  "ipa": "/ˌhaɪdrəʊˈjʊərɪtə/",
+  "ex": "The CT scan revealed a dilated ureter consistent with hydroureter."
+ },
+ {
+  "id": 747,
+  "rank": 747,
+  "en": "bladder",
+  "zh": "膀胱",
+  "ipa": "/ˈblædə/",
+  "ex": "The tumor was located in the bladder and was resected endoscopically."
+ },
+ {
+  "id": 748,
+  "rank": 748,
+  "en": "umbilicus",
+  "zh": "脐",
+  "ipa": "/ʌmˈbɪlɪkəs/",
+  "ex": "The injection should be given at least three fingers' breadth from the umbilicus."
+ },
+ {
+  "id": 749,
+  "rank": 749,
+  "en": "upper arm",
+  "zh": "上臂",
+  "ipa": "/ˈʌpə ɑːm/",
+  "ex": "Subcutaneous injections may be given in the abdomen, upper arm or outer thigh."
+ },
+ {
+  "id": 750,
+  "rank": 750,
+  "en": "injection needle",
+  "zh": "注射针头",
+  "ipa": "/ɪnˈdʒekʃn ˈniːdl/",
+  "ex": "The injection needle must be replaced after every dose to prevent lipohypertrophy."
+ },
+ {
+  "id": 751,
+  "rank": 751,
+  "en": "vaginal delivery",
+  "zh": "阴道分娩",
+  "ipa": "/vəˈdʒaɪnl dɪˈlɪvəri/",
+  "ex": "She had a spontaneous vaginal delivery with no complications."
+ },
+ {
+  "id": 752,
+  "rank": 752,
+  "en": "symptom monitoring",
+  "zh": "症状监测",
+  "ipa": "/ˈsɪmptəm ˈmɒnɪtərɪŋ/",
+  "ex": "Close symptom monitoring is required during the first weeks of treatment."
+ },
+ {
+  "id": 753,
+  "rank": 753,
+  "en": "medical report",
+  "zh": "医学报告",
+  "ipa": "/ˈmedɪkl rɪˈpɔːt/",
+  "ex": "The medical report was forwarded to the general practitioner so that the tests could be prescribed."
  }
 ]
