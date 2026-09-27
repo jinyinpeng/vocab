@@ -9,7 +9,7 @@
 const INTERVALS = [5, 30, 720, 1440, 2880, 5760, 10080, 20160, 43200]; // 分钟
 const STAGE_LABEL = ['5 分钟', '30 分钟', '12 小时', '1 天', '2 天', '4 天', '7 天', '15 天', '30 天'];
 const KEY = 'medVocab.v1';
-const BUILD = 'v57 · 2026-09-27';   // 每次更新代码时改这里，用来判断“是否最新版本”
+const BUILD = 'v58 · 2026-09-28';   // 每次更新代码时改这里，用来判断“是否最新版本”
 
 const KIND_LABEL = { word: '单词' };
 const KIND_SPEAK = { word: 'en-GB' };
@@ -711,6 +711,10 @@ function onRowAct(kind, key, act) {
   } else if (act === 'del') {                   // 生词本：移出
     delete S.book[key];
     toast('已移出生词本');
+  } else if (act === 'erase') {                 // 单词表：从词库中删掉（可在设置里找回）
+    if (!confirm('从词库中删除「' + t.front + '」？\n学习记录、生词本、收藏会一起清掉，可在设置里「找回删掉的词」。')) return;
+    deleteWord(key);
+    toast('已删除「' + t.front + '」，可在设置里找回', 2200);
   }
   save();
   renderKind('word');
@@ -815,7 +819,7 @@ function renderKind(kind, more) {
   const cfg = LISTS[kind];
   const list = $(cfg.listId);
   if (!list) return;
-  if (kind === 'word' && $('allCount')) $('allCount').textContent = ITEMS.length + ' 条';   // 条数自动跟着词库走
+  if (kind === 'word' && $('allCount')) $('allCount').textContent = liveItems().length + ' 条';   // 条数跟着词库走，删掉的词不计入
   const items = kindItems(kind);
   if (!items.length) { emptyList(list, cfg.empty); return; }
   const shown = pageSize(cfg, cfg.filter + '|' + cfg.search.trim().toLowerCase(), items.length, more);
@@ -848,6 +852,7 @@ function itemRow(t, kind) {
       <button type="button" class="mini ico fav${fav ? ' on' : ''}" data-act="fav" title="${fav ? '取消收藏' : '收藏'}" aria-label="收藏"><svg class="ic"><use href="#i-star"/></svg></button>
       <button type="button" class="mini" data-act="book">${inBook(t.key) ? '移出生词本' : '加入生词本'}</button>
       <button type="button" class="mini ok" data-act="know">${isKnown(t.key) ? '取消已认识' : '标为已认识'}</button>
+      <button type="button" class="mini danger" data-act="erase" title="从词库中删除" aria-label="删除">删除</button>
     </div>`;
   return row;
 }
