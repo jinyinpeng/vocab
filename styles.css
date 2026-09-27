@@ -546,7 +546,7 @@ html[data-theme="dark"] .toast { background: #2b3550; }
 /* 窄屏：列表行的按钮换到文字下面一行 */
 @media (max-width: 560px) {
   .row { grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 10px 2px; align-items: start; }
-  .row-actions { justify-content: flex-start; }
+  .row-actions { justify-content: flex-start; flex-wrap: wrap; }   /* 按钮变多，允许换行，别撑出屏幕 */
   .row-actions .mini { font-size: 12px; min-height: 32px; padding: 5px 9px; }
   .row-actions .mini.ico { width: 32px; padding: 0; }
   #btnFav span { display: none; }
