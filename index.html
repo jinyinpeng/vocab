@@ -297,8 +297,15 @@
             <button class="btn" id="btnCheckUpdate">更新到最新版本</button>
             <span class="muted small" id="updateInfo"></span>
           </div>
+          <details class="details" id="goneBox" hidden>
+            <summary>已删除的词（<span id="goneCount">0</span>）</summary>
+            <p class="muted small">点某一行末尾的「恢复」只找回那个词；想全部找回用下面的按钮。</p>
+            <div class="list" id="goneList"></div>
+            <div class="btn-row">
+              <button class="btn" id="btnRestore">全部找回</button>
+            </div>
+          </details>
           <div class="btn-row">
-            <button class="btn" id="btnRestore">找回删掉的词</button>
             <button class="btn danger" id="btnReset">清空所有学习记录</button>
           </div>
         </div>
@@ -315,6 +322,6 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="app.js?v=58"></script>
+<script src="app.js?v=59"></script>
 </body>
 </html>
