@@ -9,7 +9,7 @@
 const INTERVALS = [5, 30, 720, 1440, 2880, 5760, 10080, 20160, 43200]; // 分钟
 const STAGE_LABEL = ['5 分钟', '30 分钟', '12 小时', '1 天', '2 天', '4 天', '7 天', '15 天', '30 天'];
 const KEY = 'medVocab.v1';
-const BUILD = 'v58 · 2026-09-28';   // 每次更新代码时改这里，用来判断“是否最新版本”
+const BUILD = 'v59 · 2026-09-28';   // 每次更新代码时改这里，用来判断“是否最新版本”
 
 const KIND_LABEL = { word: '单词' };
 const KIND_SPEAK = { word: 'en-GB' };
@@ -201,6 +201,45 @@ function restoreAllGone() {
   const n = Object.keys(S.gone).length;
   S.gone = {};
   return n;
+}
+/* 已删除的词：可以整批找回，也可以只挑某几个找回 */
+const goneKeys = () => Object.keys(S.gone || {}).sort((a, b) => (S.gone[b] || 0) - (S.gone[a] || 0));
+function restoreOneGone(en) {
+  if (!S.gone || !S.gone[en]) return false;
+  delete S.gone[en];
+  return true;
+}
+function renderGone() {
+  const box = $('goneBox'), list = $('goneList'), cnt = $('goneCount');
+  if (!box || !list) return;
+  const keys = goneKeys();
+  if (cnt) cnt.textContent = keys.length;
+  box.hidden = keys.length === 0;
+  list.textContent = '';
+  if (!keys.length) return;
+  const frag = document.createDocumentFragment();
+  keys.forEach(en => {
+    const t = byKey[en];
+    const row = document.createElement('div');
+    row.className = 'row';
+    row.dataset.key = en;
+    row.innerHTML = `
+      <div class="row-main">
+        <div class="en">${escapeHtml(t ? t.front : en)} <span class="ipa">${escapeHtml((t && t.ipa) || '')}</span></div>
+        <div class="zh">${escapeHtml((t && t.back) || '（词库里已无此条，仅存删除记录）')}</div>
+      </div>
+      <div class="row-actions">
+        <button type="button" class="mini ok" data-act="restore">恢复</button>
+      </div>`;
+    frag.appendChild(row);
+  });
+  list.appendChild(frag);
+}
+function doRestoreOne(en) {
+  if (!restoreOneGone(en)) return;
+  save();
+  renderGone(); renderAll(); renderHome(); renderBook(); renderStats();
+  toast('已找回「' + ((byKey[en] && byKey[en].front) || en) + '」', 1800);
 }
 function toggleFav(en) {
   if (S.fav[en]) { delete S.fav[en]; return false; }
@@ -1132,6 +1171,8 @@ function renderStats() {
       <span class="t">${i + 1}段</span>`;
     cs.appendChild(col);
   });
+
+  renderGone();   // 已删除的词列表（可逐个找回）跟着一起刷新
 }
 
 /* ---------------- 导航 ---------------- */
@@ -1382,6 +1423,17 @@ function bind() {
     save(); toast('已恢复 ' + n + ' 个词', 1600);
     renderStudy(); renderHome(); renderBook(); renderAll(); renderStats();
   };
+
+  // 已删除的词：行末「恢复」只找回这一个
+  const goneListEl = $('goneList');
+  if (goneListEl) {
+    goneListEl.addEventListener('click', e => {
+      const btn = e.target.closest('button[data-act="restore"]');
+      if (!btn) return;
+      const row = btn.closest('.row');
+      if (row && row.dataset.key) doRestoreOne(row.dataset.key);
+    });
+  }
   $('btnReset').onclick = () => {
     if (!confirm('确定清空全部学习进度？此操作不可撤销。')) return;
     pushSnap();                       // 清空前先留一份，万一是手滑还能用「一键恢复」找回来
